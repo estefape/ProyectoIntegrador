@@ -2,3 +2,188 @@ html {
     font-family: Roboto, sans-serif;
 }
 
+.body-comp {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f3f7f6;
+    border: 1px solid black;
+}
+
+.footer-comp {
+    width: 100%;
+    height: 8vh;
+    color: white;
+    background-color: #09b2aa;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 0rem 1rem;
+}
+
+.footer-comp div {
+    display: flex;
+    margin-left: auto;
+    gap: 1rem;
+}
+
+.search-comp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0rem;
+    background-color: #3e526b;
+}
+
+.search-comp h1 {
+    font-size: xx-large;
+    padding-bottom: 1rem;
+    color: white;
+}
+
+.search-comp div {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: .4rem
+}
+
+.search-comp button, #card-remmend-footer button  {
+    margin-left: 20px;
+    background-color: #fff;
+    color: #1DBEB4;
+    border: 2px solid #1DBEB4;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#card-remmend-footer button{
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.search-comp button:hover {
+    background-color: #ccc;
+}
+
+.search-comp input {
+    height: 1.5rem;
+}
+
+.card-category {
+    width: 18rem;
+    min-height: max-content;
+    /* height: 20rem; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 8%;
+    overflow: hidden;
+}
+
+.card-category-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-category-body h4 {
+    padding: 0.5rem 1rem;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.card-category-body p{
+    padding: 0.5rem 1rem;
+    padding-bottom: 2rem;
+}
+
+.office-list-comp, .recommended-offices-comp {
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.office-list-comp h3, .recommended-offices-comp > h3 {
+    font-size: xx-large;
+    text-decoration: underline;
+}
+
+.office-list-comp > div {
+    display: flex;
+    gap: 1rem;
+    margin-top: .7rem;
+}
+
+.recommended-offices-comp > div {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.recommended-offices-comp {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card-recommend {
+    width: 40rem;
+    height: 20rem;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 5%;
+    display: flex;
+}
+
+.card-recommend-img { 
+    width: 55rem;
+}
+
+#card-recommend-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+#card-recommend-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#card-recommend-top h3 {
+    font-size: x-large;
+    padding: 1rem 0rem;
+}
+
+#card-recommend-top > div {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#card-recommend-top > div > p{
+    text-align: end;
+}
+
+#card-recommend-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#card-recommend-body div {
+    display: flex;
+    gap: .5rem;
+}
+
+#card-remmend-footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    padding-bottom: 1rem;
+}
+
