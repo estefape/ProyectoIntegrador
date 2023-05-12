@@ -1,6 +1,10 @@
 # Equipo 03
 
+The folder structure that will be implemented in this repository will be:
 
+![folderStructure](https://github.com/cinthyarondon/java-ecommerce/assets/93058462/6c246bde-1b6d-42d1-b962-24301d0397a6)
+
+The idea is that the folders allow us to have a physical division of the project areas: frontend, backend, infrastructure, and testing.
 
 ## Getting started
 
