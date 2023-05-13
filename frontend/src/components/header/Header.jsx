@@ -22,7 +22,7 @@ const Header = () => {
                 <button>Crear cuenta</button>
                 <button>Iniciar sesión</button>
             </div>
-            <nav className={menuOpen ? 'menu-open' : ''}>
+            <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Acerca de</a></li>
