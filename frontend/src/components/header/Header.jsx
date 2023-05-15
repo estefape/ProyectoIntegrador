@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import iconoLogo from "../assets/logo1.png";
+import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 
-const Header = () => {
+export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -35,11 +35,6 @@ const Header = () => {
                 <span></span>
                 <span></span>
             </div>
-
-
         </header>
-
     )
 }
-
-export default Header;
