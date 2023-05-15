@@ -1,3 +1,5 @@
+import "./cardCategory.css";
+
 export const CardCategory = () => {
   // cardCategory va a recibir cada objeto Category del back
   // y vamos a mostrar una imagen representativa de la categoria

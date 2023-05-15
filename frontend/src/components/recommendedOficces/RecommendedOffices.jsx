@@ -1,4 +1,5 @@
-import { CardRecommend } from "./CardRecommend"
+import "./recommendedOffices.css"
+import { CardRecommend } from "../cardRecommend/CardRecommend"
 
 export const RecommendedOffices = () => {
   // este componente va a recibir un array de las oficinas mejor valoradas
@@ -6,9 +7,10 @@ export const RecommendedOffices = () => {
   return (
     <>
         <div className="recommended-offices-comp">
-        <h3 >Recomendaciones</h3>
+        <h2>Recomendaciones</h2>
         <div>
           
+          <CardRecommend/>
           <CardRecommend/>
           <CardRecommend/>
 

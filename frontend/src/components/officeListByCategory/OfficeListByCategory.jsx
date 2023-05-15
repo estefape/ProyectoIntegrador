@@ -1,4 +1,5 @@
-import { CardCategory } from "./CardCategory";
+import "./officeListByCategory.css"
+import { CardCategory } from "../cardCategory/CardCategory";
 
 export const OfficeListByCategory = () => {
   // este componente va a recibir un array con las categorias de las oficinas
@@ -8,7 +9,7 @@ export const OfficeListByCategory = () => {
   return (
     <>
       <div className="office-list-comp">
-        <h3>Buscar por tipo de oficina</h3>
+        <h2>Buscar por tipo de oficina</h2>
         <div>
           
           <CardCategory/>
