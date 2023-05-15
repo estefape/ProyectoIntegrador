@@ -16,7 +16,6 @@ export const OfficeListByCategory = () => {
           <CardCategory/>
           <CardCategory/>
           <CardCategory/>
-          <CardCategory/>
 
         </div>
       </div>

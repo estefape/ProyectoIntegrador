@@ -1,84 +1,55 @@
 .card-recommend {
-    width: 40rem;
-    height: 20rem;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    border-radius: 25px;
-    display: flex;
+    border-radius: 10px;
     background-color: #f2cd5c;
-}
-
-.card-recommend-img { 
-    width: 55rem;
-    background-color: white;
-}
-
-#card-recommend-container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-}
-
-#card-recommend-top {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#card-recommend-top h3 {
-    font-family: Rubik, sans-serif;
-    font-size: x-large;
-    font-weight: 400;
-    align-self: center;
-}
-
-#card-recommend-top > div {
-    padding: 1rem 0rem;
-    display: flex;
-    gap: .5rem
-}
-
-#card-recommend-top > div > p{
-    text-align: end;
-}
-
-#card-recommend-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#card-recommend-body div {
-    display: flex;
-    gap: .5rem;
-}
-
-#card-recommend-footer button{
-    margin: 0;
-    margin-top: 2rem;
-    background-color: #f2921d;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-family: Rubik, sans-serif;
-    font-weight: bold;
-    border: none;
-}
-
-#card-recommend-footer {
-    display: flex;
-    flex-direction: column;
-    padding-top: 2rem;
-}
-
-#card-recommend-footer p {
-    font-family: Roboto, sans-serif;
+    margin: 0 auto 15px;
+    width: 80%;
 }
 
 svg {
     width: 15px;
+    display: inline;
 }
 
-#card-recommend-body > div {
-    align-items: center;
+.card-recommend img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-recommend-top,
+.card-recommend-body,
+.card-recommend-footer {
+    padding: 0 20px;
+}
+
+.card-recommend-top {
+    padding-top: 10px;
+}
+
+.card-recommend-footer {
+    padding-bottom: 20px;
+}
+
+.card-recommend h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.card-recommend p {
+    margin-bottom: 10px;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .card-recommend {
+        flex-direction: row;
+        width: 48%;
+    }
+    .card-recommend-container {
+        width: 600px;
+        height: 100%;
+    }
 }

@@ -8,7 +8,7 @@
     font-family: "Rubik", sans-serif;
     font-weight: bold;
     font-size: xx-large;
-    color: #fff;
+    color: #400E32;
     padding: 1rem 0rem;
 }
 
@@ -26,5 +26,11 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-    }
+    }    
+}
+
+@media (min-width: 992px) {
+    .office-list-comp {
+        width: 90%;
+    }      
 }

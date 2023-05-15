@@ -19,8 +19,8 @@ export const Header = () => {
                 </a>
             </div>
             <div className="buttons">
-                <button>Crear cuenta</button>
-                <button>Iniciar sesión</button>
+                <button className='btn'>Crear cuenta</button>
+                <button className='btn'>Iniciar sesión</button>
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>

@@ -1,32 +1,26 @@
-.recommended-offices-comp {
-    padding: 1rem;
-    width: 80%;
-}
 
-.recommended-offices-comp > h2 {
-    font-family: "Rubik", sans-serif;
-    font-weight: bold;
+.recommended-offices-comp > div > h2 {
     font-size: xx-large;
-    color: #fff;
-}
-
-.recommended-offices-comp > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    color: #400E32;
 }
 
 .recommended-offices-comp {
     display: flex;
-    flex-direction: column;
     gap: 1rem;
+    background-color: #d4d3d4;
+    padding-top: 20px;
+}
+
+.recommended-offices-comp-container {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (min-width: 768px) {
-    .recommended-offices-comp > div {
+    .recommended-offices-comp-container {
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
+        width: 90%;
     }
 }

@@ -8,11 +8,10 @@ export const CardCategory = () => {
     <>
       <div className="card-category">
         <img
-        // imagen categoria
-          src="https://placehold.co/600x400"
+          src="https://picsum.photos/600/400"
           className="card-category-img-top"
           alt="..."
-        ></img>
+        />
         <div className="card-category-body">
           {/* categoria */}
           <h4>Categoria</h4>
