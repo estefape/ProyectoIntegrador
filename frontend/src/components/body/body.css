@@ -1,0 +1,14 @@
+.body-comp {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #400e32;
+    display: flex;
+    flex-direction: column;
+}
+
+.body-comp > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,84 @@
+.card-recommend {
+    width: 40rem;
+    height: 20rem;
+    overflow: hidden;
+    border-radius: 25px;
+    display: flex;
+    background-color: #f2cd5c;
+}
+
+.card-recommend-img { 
+    width: 55rem;
+    background-color: white;
+}
+
+#card-recommend-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+#card-recommend-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#card-recommend-top h3 {
+    font-family: Rubik, sans-serif;
+    font-size: x-large;
+    font-weight: 400;
+    align-self: center;
+}
+
+#card-recommend-top > div {
+    padding: 1rem 0rem;
+    display: flex;
+    gap: .5rem
+}
+
+#card-recommend-top > div > p{
+    text-align: end;
+}
+
+#card-recommend-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#card-recommend-body div {
+    display: flex;
+    gap: .5rem;
+}
+
+#card-recommend-footer button{
+    margin: 0;
+    margin-top: 2rem;
+    background-color: #f2921d;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-family: Rubik, sans-serif;
+    font-weight: bold;
+    border: none;
+}
+
+#card-recommend-footer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+#card-recommend-footer p {
+    font-family: Roboto, sans-serif;
+}
+
+svg {
+    width: 15px;
+}
+
+#card-recommend-body > div {
+    align-items: center;
+}

@@ -1,0 +1,28 @@
+.card-category {
+    width: 18rem;
+    min-height: max-content;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #f2cd5c;
+}
+
+.card-category-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-category-body h4 {
+    padding: 0.5rem 1rem;
+    font-family: Rubik, sans-serif;
+    font-weight: 400;
+    font-size: x-large;
+}
+
+.card-category-body p{
+    padding: 0.5rem 1rem;
+    padding-bottom: 2rem;
+    font-family: Roboto, sans-serif;
+}
