@@ -12,10 +12,10 @@ export const OfficeListByCategory = () => {
         <h2>Buscar por tipo de oficina</h2>
         <div>
           
-          <CardCategory/>
-          <CardCategory/>
-          <CardCategory/>
-          <CardCategory/>
+          <CardCategory image="/images/photo1.jpg"/>
+          <CardCategory image="/images/photo2.jpg"/>
+          <CardCategory image="/images/photo3.jpg"/>
+          <CardCategory image="/images/photo4.jpg"/>
 
         </div>
       </div>

@@ -1,6 +1,6 @@
 import "./cardCategory.css";
 
-export const CardCategory = () => {
+export const CardCategory = ({image}) => {
   // cardCategory va a recibir cada objeto Category del back
   // y vamos a mostrar una imagen representativa de la categoria
   // el nombre de la categoria y la cantidad de resultados para esa categoria aprox
@@ -8,7 +8,7 @@ export const CardCategory = () => {
     <>
       <div className="card-category">
         <img
-          src="https://picsum.photos/600/400"
+          src={image}
           className="card-category-img-top"
           alt="..."
         />
