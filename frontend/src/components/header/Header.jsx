@@ -16,7 +16,7 @@ export const Header = () => {
             <div className="logo">
                 <Link href="/">
                     <img src={iconoLogo} alt="Logo de la empresa" />
-                    <span>El espacio de oficinas del futuro.</span>
+                    <span>Encuentra tu espacio de trabajo ideal</span>
                 </Link>
             </div>
             <div className="buttons">
@@ -25,10 +25,8 @@ export const Header = () => {
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Acerca de</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Crear cuenta</a></li>
+                    <li><a href="#">Iniciar sesión</a></li>
                 </ul>
             </nav>
             <div className="menu-btn" onClick={handleMenuClick}>
