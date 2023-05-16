@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import iconoLogo from "../assets/logo1.png";
+import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 
-const Header = () => {
+export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,10 +19,10 @@ const Header = () => {
                 </a>
             </div>
             <div className="buttons">
-                <button>Crear cuenta</button>
-                <button>Iniciar sesión</button>
+                <button className='btn'>Crear cuenta</button>
+                <button className='btn'>Iniciar sesión</button>
             </div>
-            <nav className={menuOpen ? 'menu-open' : ''}>
+            <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Acerca de</a></li>
@@ -35,11 +35,6 @@ const Header = () => {
                 <span></span>
                 <span></span>
             </div>
-
-
         </header>
-
     )
 }
-
-export default Header;
