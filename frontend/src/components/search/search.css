@@ -1,55 +1,30 @@
 .search-comp {
+    background-color:#a61f69;
+    padding: 28px 0 14px;
     width: 100%;
+}
+
+.search-comp > div {
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    padding: 2rem 0rem;
-    background-color: #a61f69;
-    border-bottom: 2px solid white;
+    gap: 10px;
+    width: 80%;
 }
 
 .search-comp h2 {
-    font-size: xx-large;
-    padding-bottom: 1rem;
-    color: white;
-}
-
-.search-comp div {
-    justify-content: center;
-    /* align-items: center; */
-    display: flex;
-    gap: .4rem;
-}
-
-/* #card-remmend-footer button */
-
-.search-comp button  {
-    margin-left: 20px;
-    background-color: #f2921d;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
     font-family: Rubik, sans-serif;
-    font-weight: bold;
-    border: none;
+    font-size: 20px;
+    color: #FFF;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
 }
 
-.search-comp button:hover {
-    background-color: #f7c281;
-}
 
-.search-comp input {
-    border-radius: 25px;
-    font-family: Rubik, sans-serif;
-    font-weight: bold;
-    padding-left: 1rem;
-    border: none;
-}
-
-.search-comp > h2 {
-    font-family: "Rubik", sans-serif;
-    font-weight: bold;
-    font-size: xx-large;
-    padding-bottom: .5rem;
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .search-comp > div {
+        flex-direction: row;
+    }
 }
