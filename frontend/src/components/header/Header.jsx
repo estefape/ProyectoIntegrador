@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 
@@ -13,10 +14,10 @@ export const Header = () => {
     return (
         <header className='header'>
             <div className="logo">
-                <a href="/">
+                <Link href="/">
                     <img src={iconoLogo} alt="Logo de la empresa" />
                     <span>El espacio de oficinas del futuro.</span>
-                </a>
+                </Link>
             </div>
             <div className="buttons">
                 <button className='btn'>Crear cuenta</button>
