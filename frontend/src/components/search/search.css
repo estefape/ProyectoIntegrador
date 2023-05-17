@@ -1,0 +1,30 @@
+.search-comp {
+    background-color:#a61f69;
+    padding: 28px 0 14px;
+    width: 100%;
+}
+
+.search-comp > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+.search-comp h2 {
+    font-family: Rubik, sans-serif;
+    font-size: 20px;
+    color: #FFF;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .search-comp > div {
+        flex-direction: row;
+    }
+}
