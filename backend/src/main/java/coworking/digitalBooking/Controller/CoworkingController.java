@@ -26,6 +26,7 @@ public class CoworkingController {
         return ResponseEntity.ok(coworkingService.registerProduct(cow));
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Integer id){
         coworkingService.delete(id);

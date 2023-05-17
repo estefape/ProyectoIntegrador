@@ -27,7 +27,6 @@ public class Coworking {
     @Column
     private String image;
 
-
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
@@ -40,7 +39,6 @@ public class Coworking {
         this.image = image;
         this.category = category;
     }
-
 
     @Override
     public String toString(){
