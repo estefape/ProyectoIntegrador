@@ -6,9 +6,9 @@ export const Search = () => {
         <div className="search-comp">
             <h2>Busca ofertas en oficinas...</h2>
             <div>
-                <input type="text" placeholder="Nombre de la oficina..."/>
-                <input type="text" placeholder="Ubicacion..."/>
-                <button>Buscar</button>
+                <input className="input" type="text" placeholder="Nombre de la oficina..."/>
+                <input className="input" type="text" placeholder="Ubicacion..."/>
+                <button className="btn">Buscar</button>
             </div>
         </div>
     </>

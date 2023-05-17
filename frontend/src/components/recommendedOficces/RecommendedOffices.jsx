@@ -6,14 +6,15 @@ export const RecommendedOffices = () => {
   // por cada una de ellas vamos a crear un componenete CardRecommend
   return (
     <>
-        <div className="recommended-offices-comp">
-        <h2>Recomendaciones</h2>
+      <div className="recommended-offices-comp">
         <div>
-          
-          <CardRecommend/>
-          <CardRecommend/>
-          <CardRecommend/>
-
+          <h2>Recomendaciones</h2>
+        </div>
+        <div className="recommended-offices-comp-container">
+          <CardRecommend image="/images/photo5.jpg"/>
+          <CardRecommend image="/images/photo6.jpg"/>
+          <CardRecommend image="/images/photo7.jpg"/>
+          <CardRecommend image="/images/photo8.jpg"/>
         </div>
       </div>
     </>

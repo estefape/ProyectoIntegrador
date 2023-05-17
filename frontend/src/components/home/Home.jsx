@@ -1,17 +1,15 @@
 import { OfficeListByCategory } from "../officeListByCategory/OfficeListByCategory"
 import { RecommendedOffices } from "../recommendedOficces/RecommendedOffices"
 import { Search } from "../search/Search"
-import "./body.css"
+import "./home.css"
 
-export const Body = () => {
+export const Home = () => {
   return (
     <>
       <div className="body-comp">
         <Search />
-        <div>
-          <OfficeListByCategory />
-          <RecommendedOffices />
-        </div>
+        <OfficeListByCategory />
+        <RecommendedOffices />
       </div>
     </>
   )
