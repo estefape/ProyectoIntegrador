@@ -1,7 +1,7 @@
 import "./cardRecommend.css"
 import { Icons } from "../icons/Icons";
 
-export const CardRecommend = ({image}) => {
+export const CardRecommend = ({image, name, category, city, address, description}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
@@ -16,19 +16,20 @@ export const CardRecommend = ({image}) => {
         </div>
         <div className="card-recommend-container">
           <div className="card-recommend-top">
-            <h3>Nombre de la oficina</h3>
+            <h3>{name}</h3>
+            <h4>{category}</h4>
             <div>
               <p> <Icons name="star" /> Muy Bueno</p>
             </div>
           </div>
           <div className="card-recommend-body">
             <div>
-              <p> <Icons name="pin" /> A 940m del Centro</p>
+              <p> <Icons name="pin" /> {address} {city}</p>
               <p>MOSTRAR EN EL MAPA</p>
             </div>
           </div>
           <div className="card-recommend-footer">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non sunt molestias et placeat, expedita debitis vero nihil perferendis magnam sequi eum porro incidunt facere, illum temporibus voluptatem repudiandae cumque ipsam!</p>
+            <p>{description}</p>
             <button className='btn'>Ver mas...</button>
           </div>
         </div>
