@@ -1,0 +1,36 @@
+.office-list-comp{
+    padding: 1rem;
+    border-bottom: 2px solid white;
+    width: 80%;
+}
+
+.office-list-comp h2 {
+    font-family: "Rubik", sans-serif;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #400E32;
+    padding: 1rem 0rem;
+}
+
+.office-list-comp > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: .7rem;
+    padding: 1rem 0rem;
+}
+
+@media (min-width: 768px) {
+    .office-list-comp > div {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }    
+}
+
+@media (min-width: 992px) {
+    .office-list-comp {
+        width: 90%;
+    }      
+}
