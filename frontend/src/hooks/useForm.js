@@ -3,10 +3,11 @@ import {useState} from 'react'
 const useForm = (initialState = {}) => {
 
     const [values, setValues] = useState(initialState)
+
     const handleInputChanges = ({target}) => {
         setValues({
             ...values,
-            [target.name]:target.values
+            [target.name]:target.value
 
         })
     }
@@ -19,7 +20,7 @@ const useForm = (initialState = {}) => {
         reader.onloadend = function (e) {
             setValues({
                 ...values,
-                [target.name]:reader.result
+                [target.name]: '2'
     
             })
                 console.log(reader.result)

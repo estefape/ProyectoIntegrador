@@ -6,6 +6,7 @@ import ProductForm from './components/productForm/ProductForm';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SideBar from './components/sidebar/sidebar';
 import { CardRecommend } from './components/cardRecommend/CardRecommend';
+import Products from './components/products/products';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='admin' element={<SideBar />}>
             <Route path='create' element={<ProductForm/>}/>
-            <Route path='products' element={<CardRecommend/>}/>
+            <Route path='products' element={<Products/>}/>
           </Route>
           <Route path='/*' element={<Navigate to='/' replace/>} />
         </Routes>
