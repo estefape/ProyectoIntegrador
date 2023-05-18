@@ -1,7 +1,9 @@
 import "./cardRecommend.css"
 import { Icons } from "../icons/Icons";
+import { Link } from 'react-router-dom';
 
-export const CardRecommend = ({image, name, category, city, address, description}) => {
+
+export const CardRecommend = ({image, name, category, city, address, description, officeId}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
@@ -29,8 +31,8 @@ export const CardRecommend = ({image, name, category, city, address, description
             </div>
           </div>
           <div className="card-recommend-footer">
-            <p>{description}</p>
-            <button className='btn'>Ver mas...</button>
+            <p>{description.substring(0, 100)}...</p>
+            <Link className="btn" to={`/detail/${officeId}`}>Ver Mas</Link>
           </div>
         </div>
       </div>

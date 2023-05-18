@@ -1,45 +1,13 @@
 import "./recommendedOffices.css"
 import { CardRecommend } from "../cardRecommend/CardRecommend"
+import oficinas from "../../data.json"
 
 export const RecommendedOffices = () => {
   // este componente va a recibir un array de las oficinas mejor valoradas
   // por cada una de ellas vamos a crear un componenete CardRecommend
 
   const getRecommendedOfficesList = () => {
-    return [
-      {
-        image: "/images/photo5.jpg", 
-        name: "Gamer", 
-        category: "Coworking Sectorial", 
-        city: "Buenos Aires", 
-        address: "Av. Pres. Figueroa Alcorta 7597, C1428 CABA", 
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      },
-      {
-        image: "/images/photo6.jpg", 
-        name: "Compartidos", 
-        category: "Coworking compartido", 
-        city: "Cordoba", 
-        address: "Bv. Sarmiento, Av. Uruguay esq, X5152 Villa Carlos Paz, Córdoba", 
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      },
-      {
-        image: "/images/photo7.jpg", 
-        name: "Cubiculos", 
-        category: "Coworking fijo", 
-        city: "Buenos Aires", 
-        address: "Av. Pres. Figueroa Alcorta 7597, C1428 CABA", 
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      },
-      {
-        image: "/images/photo8.jpg", 
-        name: "Start Up", 
-        category: "Coworking incubador", 
-        city: "Mendoza", 
-        address: "Av. de Acceso Este 3280, M5500 Guaymallén, Mendoza", 
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    ]
+    return oficinas
   }
 
   const getRandomList = (array) => {
@@ -59,7 +27,7 @@ export const RecommendedOffices = () => {
         </div>
         <div className="recommended-offices-comp-container">
           {getRandomList(getRecommendedOfficesList()).map(item =>(
-            <CardRecommend {...item} />
+            <CardRecommend {...item} key={item.officeId} />
           ))}
         </div>
       </div>
