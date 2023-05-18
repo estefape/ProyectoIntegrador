@@ -22,8 +22,8 @@ public class CoworkingController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Coworking> registerProduct(@RequestBody Coworking cow){
-        return ResponseEntity.ok(coworkingService.registerProduct(cow));
+    public ResponseEntity<String> registerProduct(@RequestBody Coworking cow){
+        return coworkingService.registerProduct(cow);
     }
 
 

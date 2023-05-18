@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CoworkingRepository extends JpaRepository<Coworking,Integer> {
 
-//    Coworking findByName(String cow);
-
+    Coworking findByName(String name);
 
 }

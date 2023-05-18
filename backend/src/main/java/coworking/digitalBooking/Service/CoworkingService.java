@@ -4,6 +4,7 @@ package coworking.digitalBooking.Service;
 import coworking.digitalBooking.Entities.Coworking;
 import coworking.digitalBooking.Repository.CoworkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,13 @@ public class CoworkingService {
     @Autowired
     private CoworkingRepository coworkingRepository;
 
-    public Coworking registerProduct(Coworking cow){
-        return coworkingRepository.save(cow);
+    public ResponseEntity<String> registerProduct(Coworking cow){
+        Coworking findCow = coworkingRepository.findByName(cow.getName());
+        if (findCow !=null){
+            return ResponseEntity.badRequest().body("Ya existe un Coworking con este nombre");
+        }
+        coworkingRepository.save(cow);
+        return ResponseEntity.ok("Coworking Agregado Correctamente");
     }
 
     public Coworking update(Coworking cow){
