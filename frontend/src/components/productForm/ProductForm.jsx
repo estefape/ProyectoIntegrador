@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
+import * as categoryService from "../../services/categoryServices";
 import Swal from "sweetalert2";
 import "./ProductForm.css";
 
@@ -19,6 +20,15 @@ const ProductForm = () => {
     image: "",
   });
   const [errors, setErrors] = useState("");
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    categoryService.categoryAll().then((response) => {
+      return response.json()
+    }).then((categories) => {
+        setCategories(categories)
+      })
+  }, [])
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -59,7 +69,7 @@ const ProductForm = () => {
                 title: "Error",
                 text: "No fue posible registrar la oficina.",
                 icon: "error",
-                confirmButtonText: "ok",
+                confirmButtonText: "Aceptar",
                 confirmButtonColor: "#F2921D",
               });
             }
@@ -102,13 +112,13 @@ const ProductForm = () => {
               value={category}
               onChange={handleInputChanges}
             >
-              <option value="" selected>
+              <option value="" >
                 Seleccione una categoria
               </option>
-              <option value="1">Coworking Sectorial</option>
-              <option value="7">Coworking Compartido</option>
-              <option value="1">Coworking Fijo</option>
-              <option value="1">Coworking Nómada</option>
+              {categories.map(cat => {
+                return (<option key={cat.idCategory} value={cat.idCategory}>{cat.name}</option>)
+              })}
+              
             </select>
           </label>
           <label>

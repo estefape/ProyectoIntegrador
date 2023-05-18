@@ -1,5 +1,6 @@
 const root = 'http://localhost:8080'
 
 export const constants = {
-    PRODUCTS_ENDPOINT: root + '/Products/register',
+    REGISTER_PRODUCTS_ENDPOINT: root + '/Products/register',
+    ALL_CATEGORIES_ENDPOINT: root + '/Categories/all'
 }
