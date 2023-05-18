@@ -11,7 +11,7 @@
     font-size: 30px;
     color: #FFF;
     font-weight: 700;
-    
+
 }
 
 .title .arrowBack svg {
@@ -37,7 +37,7 @@ h2.descriptionTitulo {
     text-align: center;
     font-size: 30px;
     margin-bottom: 20px;
-    
+
 }
 
 h3.category {
@@ -47,17 +47,18 @@ h3.category {
     text-align: center;
     font-size: 20px;
     margin-bottom: 20px;
-    
+
 }
 
-.star{
+.star {
     text-align: center;
     padding-bottom: 10px;
 }
- .address {
+
+.address {
     text-align: center;
     padding-bottom: 20px;
- }
+}
 
 
 
@@ -71,11 +72,10 @@ h3.category {
     .imageContainer img {
         width: 600px;
     }
+
     .description {
         width: 600px;
         margin: 0 auto 20px;
     }
-  
-  }
 
-
+}

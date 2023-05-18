@@ -10,12 +10,15 @@ export const CardRecommend = ({image, name, category, city, address, description
   // distancia al centro de la ciudad en la que se encuentra
   // breve descripcion
   // comodidades ?
+
+  const imageStyle = {
+    backgroundImage: `url(${image})`
+  }
+
   return (
     <>
       <div className="card-recommend">
-        <div className="card-recommend-img">
-          <img src={image} alt="" />
-        </div>
+        <div className="card-recommend-img" style={ imageStyle }></div>
         <div className="card-recommend-container">
           <div className="card-recommend-top">
             <h3>{name}</h3>
@@ -31,7 +34,7 @@ export const CardRecommend = ({image, name, category, city, address, description
             </div>
           </div>
           <div className="card-recommend-footer">
-            <p>{description.substring(0, 100)}...</p>
+            <p>{description.substring(0, 70)}...</p>
             <Link className="btn" to={`/detail/${officeId}`}>Ver Mas</Link>
           </div>
         </div>
