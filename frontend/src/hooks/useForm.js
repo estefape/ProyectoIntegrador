@@ -23,9 +23,8 @@ const useForm = (initialState = {}) => {
                 [target.name]: '2'
     
             })
-                console.log(reader.result)
+                //console.log(reader.result)
           }
-        console.log(url)
 
         setValues({
             ...values,

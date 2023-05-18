@@ -34,29 +34,40 @@ const ProductForm = () => {
             idCategory: category,
           },
         })
-        .then((result) => {
-          console.log(result);
-          if ((result.status && result.status < 200) || result.status > 299) {
+        .then(async (result) => {
+          const response = await result.text();
+
+          if (response == "Ya existe un Coworking con este nombre") {
             Swal.fire({
-              title: "Error",
-              text: "No fue posible registrar la oficina.",
-              icon: "error",
-              confirmButtonText: "ok",
-              confirmButtonColor: "#F2921D",
-            });
-          } else {
-            Swal.fire({
-              title: "Registro exitoso",
-              text: "La oficina ha sido agregada correctamente.",
-              icon: "success",
+              title: "Aviso",
+              text: "Ya existe una oficina con este nombre.",
+              icon: "warning",
               confirmButtonText: "Aceptar",
               confirmButtonColor: "#A61F69",
             });
+          } else {
+            if (response == "Coworking Agregado Correctamente") {
+              Swal.fire({
+                title: "Registro exitoso",
+                text: "La oficina ha sido agregada correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#A61F69",
+              });
+            } else {
+              Swal.fire({
+                title: "Error",
+                text: "No fue posible registrar la oficina.",
+                icon: "error",
+                confirmButtonText: "ok",
+                confirmButtonColor: "#F2921D",
+              });
+            }
           }
         });
       setErrors("");
       reset();
-    } 
+    }
   };
 
   const validation = () => {
