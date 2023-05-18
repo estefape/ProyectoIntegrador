@@ -43,7 +43,7 @@
   display: none;
 }
 
-nav {
+nav.menu-open {
   position: absolute;
   top: 100%;
   left: 0;
@@ -51,9 +51,10 @@ nav {
   background-color:#fefdfe;
   display: flex;
   flex-direction: column;
-  align-items: center;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  padding: 20px;
+  box-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
 
 nav ul {
@@ -63,7 +64,7 @@ nav ul {
 }
 
 nav li {
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 nav a {

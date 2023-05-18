@@ -1,0 +1,81 @@
+.title {
+    display: flex;
+    background-color: #a61f69;
+    justify-content: space-between;
+    padding: 14px 20px;
+
+}
+
+.title h1 {
+    font-family: Rubik, sans-serif;
+    font-size: 30px;
+    color: #FFF;
+    font-weight: 700;
+
+}
+
+.title .arrowBack svg {
+    margin-right: 20px;
+    width: 33px;
+    fill: #FFF;
+}
+
+.imageContainer {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.imageContainer img {
+    width: 100%;
+}
+
+h2.descriptionTitulo {
+    font-family: Rubik, sans-serif;
+    color: #400E32;
+    font-weight: 700;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+
+}
+
+h3.category {
+    font-family: Rubik, sans-serif;
+    color: #400E32;
+    font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+}
+
+.star {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.address {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+
+
+.description {
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .imageContainer img {
+        width: 600px;
+    }
+
+    .description {
+        width: 600px;
+        margin: 0 auto 20px;
+    }
+
+}
