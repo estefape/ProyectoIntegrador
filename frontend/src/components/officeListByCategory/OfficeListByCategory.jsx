@@ -12,10 +12,10 @@ export const OfficeListByCategory = () => {
         <h2>Buscar por tipo de oficina</h2>
         <div>
           
-          <CardCategory/>
-          <CardCategory/>
-          <CardCategory/>
-          <CardCategory/>
+          <CardCategory image="/images/photo1.jpg" name="Coworking Sectorial"/>
+          <CardCategory image="/images/photo2.jpg" name="Coworking Compartido"/>
+          <CardCategory image="/images/photo3.jpg" name="Coworking Fijo"/>
+          <CardCategory image="/images/photo4.jpg" name="Coworking Incubador"/>
 
         </div>
       </div>

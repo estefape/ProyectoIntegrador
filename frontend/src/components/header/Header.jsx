@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 
@@ -13,10 +14,10 @@ export const Header = () => {
     return (
         <header className='header'>
             <div className="logo">
-                <a href="/">
+                <Link to="/">
                     <img src={iconoLogo} alt="Logo de la empresa" />
-                    <span>El espacio de oficinas del futuro.</span>
-                </a>
+                    <span>Encuentra tu espacio de trabajo ideal</span>
+                </Link>
             </div>
             <div className="buttons">
                 <button className='btn'>Crear cuenta</button>
@@ -24,10 +25,8 @@ export const Header = () => {
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Acerca de</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Crear cuenta</a></li>
+                    <li><a href="#">Iniciar sesión</a></li>
                 </ul>
             </nav>
             <div className="menu-btn" onClick={handleMenuClick}>
