@@ -20,15 +20,18 @@ const ProductForm = () => {
     image: "",
   });
   const [errors, setErrors] = useState("");
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    categoryService.categoryAll().then((response) => {
-      return response.json()
-    }).then((categories) => {
-        setCategories(categories)
+    categoryService
+      .categoryAll()
+      .then((response) => {
+        return response.json();
       })
-  }, [])
+      .then((categories) => {
+        setCategories(categories);
+      });
+  }, []);
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -39,7 +42,7 @@ const ProductForm = () => {
           city,
           address,
           description,
-          image,
+          image: "images/photo1.jpg",
           category: {
             idCategory: category,
           },
@@ -112,13 +115,14 @@ const ProductForm = () => {
               value={category}
               onChange={handleInputChanges}
             >
-              <option value="" >
-                Seleccione una categoria
-              </option>
-              {categories.map(cat => {
-                return (<option key={cat.idCategory} value={cat.idCategory}>{cat.name}</option>)
+              <option value="">Seleccione una categoria</option>
+              {categories.map((cat) => {
+                return (
+                  <option key={cat.idCategory} value={cat.idCategory}>
+                    {cat.name}
+                  </option>
+                );
               })}
-              
             </select>
           </label>
           <label>
