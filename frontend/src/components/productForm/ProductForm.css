@@ -42,7 +42,7 @@ h3.form-header {
   padding-top: 20px;
 }
 
-form > input {
+form > input, textarea {
   font-size: 16px;
   margin-left: 50%;
   padding: 10px;
@@ -50,7 +50,7 @@ form > input {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-input[type="text"] {
+input[type="text"], textarea{
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -83,7 +83,7 @@ input[type="text"] {
   margin: 10px;
 }
 
-.product-form label > input,select {
+.product-form label > input,select,textarea {
   font-family: Roboto, sans-serif;
   height: 2.1rem;
   width: 100%;
@@ -92,7 +92,11 @@ input[type="text"] {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.product-form label > input:focus {
+textarea {
+  margin-left: 0;
+}
+
+.product-form label > input:focus, textarea:focus {
   border: 3px solid #a61f69;
   outline: none;
 }

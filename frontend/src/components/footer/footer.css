@@ -1,11 +1,15 @@
 .footer-comp {
     height: 75px;
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
     color: white;
     background-color: #a61f69;
     display: flex;
     align-items: center;
     padding: 0rem 1rem;
-
+    position: fixed;
+    width: 100%;
 }
 
 .footer-comp div {
