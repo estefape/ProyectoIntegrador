@@ -1,0 +1,38 @@
+[
+    {
+        "officeId": 1,
+        "image": "/images/photo5.jpg",
+        "name": "Gamer",
+        "category": "Coworking Sectorial",
+        "city": "Buenos Aires",
+        "address": "Av. Pres. Figueroa Alcorta 7597, C1428 CABA",
+        "description": "Nuestra oficina 'Gamer' es un espacio único y emocionante diseñado específicamente para el sector de los videojuegos. Como coworking sectorial, esta oficina se adapta a las necesidades particulares de los desarrolladores y jugadores profesionales, ofreciendo un ambiente ideal para la innovación y la colaboración en este campo dinámico."
+    },
+    {
+        "officeId": 2,
+        "image": "/images/photo6.jpg",
+        "name": "Compartidos",
+        "category": "Coworking compartido",
+        "city": "Cordoba",
+        "address": "Bv. Sarmiento, Av. Uruguay esq, X5152 Villa Carlos Paz, Córdoba",
+        "description": "'Compartidos' es un espacio de coworking compartido en Córdoba, perfecto para profesionales que buscan una atmósfera colaborativa y estimulante. Esta oficina está diseñada para fomentar la interacción y el intercambio de ideas, haciendo de 'Compartidos' el lugar ideal para crecer y prosperar en tu carrera."
+    },
+    {
+        "officeId": 3,
+        "image": "/images/photo7.jpg",
+        "name": "Cubiculos",
+        "category": "Coworking fijo",
+        "city": "Buenos Aires",
+        "address": "Av. Pres. Figueroa Alcorta 7597, C1428 CABA",
+        "description": "En 'Cubiculos', ofrecemos un coworking fijo en Buenos Aires, donde cada profesional tiene su propio espacio dedicado. Esta oficina es perfecta para aquellos que buscan un equilibrio entre la colaboración y la concentración, proporcionando un ambiente de trabajo estructurado y eficiente."
+    },
+    {
+        "officeId": 4,
+        "image": "/images/photo8.jpg",
+        "name": "Start Up",
+        "category": "Coworking incubador",
+        "city": "Mendoza",
+        "address": "Av. de Acceso Este 3280, M5500 Guaymallén, Mendoza",
+        "description": "Nuestra oficina 'Start Up' en Mendoza es un coworking incubador diseñado para apoyar a las startups emergentes. Proporcionamos un entorno enriquecedor que fomenta la innovación y el crecimiento, ofreciendo recursos y oportunidades para ayudar a las startups a alcanzar su máximo potencial."
+    }
+]
