@@ -42,7 +42,7 @@ const ProductForm = () => {
           city,
           address,
           description,
-          image: "images/photo1.jpg",
+          image: "/images/photo1.jpg",
           category: {
             idCategory: category,
           },
