@@ -3,7 +3,7 @@ stages:
 
 infra_job:
   stage: infra
-  image: hashicorp/terraform:latest
+  image: hashicorp/terraform:1.0.0
   script:
     - terraform init -chdir=infra/terraform
     - terraform plan -chdir=infra/terraform
