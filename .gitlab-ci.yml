@@ -5,9 +5,8 @@ infra_job:
   stage: infra
   image: hashicorp/terraform:latest
   script:
-    - cd infra/terraform/
-    - terraform init
-    - terraform plan
-    - terraform apply --auto-approve
+    - terraform init -chdir=infra/terraform
+    - terraform plan -chdir=infra/terraform
+    - terraform apply -chdir=infra/terraform --auto-approve
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
