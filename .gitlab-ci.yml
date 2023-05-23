@@ -5,7 +5,7 @@ infra_job:
   stage: infra
   image: hashicorp/terraform:latest
   script:
-    - cd infra/terraform
+    - cd infra/terraform/
     - terraform init
     - terraform plan
     - terraform apply --auto-approve
