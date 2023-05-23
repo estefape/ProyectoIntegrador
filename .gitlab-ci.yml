@@ -4,7 +4,10 @@ stages:
 infra_job:
   stage: infra
   image: hashicorp/terraform:1.0.0
+  before_script:
+    - cd infra/terraform
   script:
-    - cd infra/terraform && terraform init
+    - echo $(pwd)
+    - terraform init
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
