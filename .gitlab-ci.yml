@@ -3,7 +3,7 @@ stages:
 
 infra_job:
   stage: infra
-  image: hashicorp/terraform:1.0.0
+  image: hashicorp/terraform:latest
   before_script:
     - cd infra/terraform
   script:
