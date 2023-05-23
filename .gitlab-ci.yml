@@ -10,6 +10,9 @@ stages:
 infra_job:
   stage: infra
   script:
+    - echo $(pwd)
+    - cd infra/terraform
     - gitlab-terraform init
+    - gitlab-terraform plan
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
