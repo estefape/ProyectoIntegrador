@@ -15,3 +15,10 @@ export const getData = async (url) => {
     })
     return response
 }
+
+export const deleteData = async (url) => {
+    const response = await fetch(url, {
+        method: 'DELETE'
+    })
+    return response
+}
