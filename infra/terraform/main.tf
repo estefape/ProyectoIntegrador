@@ -28,7 +28,7 @@ data "aws_vpc" "default_vpc" {
   default = true
 }
 
-data "aws_subnet_ids" "public_subnets" {
+data "aws_subnet" "public_subnets" {
   vpc_id = data.aws_vpc.default_vpc.id
   filter {
     name   = "map-public-ip-on-launch"
@@ -42,4 +42,20 @@ resource "aws_eip" "elastic_ip" {
   tags  = {
     team = "equipo3"
   }
+}
+
+resource "aws_instance" "backend_instance" {
+  ami           = "ami-0430580de6244e02e" // Ubuntu Server 20.04 LTS
+  instance_type = "t2.micro"
+  subnet_id     = data.aws_subnet.public_subnets.id
+
+  tags  = {
+    team = "equipo3"
+  }
+
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.backend_instance.id
+  allocation_id = aws_eip.elastic_ip.id
 }
