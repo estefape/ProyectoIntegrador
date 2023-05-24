@@ -28,11 +28,10 @@ data "aws_vpc" "default_vpc" {
   default = true
 }
 
-resource "aws_subnet" "public_subnet" {
-  vpc_id            = data.aws_vpc.default_vpc.id
-  cidr_block        = "10.0.0.0/16"
-  availability_zone = "us-east-2a"
+data "aws_subnet_ids" "public_subnet" {
+  vpc_id = "default"
 }
+
 
 resource "aws_eip" "elastic_ip" {
   vpc   = true
