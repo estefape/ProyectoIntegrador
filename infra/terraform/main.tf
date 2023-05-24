@@ -24,3 +24,19 @@ resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
   restrict_public_buckets = false
 }
 
+data "aws_vpc" "default_vpc" {
+  default = true
+}
+
+resource "aws_subnet" "public_subnet" {
+  vpc_id            = data.aws_vpc.default_vpc.id
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = "us-east-2a"
+}
+
+resource "aws_eip" "elastic_ip" {
+  vpc = true
+  tags = {
+    team = "equipo3"
+  }
+}
