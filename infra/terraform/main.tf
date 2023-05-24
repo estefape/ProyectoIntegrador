@@ -9,7 +9,7 @@ terraform {
 resource "aws_s3_bucket" "frontend_bucket" {
   bucket = "frontend-c3-equipo3"
 
-  tags = {
+  tags   = {
     team = "equipo3"
   }
 }
@@ -35,8 +35,9 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_eip" "elastic_ip" {
-  vpc = true
-  tags = {
+  vpc   = true
+
+  tags  = {
     team = "equipo3"
   }
 }
