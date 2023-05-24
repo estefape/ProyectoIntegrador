@@ -37,6 +37,7 @@ build_frontend:
     paths:
       - frontend/dist/
 
+
 deploy_frontend:
   stage: deploy
   before_script:
