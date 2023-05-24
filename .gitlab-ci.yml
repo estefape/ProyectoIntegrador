@@ -1,5 +1,6 @@
 stages:
   - infra
+  - build
   - deploy
 
 infra_job:
@@ -20,8 +21,8 @@ infra_job:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
-deploy_job:
-  stage: deploy
+build_frontend:
+  stage: build
   before_script:
     - cd frontend
   script:
@@ -31,3 +32,11 @@ deploy_job:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:14-alpine
+
+deploy_frontend:
+  stage: deploy
+  script:
+    - aws s3 sync frontend/build/ s3://frontend-c3-equipo3
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: registry.gitlab.com/gitlab-org/aws-cli:latest
