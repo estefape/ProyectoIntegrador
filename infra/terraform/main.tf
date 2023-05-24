@@ -14,13 +14,12 @@ resource "aws_s3_bucket" "frontend_bucket" {
   }
 }
 
-resource "aws_s3_bucket_acl" "frontend_bucket_acl" {
+resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
 
   bucket = aws_s3_bucket.frontend_bucket.id
 
-  grant {
-    type        = "Group"
-    uri         = "http://acs.amazonaws.com/groups/global/AllUsers"
-    permissions = "READ"
-  }
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
