@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./products.css";
 import Pagination from "../pagination/pagination";
-import { CardRecommend } from "../cardRecommend/CardRecommend";
+import { CardProduct } from "../cardProduct/cardProduct";
 import * as productService from "../../services/productServices";
 
 let PageSize = 5;
@@ -30,7 +30,7 @@ const Products = () => {
     <div className="products-container">
       {showProducts.map((prod) => {
         return (
-          <CardRecommend
+          <CardProduct
             key={prod.idCoworking}
             image={prod.image}
             name={prod.name}
@@ -39,6 +39,9 @@ const Products = () => {
             address={prod.address}
             description={prod.description}
             officeId={prod.officeId}
+            role={'admin'}
+            id={prod.idCoworking}
+            onDelete={() => {setProducts(() => {return products.filter(prd => prd.idCoworking != prod.idCoworking)})}}
           />
         );
       })}
