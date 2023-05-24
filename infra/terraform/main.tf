@@ -30,7 +30,7 @@ data "aws_vpc" "default_vpc" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id            = data.aws_vpc.default_vpc.id
-  cidr_block        = "10.0.0.0/24"
+  cidr_block        = "10.0.0.0/16"
   availability_zone = "us-east-2a"
 }
 
