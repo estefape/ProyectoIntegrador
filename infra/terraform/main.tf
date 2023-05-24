@@ -28,14 +28,13 @@ data "aws_vpc" "default_vpc" {
   default = true
 }
 
-data "aws_subnets" "public_subnets" {
-  vpc_id = "default"
+data "aws_subnet_ids" "public_subnets" {
+  vpc_id = data.aws_vpc.default_vpc.id
   filter {
     name   = "map-public-ip-on-launch"
     values = ["true"]
   }
 }
-
 
 resource "aws_eip" "elastic_ip" {
   vpc   = true
