@@ -34,6 +34,10 @@ data "aws_subnet" "public_subnets" {
     name   = "map-public-ip-on-launch"
     values = ["true"]
   }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default_vpc.id]
+  }
 }
 
 resource "aws_eip" "elastic_ip" {
