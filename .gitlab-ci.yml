@@ -12,10 +12,10 @@ infra_job:
   script:
     - echo $(pwd)
     - gitlab-terraform init
-    - gitlab-terraform plan -out=tfplan
+    - gitlab-terraform plan
     - |
-      if [ $? -eq 0 ]: then 
-        gitlab-terraform apply tfplan
+      if [ $? -eq 0 ]; then 
+        gitlab-terraform apply
       else
         echo "Terraform plan failed!"
       fi

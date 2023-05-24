@@ -9,20 +9,18 @@ terraform {
 resource "aws_s3_bucket" "frontend_bucket" {
   bucket = "frontend-c3-equipo3"
 
-  # Public access
-  acl    = "public-read"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::frontend-c3-equipo3/*"
-    }
-  ]
+  tags = {
+    team = "equipo3"
+  }
 }
-EOF
+
+resource "aws_s3_bucket_acl" "frontend_bucket_acl" {
+
+  bucket = aws_s3_bucket.frontend_bucket.id
+
+  grant {
+    type        = "Group"
+    uri         = "http://acs.amazonaws.com/groups/global/AllUsers"
+    permissions = "READ"
+  }
 }
