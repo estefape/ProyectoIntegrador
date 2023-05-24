@@ -28,8 +28,12 @@ data "aws_vpc" "default_vpc" {
   default = true
 }
 
-data "aws_subnet_ids" "public_subnet" {
+data "aws_subnets" "public_subnets" {
   vpc_id = "default"
+  filter {
+    name   = "map-public-ip-on-launch"
+    values = ["true"]
+  }
 }
 
 
