@@ -1,15 +1,14 @@
 default:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
-before_script:
-  - cd infra/terraform
-
 stages:
   - infra
   - deploy
 
 infra_job:
   stage: infra
+  before_script:
+    - cd infra/terraform
   script:
     - echo $(pwd)
     - gitlab-terraform init
@@ -25,7 +24,9 @@ infra_job:
 
 deploy_job:
   stage: deploy
+  before_script:
     - cd frontend
+  script:
     - echo $(pwd)
     - npm install
     - npm run build
