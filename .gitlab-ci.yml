@@ -29,8 +29,7 @@ build_frontend:
     - echo $(pwd)
     - npm install
     - npm run build
-    - mkdir $CI_PROJECT_DIR/public
-    - mv dist/* $CI_PROJECT_DIR/public/
+    - echo $(ls)
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:14-alpine
