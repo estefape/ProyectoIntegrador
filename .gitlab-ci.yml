@@ -12,6 +12,12 @@ infra_job:
   script:
     - echo $(pwd)
     - gitlab-terraform init
-    - gitlab-terraform plan
+    - gitlab-terraform plan -out=tfplan
+    - |
+      if [ $? -eq 0 ]: then 
+        gitlab-terraform apply tfplan
+      else
+        echo "Terraform plan failed!"
+      fi
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
