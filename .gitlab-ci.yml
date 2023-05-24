@@ -39,4 +39,4 @@ deploy_frontend:
     - aws s3 sync frontend/build/ s3://frontend-c3-equipo3
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: registry.gitlab.com/gitlab-org/aws-cli:latest
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
