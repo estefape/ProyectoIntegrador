@@ -1,0 +1,26 @@
+terraform {
+  backend "s3" {
+    bucket = "comision3-equipo3"
+    key = "terraform/terraform.tfstate"
+    region = "us-east-2"
+  }
+}
+
+resource "aws_s3_bucket" "frontend_bucket" {
+  bucket = "frontend-c3-equipo3"
+
+  tags = {
+    team = "equipo3"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
+
+  bucket = aws_s3_bucket.frontend_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+

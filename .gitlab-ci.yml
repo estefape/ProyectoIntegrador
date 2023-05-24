@@ -1,0 +1,23 @@
+default:
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+
+before_script:
+  - cd infra/terraform
+
+stages:
+  - infra
+
+infra_job:
+  stage: infra
+  script:
+    - echo $(pwd)
+    - gitlab-terraform init
+    - gitlab-terraform plan
+    - |
+      if [ $? -eq 0 ]; then 
+        gitlab-terraform apply
+      else
+        echo "Terraform plan failed!"
+      fi
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
