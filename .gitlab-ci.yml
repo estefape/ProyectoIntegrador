@@ -29,6 +29,8 @@ build_frontend:
     - echo $(pwd)
     - npm install
     - npm run build
+    - mkdir ../public
+    - mv dist/* ../public/
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:14-alpine
@@ -38,7 +40,8 @@ deploy_frontend:
   before_script:
     - cd frontend
   script:
-    - aws s3 sync dist/ s3://frontend-c3-equipo3
+    - echo $(pwd)
+    - aws s3 cp ../public/ s3://frontend-c3-equipo3 --recursive
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
