@@ -37,12 +37,12 @@ resource "aws_eip" "elastic_ip" {
 }
 
 resource "aws_instance" "backend_instance" {
-  key_name = "backend-c3-equipo3"
   ami           = "ami-0430580de6244e02e" // Ubuntu Server 20.04 LTS
   instance_type = "t2.micro"
   subnet_id     = "subnet-07388b09d5835ee84"
 
   tags  = {
+    Name = "backend-c3-equipo3"
     team = "equipo3"
   }
 
