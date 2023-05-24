@@ -41,8 +41,8 @@ deploy_frontend:
   stage: deploy
   script:
     - echo $(pwd)
-    - artifacts:download build_frontend --artifact frontend/dist
-    - aws s3 cp frontend/dist/ s3://frontend-c3-equipo3 --recursive
+    - echo $(ls)
+    - aws s3 cp $CI_PROJECT_DIR/build_frontend/frontend/dist/ s3://frontend-c3-equipo3 --recursive
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
