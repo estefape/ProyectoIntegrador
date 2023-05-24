@@ -3,6 +3,8 @@ default:
 
 before_script:
   - cd infra/terraform
+  - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 
 stages:
   - infra
