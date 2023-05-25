@@ -63,7 +63,7 @@ resource "aws_instance" "backend_instance" {
   ami           = "ami-0430580de6244e02e" // Ubuntu Server 20.04 LTS
   instance_type = var.instance_type
   subnet_id     = "subnet-07388b09d5835ee84"
-  key_name      = "key_equipo3"
+  //key_name      = "key_equipo3"
 
   tags  = {
     Name = "backend-c3-equipo3"
@@ -103,20 +103,4 @@ resource "aws_security_group" "backend" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-# ..... Key pair ..... #
-resource "aws_key_pair" "keypair_equipo3" {
-  key_name = "key_equipo3"
-  public_key = tls_private_key.rsa.public_key_openssh
-}
-
-resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits = 4096
-}
-
-resource "local_file" "keypair_file_equipo3" {
-  filename = "key_equipo3"
-  content = tls_private_key.rsa.private_key_pem
 }
