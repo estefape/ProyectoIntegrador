@@ -45,7 +45,7 @@ deploy_frontend:
   script:
     - echo $(pwd)
     - echo $(ls)
-    - aws s3 cp dist/ s3://frontend-c3-equipo3 --recursive
+    - aws s3 cp dist/assets index.html s3://frontend-c3-equipo3 --recursive
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
