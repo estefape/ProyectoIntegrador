@@ -69,10 +69,6 @@ resource "aws_instance" "backend_instance" {
     Name = "backend-c3-equipo3"
     team = "equipo3"
   }
-
-  //vpc_security_group_ids = [
-  //  aws_security_group.backend.id
-  //]
 }
 
 resource "aws_eip_association" "eip_assoc" {
