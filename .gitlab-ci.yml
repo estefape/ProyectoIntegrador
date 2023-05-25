@@ -37,7 +37,6 @@ build_frontend:
     paths:
       - frontend/dist/
 
-
 deploy_frontend:
   stage: deploy
   before_script:
@@ -45,6 +44,7 @@ deploy_frontend:
   script:
     - echo $(pwd)
     - echo $(ls)
+    - echo "verificar deploy en el bucket"
     - aws s3 cp dist/assets s3://frontend-c3-equipo3 --recursive
     - aws s3 cp dist/index.html s3://frontend-c3-equipo3
   rules:
