@@ -69,9 +69,9 @@ resource "aws_instance" "backend_instance" {
     team = "equipo3"
   }
 
-  vpc_security_group_ids = [
-    aws_security_group.backend.id
-  ]
+  //vpc_security_group_ids = [
+  //  aws_security_group.backend.id
+  //]
 }
 
 resource "aws_eip_association" "eip_assoc" {
@@ -102,4 +102,20 @@ resource "aws_security_group" "backend" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+# ..... Key pair ..... #
+resource "aws_key_pair" "keypair_equipo3" {
+  key_name = "key_equipo3"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits = 4096
+}
+
+resource "local_file" "keypair_file_equipo3" {
+  filename = "key_equipo3"
+  content = tls_private_key.rsa.private_key_pem
 }
