@@ -65,7 +65,7 @@ connection_backend:
     - echo "$SSH_PRIVATE_KEY" > private_key.pem
     - echo $(ls)
     - chmod 400 private_key.pem
-    - ssh-keygen -R 3.133.253.103 ssh-keygen -f "/root/.ssh/known_hosts"
+    - ssh-keygen -R 3.133.253.103 -f "/root/.ssh/known_hosts"
     - ssh -i private_key.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103 'bash -s'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
