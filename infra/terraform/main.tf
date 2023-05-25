@@ -64,6 +64,10 @@ resource "aws_instance" "backend_instance" {
   instance_type = var.instance_type
   subnet_id     = "subnet-07388b09d5835ee84"
 
+  vpc_security_group_ids = [
+    aws_security_group.backend.id
+  ]
+
   tags  = {
     Name = "backend-c3-equipo3"
     team = "equipo3"
@@ -102,18 +106,3 @@ resource "aws_security_group" "backend" {
 }
 
 # ..... Keypair ..... #
-/*resource "aws_key_pair" "keypair_instance_equipo3" {
-  key_name = "key_equipo3"
-  public_key = "tls_private_key.rsa.public_key_openssh"
-}
-
-resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits = 4096
-}
-
-resource "local_file" "keypair_file_equipo3" {
-  filename = "key_equipo3"
-  content = tls_private_key.rsa.private_key_pem
-}
-/
