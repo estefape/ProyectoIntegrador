@@ -57,13 +57,12 @@ deploy_frontend:
 connection_backend:
   stage: connection
   before_script:
-    - cd infra
+    - cd infra/scripts
   script:
     - echo $(pwd)
     - echo $(ls)
     - apt-get update
     - apt-get install -y openssh-client
-    - cd infra/terraform
     - ssh -i instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103 'bash -s'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
