@@ -64,10 +64,6 @@ resource "aws_instance" "backend_instance" {
   instance_type = var.instance_type
   subnet_id     = "subnet-07388b09d5835ee84"
 
-  vpc_security_group_ids = [
-    aws_security_group.backend.id
-  ]
-
   tags  = {
     Name = "backend-c3-equipo3"
     team = "equipo3"
