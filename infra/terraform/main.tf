@@ -63,6 +63,7 @@ resource "aws_instance" "backend_instance" {
   ami           = "ami-0430580de6244e02e" // Ubuntu Server 20.04 LTS
   instance_type = var.instance_type
   subnet_id     = "subnet-07388b09d5835ee84"
+  key_name      = "key_equipo3"
 
   tags  = {
     Name = "backend-c3-equipo3"
