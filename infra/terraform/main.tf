@@ -69,6 +69,9 @@ resource "aws_instance" "backend_instance" {
     team = "equipo3"
   }
 
+  vpc_security_group_ids = [
+    aws_security_group.backend.id
+  ]
 }
 
 resource "aws_eip_association" "eip_assoc" {
@@ -100,5 +103,3 @@ resource "aws_security_group" "backend" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-# ..... Keypair ..... #
