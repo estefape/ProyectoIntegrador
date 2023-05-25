@@ -63,7 +63,8 @@ connection_backend:
     - echo $(ls)
     - apt-get update
     - apt-get install -y openssh-client
-    - ssh -i terraform/instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103 'bash -s' < scripts/instance_script.sh
+    - cd infra/terraform
+    - ssh -i instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103 'bash -s'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
