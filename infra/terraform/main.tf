@@ -51,6 +51,7 @@ resource "aws_eip" "elastic_ip" {
   vpc   = true
 
   tags  = {
+    Name = "ip-c3-equipo3"
     team = "equipo3"
   }
 }
