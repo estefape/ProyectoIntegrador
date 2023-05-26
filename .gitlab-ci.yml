@@ -78,8 +78,8 @@ build_backend:
     - cd backend
   script:
     - echo $(pwd)
-    - apt-get update
-    - apt-get install -y wget
+    - apk update
+    - apk add wget
     - |
       if ! command -v pack &>/dev/null; then
         echo "Install Pack"
@@ -89,7 +89,7 @@ build_backend:
       else
         echo "Pack is alredy installed"
       fi
-    - docker --version
+    - docker -v
     - echo $(ls)
     - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
