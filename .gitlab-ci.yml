@@ -84,6 +84,7 @@ build_backend:
     - apt-get update
     - apt-get install -y docker-ce
     - docker version
+    - while ! docker info &>/dev/null; do sleep 1; done
     - curl -fsSL https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz -o /tmp/pack.tgz
     - tar -xf /tmp/pack.tgz -C /usr/local/bin pack
     - pack version
