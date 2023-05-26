@@ -81,6 +81,7 @@ build_backend:
     - apt-get update
     - apt-get install -y wget
     - apt-get install -y curl
+    - apt-get install -y gnupg
     - |
       if ! command -v pack &>/dev/null; then
         echo "Install Pack"
