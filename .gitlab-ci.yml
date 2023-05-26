@@ -76,34 +76,19 @@ build_backend:
     IMAGE_NAME: "digital-booking"
   before_script:
     - cd backend
+    - apk add --no-cache curl
   script:
-    - echo $(pwd)
+    - docker version
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --import -
+    - echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" | tee /etc/apt/sources.list.d/docker.list
     - apt-get update
-    - apt-get install -y wget
-    - apt-get install -y curl
-    - apt-get install -y gnupg
-    - |
-      if ! command -v pack &>/dev/null; then
-        echo "Install Pack"
-        wget https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz -O /tmp/pack.tgz
-        tar -xf /tmp/pack.tgz -C /usr/local/bin/ pack
-        pack version
-      else
-        echo "Pack is alredy installed"
-      fi
-    - |
-      if ! command -v docker &>/dev/null; then
-        echo "Install Docker"
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-        apt update
-        apt install -y docker-ce
-      else
-        echo "Docker is alredy installed"
-      fi
-    - docker -v
+    - apt-get install -y docker-ce
+    - docker version
+    - curl -fsSL https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz -o /tmp/pack.tgz
+    - tar -xf /tmp/pack.tgz -C /usr/local/bin pack
+    - pack version
     - echo $(ls)
     - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: ubuntu:mantic
+  image: docker:stable
