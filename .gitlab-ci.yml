@@ -53,19 +53,3 @@ deploy_frontend:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
-
-connection_backend:
-  stage: connection
-  before_script:
-    - cd infra/scripts
-  script:
-    - echo $(pwd)
-    - apt-get update
-    - apt-get install -y openssh-client
-    - echo "$SSH_PRIVATE_KEY" > private_key.pem
-    - echo $(ls)
-    - chmod 400 private_key.pem
-    - ssh -i private_key.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no ubuntu@3.133.253.103 'bash -s' < instance_script.sh
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: ubuntu:mantic
