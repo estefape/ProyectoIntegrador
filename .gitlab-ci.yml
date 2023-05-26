@@ -91,4 +91,8 @@ build_backend:
     - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: docker:stable
+  image:
+    name: docker:stable
+    entrypoint: [""]
+  services:
+    - name: docker:dind
