@@ -80,6 +80,7 @@ build_backend:
     - echo $(pwd)
     - apk update
     - apk add wget
+    - apk add --no-cache curl
     - |
       if ! command -v pack &>/dev/null; then
         echo "Install Pack"
@@ -88,6 +89,16 @@ build_backend:
         pack version
       else
         echo "Pack is alredy installed"
+      fi
+    - |
+      if ! command -v docker &>/dev/null; then
+        echo "Install Docker"
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --import -
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" >> /etc/apk/repositories
+        apk update
+        apk add -y docker-ce
+      else
+        echo "Docker is alredy installed"
       fi
     - docker -v
     - echo $(ls)
