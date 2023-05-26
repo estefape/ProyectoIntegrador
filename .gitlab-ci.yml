@@ -83,8 +83,9 @@ build_backend:
     - tar -xf /tmp/pack.tgz -C /usr/local/bin pack
     - pack version
     - echo $(ls)
-    - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image:
-    name: docker:git
+    name: docker:latest
+  services:
+    - docker:dind
