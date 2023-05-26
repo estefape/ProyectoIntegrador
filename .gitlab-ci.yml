@@ -76,9 +76,9 @@ build_backend:
     IMAGE_NAME: "digital-booking"
   before_script:
     - cd backend
-    - apt-get install curl
   script:
     - echo $(ls)
+    - apt-get install curl
     - |
       if ! command -v docker &>/dev/null; then
         echo "Instalación de Docker"
