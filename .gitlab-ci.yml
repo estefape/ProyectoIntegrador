@@ -76,6 +76,8 @@ build_backend:
     - cd backend
   script:
     - echo $(pwd)
+    - sudo apt-get update
+    - apt-get install -y wget
     - |
       if ! command -v pack &>/dev/null; then
         echo "Install Pack"
