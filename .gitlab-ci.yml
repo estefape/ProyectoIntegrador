@@ -69,3 +69,23 @@ connection_backend:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
+
+build_backend:
+  stage: build
+  before_script:
+    - cd backend
+  script:
+    - echo $(pwd)
+    - |
+      if ! command -v pack &>/dev/null; then
+        echo "Install Pack"
+        wget https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz -O /tmp/pack.tgz
+        sudo tar -xf /tmp/pack.tgz -C /usr/local/bin/ pack
+        pack version
+      else
+        echo "Pack is alredy installed"
+      fi
+    - echo $(ls)
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: ubuntu:mantic
