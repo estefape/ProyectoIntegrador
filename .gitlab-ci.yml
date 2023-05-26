@@ -79,7 +79,7 @@ build_backend:
   script:
     - echo $(ls)
     - apt-get update
-    - apt-get install -y curl gnupg gnupg2 gnupg1
+    - apt-get install -y curl gnupg gnupg2 gnupg1 software-properties-common
     - |
       if ! command -v docker &>/dev/null; then
         echo "Instalación de Docker"
