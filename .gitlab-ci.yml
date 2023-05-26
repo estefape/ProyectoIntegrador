@@ -72,6 +72,8 @@ connection_backend:
 
 build_backend:
   stage: build
+  variables:
+    IMAGE_NAME: "digital-booking"
   before_script:
     - cd backend
   script:
@@ -88,6 +90,7 @@ build_backend:
         echo "Pack is alredy installed"
       fi
     - echo $(ls)
+    - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
