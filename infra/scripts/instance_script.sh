@@ -15,7 +15,7 @@ if ! command -v pack &>/dev/null; then
   sudo apt-get update
   sudo apt-get install pack-cli
 else
-  echo "Pack ya está instalado"
+  sudo apt-get remove --auto-remove pack-cli
 fi
 
 echo "La versión de Pack instalada es:"
