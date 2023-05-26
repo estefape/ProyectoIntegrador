@@ -38,8 +38,9 @@
   flex-direction: row;
 }
 
-.buttons button {
+.buttons a {
   margin-left: 20px;
+  padding: 1rem;
   display: none;
 }
 
@@ -118,9 +119,8 @@ nav.menu-closed {
     display: none;
   }
 
-  .buttons button {
+  .buttons a {
     display: block;
-
   }
 }
 

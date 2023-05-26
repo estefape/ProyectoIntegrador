@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 
@@ -20,13 +20,15 @@ export const Header = () => {
                 </Link>
             </div>
             <div className="buttons">
-                <button className='btn'>Crear cuenta</button>
-                <button className='btn'>Iniciar sesión</button>
+                <Link to="/signup" className='btn'>Crear cuenta</Link>
+                <Link to="/login" className='btn'>Iniciar sesión</Link>
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <ul>
-                    <li><a href="#">Crear cuenta</a></li>
-                    <li><a href="#">Iniciar sesión</a></li>
+                    <li><Link to="/signup" className='btn'>Crear cuenta</Link></li>
+                    <li><Link to="/login" className='btn'>Iniciar sesión</Link></li>
+                    {/* <li><a href="/signup">Crear cuenta</a></li>
+                    <li><a href="/login">Iniciar sesión</a></li> */}
                 </ul>
             </nav>
             <div className="menu-btn" onClick={handleMenuClick}>
