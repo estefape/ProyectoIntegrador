@@ -13,6 +13,10 @@ resource "aws_s3_bucket" "frontend_bucket" {
   tags   = {
     team = "equipo3"
   }
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
