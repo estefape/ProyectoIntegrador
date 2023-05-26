@@ -30,6 +30,5 @@ if ! command -v apache2 &>/dev/null; then
   sudo systemctl status apache2
 else
   echo "Apache ya está instalado"
-  su systemctl enable apache2
-  su systemctl status apache2
+  sudo systemctl status apache2
 fi
