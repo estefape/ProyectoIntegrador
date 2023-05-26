@@ -26,7 +26,8 @@ docker --version
 if ! command -v apache2 &>/dev/null; then
   echo "Instalación de Apache"
   sudo apt update
-  sudo apt install -y apache2
+  sudo apt-get install -y apache2
+  sudo systemctl status apache2
 else
   echo "Apache ya está instalado"
 fi
