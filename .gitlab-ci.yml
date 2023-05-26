@@ -69,29 +69,3 @@ connection_backend:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
-
-build_backend:
-  stage: build
-  variables:
-    IMAGE_NAME: "digital-booking"
-  before_script:
-    - cd backend
-  script:
-    - echo $(ls)
-    - apt-get update
-    - apt-get install -y curl gnupg gnupg2 gnupg1 software-properties-common
-    - |
-      if ! command -v docker &>/dev/null; then
-        echo "Instalación de Docker"
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-        apt update
-        apt install -y docker-ce
-      else
-        echo "Docker ya está instalado"
-      fi
-    - docker version
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image:
-    name: ubuntu:latest
