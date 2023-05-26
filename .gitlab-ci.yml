@@ -76,16 +76,21 @@ build_backend:
     IMAGE_NAME: "digital-booking"
   before_script:
     - cd backend
-    - apk add --no-cache curl
+    - apt-get install curl
   script:
-    - docker version
-    - curl -fsSL https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz -o /tmp/pack.tgz
-    - tar -xf /tmp/pack.tgz -C /usr/local/bin pack
-    - pack version
     - echo $(ls)
+    - |
+      if ! command -v docker &>/dev/null; then
+        echo "Instalación de Docker"
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        apt update
+        apt install -y docker-ce
+      else
+        echo "Docker ya está instalado"
+      fi
+    - docker version
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image:
-    name: docker:latest
-  services:
-    - docker:dind
+    name: ubuntu:mantic
