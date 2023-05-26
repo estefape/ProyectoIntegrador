@@ -78,8 +78,8 @@ build_backend:
     - cd backend
   script:
     - echo $(pwd)
-    - apk update
-    - apk add wget gnupg
+    - apt-get update
+    - apt-get install -y wget
     - |
       if ! command -v pack &>/dev/null; then
         echo "Install Pack"
@@ -92,10 +92,10 @@ build_backend:
     - |
       if ! command -v docker &>/dev/null; then
         echo "Install Docker"
-        wget -O /etc/apk/keys/docker.gpg https://download.docker.com/linux/alpine/$(. /etc/os-release; echo $VERSION_ID)/keys/docker
-        echo "https://download.docker.com/linux/alpine/$(. /etc/os-release; echo $VERSION_ID)/stable" >> /etc/apk/repositories
-        apk update
-        apk add docker
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        apt update
+        apt install -y docker-ce
       else
         echo "Docker is alredy installed"
       fi
@@ -104,4 +104,4 @@ build_backend:
     - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: alpine:3.18.0
+  image: ubuntu:mantic
