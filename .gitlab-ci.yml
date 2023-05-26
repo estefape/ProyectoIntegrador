@@ -89,8 +89,9 @@ build_backend:
       else
         echo "Pack is alredy installed"
       fi
+    - docker --version
     - echo $(ls)
     - pack build $IMAGE_NAME --builder paketobuildpacks/builder:base --path .
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: ubuntu:mantic
+  image: alpine:3.18.0
