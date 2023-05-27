@@ -21,14 +21,3 @@ fi
 
 echo "La versión de Docker instalada es:"
 docker --version
-
-# Instalar Apache
-if ! command -v apache2 &>/dev/null; then
-  echo "Instalación de Apache"
-  sudo apt update
-  sudo apt-get install -y apache2
-  sudo systemctl status apache2
-else
-  echo "Apache ya está instalado"
-  sudo systemctl status apache2
-fi

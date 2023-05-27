@@ -2,7 +2,6 @@ stages:
   - infra
   - build
   - deploy
-  - connection
 
 infra_job:
   stage: infra
@@ -53,18 +52,3 @@ deploy_frontend:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
-
-build_backend:
-  stage: build
-  before_script:
-    - cd backend
-  script:
-    - echo $(pwd)
-    - echo $(ls)
-    - mvn clean package -DskipTests
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: maven:3.6.3-openjdk-17
-  artifacts:
-    paths:
-      - target/*.jar

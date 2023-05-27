@@ -30,3 +30,66 @@ En la carpeta "infra", se creó otra carpeta denominada "terraform" para almacen
 
 tags
 team equipo3
+
+## Configuración de la EC2
+
+### Conexión por SSH a la EC2
+cd /home/jose/tech_projects/equipo-03/infra/scripts/
+chmod 400 instance-key-equipo3.pem
+ssh -i instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103
+
+### Desinstalar Apache
+sudo systemctl stop apache2
+sudo apt remove -y apache2
+sudo apt purge -y apache2
+
+### Instalar Nginx
+sudo apt update
+sudo apt upgrade
+sudo apt install -y nginx
+nginx -v
+
+### Instalar Java 17
+sudo apt update
+sudo apt upgrade
+sudo apt install -y openjdk-17-jdk
+java -version
+
+### Instalar Maven 3.6.3
+sudo apt update
+wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+tar -xvf apache-maven-3.6.3-bin.tar.gz
+sudo mv apache-maven-3.6.3 /opt/
+sudo apt install maven
+mvn -version
+
+### Configuración variables de entorno 
+nano ~/.bashrc
+
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+export M2_HOME=/usr/share/maven
+export M2=$M2_HOME/bin
+export PATH=$PATH:$M2
+
+source ~/.bashrc
+
+echo $JAVA_HOME
+echo $PATH
+echo $M2_HOME
+echo $M2
+
+
+sudo nano /etc/nginx/conf.d/java.conf
+server {
+    listen 80;
+    server_name your-domain.com;
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+    }
+}
+cd /etc/nginx/conf.d
+ls
+sudo nginx -t
