@@ -137,6 +137,7 @@ nav.menu-closed {
   .avatar-container{
     display: flex;
     align-items: center;
+    justify-content: end;
   }
 
   .avatar{

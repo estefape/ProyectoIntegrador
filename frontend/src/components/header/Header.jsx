@@ -8,23 +8,32 @@ import Swal from 'sweetalert2';
 export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
-    const [ avatar, setAvatar ] = useState("");
+    const [avatar, setAvatar] = useState("");
+    const [buttonsHeader, setButtonsHeader] = useState(true);
 
     const navigate = useNavigate();
 
-    const { isAuthGlobalState, 
-        signOf, 
-        getNameGlobalState, 
-        getSurnameGlobalState 
+    const { isAuthGlobalState,
+        signOf,
+        getNameGlobalState,
+        getSurnameGlobalState
     } = useContext(AppContext);
 
     useEffect(() => {
 
-        if( !isAuthGlobalState() ){
-            setAvatar( getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0)  )
+        if (!isAuthGlobalState()) {
+            setAvatar(getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0))
         }
 
     }, []);
+
+    // useEffect(() => {
+
+    //     if (window.location.href.includes("login") || window.location.href.includes("signup")) {
+    //         setButtonsHeader(false);
+    //     }
+
+    // }, [])
 
 
 
@@ -63,7 +72,7 @@ export const Header = () => {
                         ?
                         <>
                             <li className='avatar-container'>
-                                <span className='avatar'> { avatar }</span>
+                                <span className='avatar'> {avatar}</span>
                                 <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
                             </li>
                         </>
