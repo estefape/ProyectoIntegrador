@@ -1,5 +1,10 @@
 #!/bin/bash
 
+ruta="/home/ubuntu/Dockerfile"
+nombre_usuario="cinthyarondon"
+nombre_repositorio="digitalbooking"
+etiqueta="latest"
+
 # Verificar máquina virtual
 echo "Host: $(hostname)"
 echo "OS: $(uname -a)"
@@ -17,7 +22,24 @@ if ! command -v docker &>/dev/null; then
   sudo apt install -y docker-ce
 else
   echo "Docker ya está instalado"
+  docker --version
 fi
 
-echo "La versión de Docker instalada es:"
-docker --version
+if [ -f "$ruta" ]; then
+  echo "El archivo Dockerfile existe en la ruta especificada."
+
+  # Construir la imagen
+  docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
+
+  # Verificar si la construcción de la imagen fue exitosa
+  if [ $? -eq 0 ]; then
+    echo "La imagen se ha construido correctamente."
+
+    # Ejecutar el contenedor
+    docker run -d -p 8000:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
+  else
+    echo "La construcción de la imagen ha fallado."
+  fi
+else
+  echo "El archivo Dockerfile no existe en la ruta especificada."
+fi

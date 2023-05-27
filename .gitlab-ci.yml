@@ -57,12 +57,13 @@ deploy_backend:
   stage: deploy
   before_script:
     - apt-get update && apt-get install -y openssh-client
-  script:
-    - echo $(pwd)
     - echo "$SSH_PRIVATE_KEY" > private_key.pem
     - chmod 400 private_key.pem
+  script:
+    - echo $(pwd)
     - scp -i private_key.pem -o StrictHostKeyChecking=no Dockerfile ubuntu@3.128.92.108:/home/ubuntu/
     - echo $(ls)
+    - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.128.92.108 'bash -s' < infra/scripts/instance_script.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
   image: ubuntu:mantic
