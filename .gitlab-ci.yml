@@ -18,7 +18,9 @@ infra_job:
         echo "Terraform plan failed!"
       fi
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+    - changes:
+        - infra/terraform/**/*
+      if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
 build_frontend:
@@ -44,7 +46,7 @@ deploy_frontend:
   script:
     - echo $(pwd)
     - echo $(ls)
-    - echo "verificar deploy en el bucket"
+    - echo "Deploy frontend to S3 bucket"
     - aws s3 cp dist/assets s3://frontend-c3-equipo3/assets --recursive
     - aws s3 cp dist/index.html s3://frontend-c3-equipo3
   rules:
@@ -65,5 +67,5 @@ deploy_backend:
     - echo $(ls)
     - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.128.92.108 'bash -s' < infra/scripts/instance_script.sh
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
