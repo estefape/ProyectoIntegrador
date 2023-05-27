@@ -38,11 +38,6 @@ cd /home/jose/tech_projects/equipo-03/infra/scripts/
 chmod 400 instance-key-equipo3.pem
 ssh -i instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103
 
-### Desinstalar Apache
-sudo systemctl stop apache2
-sudo apt remove -y apache2
-sudo apt purge -y apache2
-
 ### Instalar Nginx
 sudo apt update
 sudo apt upgrade

@@ -38,7 +38,7 @@ if [ -f "$ruta" ]; then
     echo "La imagen se ha construido correctamente."
 
     # Ejecutar el contenedor
-    sudo docker run -d -p 8000:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
+    sudo docker run -d -p 80:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
   else
     echo "La construcción de la imagen ha fallado."
   fi
