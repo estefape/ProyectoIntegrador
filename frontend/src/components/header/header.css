@@ -44,6 +44,13 @@
   display: none;
 }
 
+.buttons button {
+  margin-left: 20px;
+  padding: 1rem;
+  display: none;
+}
+
+
 nav.menu-open {
   position: absolute;
   top: 100%;
@@ -121,6 +128,24 @@ nav.menu-closed {
 
   .buttons a {
     display: block;
+  }
+
+  .buttons button{
+    display: inline-block;
+  }
+
+  .avatar-container{
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar{
+    color: #400E32;
+    font-size: 30px;
+    font-weight: bold;
+    border: 3px solid #400E32;
+    padding: .7rem;
+    border-radius: 50%;
   }
 }
 

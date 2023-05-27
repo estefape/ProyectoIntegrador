@@ -1,7 +1,9 @@
 import Swal from "sweetalert2"
 import "./login.css"
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import AppContext from "../../context/AppContext"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
 
@@ -9,6 +11,10 @@ export const Login = () => {
     email: "",
     password: "",
   })
+
+  const navigate = useNavigate();
+
+  const { login } = useContext(AppContext);
 
   const resetInputs = () => {
     setUser({
@@ -21,6 +27,11 @@ export const Login = () => {
     e.preventDefault();
     if (validation()) {
 
+      login({
+        email: user.email,
+        password: user.password
+      })
+
       Swal.fire({
         title: "Inicio de sesion exitoso!",
         text: "Seras redirigido...",
@@ -28,10 +39,9 @@ export const Login = () => {
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#F2921D",
       })
-        .then(
-          // TODO: peticion fetch al back para inicio de sesion...
-          console.log(user)
-        )
+        .then(() => {
+          navigate("/")
+        })
 
     }
 
@@ -114,16 +124,7 @@ export const Login = () => {
 
           </div>
 
-
-
         </form>
-        {/* 
-        <div className="login-pt2">
-
-          <p>Si no tienes cuenta puedes registrarte aqui...</p>
-          <button className="btn" >Crear cuenta</button>
-
-        </div> */}
 
       </div>
 
