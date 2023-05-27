@@ -17,8 +17,8 @@ infra_job:
       else
         echo "Terraform plan failed!"
       fi
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  only:
+    feature/infra
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
 build_frontend:
