@@ -4,6 +4,7 @@ ruta="/home/ubuntu"
 nombre_usuario="cinthyarondon"
 nombre_repositorio="digitalbooking"
 etiqueta="latest"
+contenedor="digitalbooking"
 
 # Verificar máquina virtual
 echo "Host: $(hostname)"
@@ -28,9 +29,11 @@ else
 fi
 
 # Verificar si el puerto 80 está ocupado
-if docker ps --format '{{.Ports}}' | grep -q ":80->"; then
-  echo "El puerto 80 está ocupado. Eliminando el contenedor existente..."
-  sudo docker rm -f mi_contenedor
+if docker ps -a --format '{{.Names}}' | grep -q "digitalbooking"; then
+  echo "El contenedor 'digitalbooking' existe. Eliminándolo..."
+  sudo docker rm -f digitalbooking
+else
+  echo "El contenedor 'digitalbooking' no existe."
 fi
 
 # Verificar si el Dockerfile existe
@@ -48,7 +51,7 @@ if [ -f "$ruta/Dockerfile" ]; then
       echo "La imagen se ha construido correctamente."
 
       # Ejecutar el contenedor
-      sudo docker run -d -p 80:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
+      sudo docker run -d -p 80:8080 "$contenedor" "$nombre_usuario/$nombre_repositorio:$etiqueta"
     else
       echo "La construcción de la imagen ha fallado."
     fi
