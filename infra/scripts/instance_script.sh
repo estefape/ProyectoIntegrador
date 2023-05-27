@@ -5,6 +5,7 @@ nombre_usuario="cinthyarondon"
 nombre_repositorio="digitalbooking"
 etiqueta="latest"
 contenedor="digitalbooking"
+container_id=$(sudo docker ps -aqf "name=digitalbooking")
 
 # Verificar máquina virtual
 echo "Host: $(hostname)"
@@ -28,10 +29,11 @@ else
 
 fi
 
-# Verificar si el puerto 80 está ocupado
-if docker ps -a --format '{{.Names}}' | grep -q "digitalbooking"; then
+## Verificar si el contenedor existe
+if [ -n "$container_id" ]; then
   echo "El contenedor 'digitalbooking' existe. Eliminándolo..."
-  sudo docker rm -f digitalbooking
+  sudo docker stop "$container_id"
+  sudo docker rm "$container_id"
 else
   echo "El contenedor 'digitalbooking' no existe."
 fi
