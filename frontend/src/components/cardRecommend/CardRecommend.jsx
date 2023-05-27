@@ -3,7 +3,7 @@ import { Icons } from "../icons/Icons";
 import { Link } from 'react-router-dom';
 
 
-export const CardRecommend = ({image, name, category, city, address, description, officeId}) => {
+export const CardRecommend = ({images, name, category, city, address, description, officeId}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
@@ -12,7 +12,7 @@ export const CardRecommend = ({image, name, category, city, address, description
   // comodidades ?
 
   const imageStyle = {
-    backgroundImage: `url(${image})`
+    backgroundImage: `url(${images[0]})`
   }
 
   return (

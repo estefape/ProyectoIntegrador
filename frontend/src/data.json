@@ -1,7 +1,7 @@
 [
     {
         "officeId": 1,
-        "image": "/images/photo5.jpg",
+        "images": ["/images/photo5.jpg", "/images/photo9.jpg", "/images/photo10.jpg", "/images/photo11.jpg", "/images/photo12.jpg"],
         "name": "Gamer",
         "category": "Coworking Sectorial",
         "city": "Buenos Aires",
@@ -10,7 +10,7 @@
     },
     {
         "officeId": 2,
-        "image": "/images/photo6.jpg",
+        "images": ["/images/photo6.jpg", "/images/photo13.jpg", "/images/photo14.jpg", "/images/photo15.jpg", "/images/photo16.jpg"],
         "name": "Compartidos",
         "category": "Coworking compartido",
         "city": "Cordoba",
@@ -19,7 +19,7 @@
     },
     {
         "officeId": 3,
-        "image": "/images/photo7.jpg",
+        "images": ["/images/photo7.jpg", "/images/photo17.jpg", "/images/photo18.jpg", "/images/photo19.jpg", "/images/photo20.jpg"],
         "name": "Cubiculos",
         "category": "Coworking fijo",
         "city": "Buenos Aires",
@@ -28,7 +28,7 @@
     },
     {
         "officeId": 4,
-        "image": "/images/photo8.jpg",
+        "images": ["/images/photo8.jpg", "/images/photo21.jpg", "/images/photo22.jpg", "/images/photo23.jpg", "/images/photo24.jpg"],
         "name": "Start Up",
         "category": "Coworking incubador",
         "city": "Mendoza",
