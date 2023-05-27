@@ -30,14 +30,14 @@ fi
 # Verificar si el puerto 80 está ocupado
 if docker ps --format '{{.Ports}}' | grep -q ":80->"; then
   echo "El puerto 80 está ocupado. Eliminando el contenedor existente..."
-  docker rm -f mi_contenedor
+  sudo docker rm -f mi_contenedor
 fi
 
 # Verificar si el Dockerfile existe
 if [ -f "$ruta/Dockerfile" ]; then
   echo "El archivo Dockerfile existe en la ruta especificada."
 
-  if [ -f "$ruta/backend" ]; then
+  if [ -f "$ruta/backend/" ]; then
     echo "La carpeta 'backend' existe en la ruta especificada."
 
     # Construir la imagen
