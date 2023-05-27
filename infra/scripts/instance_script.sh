@@ -37,7 +37,7 @@ fi
 if [ -f "$ruta/Dockerfile" ]; then
   echo "El archivo Dockerfile existe en la ruta especificada."
 
-  if [ -f "$ruta/backend/" ]; then
+  if [ -d "$ruta/backend/" ]; then
     echo "La carpeta 'backend' existe en la ruta especificada."
 
     # Construir la imagen
