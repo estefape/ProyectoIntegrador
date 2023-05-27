@@ -23,20 +23,22 @@ if ! command -v docker &>/dev/null; then
 else
   echo "Docker ya está instalado"
   docker --version
+  sudo systemctl enable docker
+
 fi
 
 if [ -f "$ruta" ]; then
   echo "El archivo Dockerfile existe en la ruta especificada."
 
   # Construir la imagen
-  docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
+  sudo docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
 
   # Verificar si la construcción de la imagen fue exitosa
   if [ $? -eq 0 ]; then
     echo "La imagen se ha construido correctamente."
 
     # Ejecutar el contenedor
-    docker run -d -p 8000:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
+    sudo docker run -d -p 8000:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
   else
     echo "La construcción de la imagen ha fallado."
   fi
