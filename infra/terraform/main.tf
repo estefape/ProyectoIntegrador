@@ -80,27 +80,4 @@ resource "aws_eip_association" "eip_assoc" {
   allocation_id = aws_eip.elastic_ip.id
 }
 
-# ..... Security group ..... #
-resource "aws_security_group" "backend" {
-  name   = "security-group-equipo3"
-  vpc_id = data.aws_vpc.default_vpc.id
 
-  ingress {
-    from_port   = 22
-    protocol    = "tcp"
-    to_port     = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 80
-    protocol    = "tcp"
-    to_port     = 80
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
