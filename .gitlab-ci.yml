@@ -52,3 +52,15 @@ deploy_frontend:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
+
+deploy_backend:
+  stage: deploy
+  before_script:
+    - apt-get update && apt-get install -y openssh-client
+  script:
+    - echo $(pwd)
+    - scp -i "$SSH_PRIVATE_KEY_PATH" -o StrictHostKeyChecking=no Dockerfile ubuntu@3.128.92.108:/home/ubuntu/
+    - echo $(ls)
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
+  image: ubuntu:mantic
