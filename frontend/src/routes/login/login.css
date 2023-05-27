@@ -48,6 +48,23 @@ p{
     width: 100%;
 }
 
+.login-pt1 svg{
+    color: white;
+    width: 100px;
+    height: auto;
+}
+
+.icon-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login-pt1 h1{
+    /* margin-bottom: 4rem */
+}
+
 .login-pt2{
     display: flex;
     flex-direction: column;
@@ -56,10 +73,22 @@ p{
     width: 100%;
 }
 
+.swal2-confirm swal2-styled swal2-default-outline{
+    width: 100%!important;
+}
+
+.swal2-actions{
+    width: 200px!important;
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .login{
         width: 500px
+    }
+
+    button{
+        width: 50%!important;
     }
   }
   
@@ -67,6 +96,10 @@ p{
   @media (min-width: 992px) {
     .login{
         width: 600px
+    }
+
+    button{
+        width: 50%!important;
     }
     
   }

@@ -1,22 +1,179 @@
+import Swal from "sweetalert2";
 import "./signup.css";
-import React from 'react';
+import React, { useState } from 'react';
 
 export const SignUp = () => {
+
+    const [newUser, setNewUser] = useState({
+        nombre: "",
+        apellido: "",
+        email: "",
+        password: "",
+        replyPassword: ""
+    })
+
+    const resetInputs = () => {
+        setNewUser({
+            nombre: "",
+            apellido: "",
+            email: "",
+            password: "",
+            replyPassword: ""
+        })
+    }
+
+    const submitForm = (e) => {
+        e.preventDefault();
+
+        if (validation()) {
+
+            Swal.fire({
+                title: "Registro exitoso!",
+                text: "Seras redirigido...",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+                .then(
+                    // TODO: peticion fetch al back para inicio de sesion... 
+                    console.log({
+                        nombre: newUser.nombre,
+                        apellido: newUser.apellido,
+                        email: newUser.email,
+                        password: newUser.password
+                    })
+                )
+
+        }
+
+        console.log(newUser);
+    }
+
+    const validation = () => {
+
+        if (newUser.nombre === "") {
+            Swal.fire({
+                title: "Error",
+                text: "El nombre es obligatorio!",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+            resetInputs();
+            return false;
+        }
+
+        if (newUser.apellido === "") {
+            Swal.fire({
+                title: "Error",
+                text: "El apellido es obligatorio!",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+            resetInputs();
+            return false;
+        }
+
+        if (newUser.email === "" || !newUser.email.includes("@")) {
+            Swal.fire({
+                title: "Error",
+                text: "El email es invalido!",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+            resetInputs();
+            return false;
+        }
+
+        if (newUser.password.length < 8) {
+            Swal.fire({
+                title: "Error",
+                text: "La contraseña debe tener al menos 8 caracteres!",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+            resetInputs();
+            return false;
+        }
+
+        if (newUser.password !== newUser.replyPassword) {
+            Swal.fire({
+                title: "Error",
+                text: "Las contraseñas no coinciden!",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#F2921D",
+            })
+            resetInputs();
+            return false;
+        }
+
+        return true;
+
+    }
+
+
     return (
 
         <div className="signup-container" >
 
             <div className="signup">
 
-                <div className="signup-pt1" >
-                    <h1>Crear cuenta</h1>
-                    <input className="input" type="text" placeholder="Ingrese su nombre"/>
-                    <input className="input" type="text" placeholder="Ingrese su apellido"/>
-                    <input className="input" type="email" placeholder="Ingrese su email..." />
-                    <input className="input" type="password" placeholder="Contraseña..." />
-                    <input className="input" type="password" placeholder="Repita su contraseña..." />
-                    <button className="btn" >Registrarse</button>
-                </div>
+                <form onSubmit={submitForm}>
+
+                    <div className="signup-pt1" >
+                        <h1>Crear cuenta</h1>
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Ingrese su nombre"
+                            id="nombre"
+                            name="nombre"
+                            value={newUser.nombre}
+                            onChange={e => setNewUser({ ...newUser, nombre: e.target.value })} />
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Ingrese su apellido"
+                            id="apellido"
+                            name="apellido"
+                            value={newUser.apellido}
+                            onChange={e => setNewUser({ ...newUser, apellido: e.target.value })} />
+                        <input
+                            className="input"
+                            type="email"
+                            placeholder="Ingrese su email..."
+                            id="email"
+                            name="email"
+                            value={newUser.email}
+                            onChange={e => setNewUser({ ...newUser, email: e.target.value })} />
+                        <div className="password-container" >
+                            <input
+                                className="input"
+                                type="password"
+                                placeholder="Contraseña..."
+                                id="password"
+                                name="password"
+                                value={newUser.password}
+                                onChange={e => setNewUser({ ...newUser, password: e.target.value })} />
+                            <p>La contraseña debe tener al menos 8 caracteres.</p>
+                        </div>
+                        <input
+                            className="input"
+                            type="password"
+                            placeholder="Repita su contraseña..."
+                            id="replyPassword"
+                            name="replyPassword"
+                            value={newUser.replyPassword}
+                            onChange={e => setNewUser({ ...newUser, replyPassword: e.target.value })} />
+                        <button type="submit" className="btn" >Registrarse</button>
+                    </div>
+
+                </form>
+
             </div>
 
         </div>
