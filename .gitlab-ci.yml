@@ -63,9 +63,9 @@ deploy_backend:
     - chmod 400 private_key.pem
   script:
     - echo $(pwd)
-    - scp -i private_key.pem -o StrictHostKeyChecking=no -r backend Dockerfile ubuntu@3.128.92.108:/home/ubuntu/
+    - scp -i private_key.pem -o StrictHostKeyChecking=no -r backend Dockerfile ubuntu@3.141.149.37:/home/ubuntu/
     - echo $(ls)
-    - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.128.92.108 'bash -s' < infra/scripts/instance_script.sh
+    - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.141.149.37 'bash -s' < infra/scripts/instance_script.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
