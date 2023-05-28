@@ -45,26 +45,41 @@
 
 nav.menu-open {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+  top: 0%;
+  right: 0;
+  width: 50%;
+  height: 100vh;
   background-color:#fefdfe;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
-  padding: 20px;
   box-shadow: 0 5px 5px rgba(0,0,0,.5);
+}
+
+.nav-header {
+  background-color: #f2921d;
+  padding: 35px;
+  font-weight: 700;
+  height: 20px;
 }
 
 nav ul {
   list-style: none;
-  padding: 0;
+  padding: 20px;
   margin: 0;
 }
 
 nav li {
   margin: 15px 0;
+  text-align: right;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+}
+
+nav li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 nav a {
@@ -84,6 +99,7 @@ nav.menu-closed {
   width: 30px;
   height: 24px;
   cursor: pointer;
+  z-index: 999;
 }
 
 .menu-btn span {
@@ -98,18 +114,35 @@ nav.menu-closed {
   height: auto;
 }
 
-.menu-open span:first-child {
-  transform: translateY(8px) rotate(45deg);
+.menu-open.menu-btn span:first-child {
+  background-color: #FFF;
+  transform: translateY(2px) rotate(45deg);
 }
 
-.menu-open span:nth-child(2) {
+.menu-open.menu-btn span:nth-child(2) {
   opacity: 0;
 }
 
-.menu-open span:last-child {
-  transform: translateY(-8px) rotate(-45deg);
+.menu-open.menu-btn span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+  background-color: #FFF;
 }
 
+.redes-sociales {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.redes-sociales span {
+  margin-left: 15px;
+}
+
+.redes-sociales svg {
+  width: 30px;
+  fill: #400e32;
+}
 
 
 /* Medium devices (tablets, 768px and up) */
