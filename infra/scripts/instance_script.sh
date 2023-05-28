@@ -29,7 +29,22 @@ else
 
 fi
 
-# Verificar si el Dockerfile existe
+# Verificar si se encontró un contenedor
+if [ -n "$container_id" ]; then
+  echo "Se encontró un contenedor en ejecución con el puerto 80 asignado. Deteniendo y eliminando el contenedor..."
+
+  # Detener el contenedor
+  docker stop "$container_id"
+
+  # Eliminar el contenedor
+  docker rm "$container_id"
+
+  echo "El contenedor ha sido detenido y eliminado correctamente."
+else
+  echo "No se encontró ningún contenedor en ejecución que utilice el puerto 80."
+fi
+
+# Imagen y contendor de Docker
 if [ -f "$ruta/Dockerfile" ]; then
   echo "El archivo Dockerfile existe en la ruta especificada."
 
