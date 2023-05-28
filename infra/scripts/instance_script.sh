@@ -26,7 +26,6 @@ else
   echo "Docker ya está instalado!"
   docker --version
   sudo systemctl enable docker
-
 fi
 
 # Verificar si se encontró un contenedor

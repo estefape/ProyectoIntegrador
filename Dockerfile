@@ -1,5 +1,5 @@
 # Build step
-FROM maven:3.6.3-openjdk-17 AS build
+FROM maven:3.6.3-openjdk-17-slim AS build
 WORKDIR /app
 
 # Copy the configuration files and the pom.xml file
@@ -10,7 +10,7 @@ COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 # Production step
-FROM openjdk:17.0.2-jdk
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file
