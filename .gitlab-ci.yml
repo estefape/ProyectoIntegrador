@@ -33,10 +33,7 @@ build_frontend:
     - npm run build
     - echo $(ls)
   rules:
-    - changes:
-        - frontend/**/*
-      exists:
-        - $CI_COMMIT_REF_NAME
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:16-alpine
   artifacts:
     paths:
@@ -53,10 +50,7 @@ deploy_frontend:
     - aws s3 cp dist/assets s3://frontend-c3-equipo3/assets --recursive
     - aws s3 cp dist/index.html s3://frontend-c3-equipo3
   rules:
-    - changes:
-        - frontend/**/*
-      exists:
-        - $CI_COMMIT_REF_NAME
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
@@ -73,8 +67,5 @@ deploy_backend:
     - echo $(ls)
     - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.141.149.37 'bash -s' < infra/scripts/instance_script.sh
   rules:
-    - changes:
-        - backend/**/*
-      exists:
-        - $CI_COMMIT_REF_NAME
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
