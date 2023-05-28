@@ -3,6 +3,7 @@ import { Home } from './routes/home/Home';
 import { Footer } from './components/footer/Footer';
 import { Header } from './components/header/Header';
 import ProductForm from './components/productForm/ProductForm';
+import CategoryForm from './components/categoryForm/CategoryForm';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SideBar from './components/sidebar/sidebar';
 import { CardRecommend } from './components/cardRecommend/CardRecommend';
@@ -18,9 +19,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/detail/:officeId' element={<Detail/>}/>
-          <Route path='admin' element={<SideBar />}>
-            <Route path='create' element={<ProductForm/>}/>
+          <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
+            <Route path='newproduct' element={<ProductForm/>}/>
+            <Route path='categories/create' element={<CategoryForm/>}/>
           </Route>
           <Route path='/*' element={<Navigate to='/' replace/>} />
         </Routes>

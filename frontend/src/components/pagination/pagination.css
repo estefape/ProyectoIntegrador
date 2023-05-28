@@ -46,7 +46,7 @@
   border-top: 0.18em solid #f2921d;
 }
 .pagination-container .pagination-item .arrow.left {
-  transform: rotate(-135deg) translate(-50%);
+  transform: rotate(-135deg);
 }
 .pagination-container .pagination-item .arrow.right {
   transform: rotate(45deg);
