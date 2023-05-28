@@ -48,6 +48,7 @@ resource "aws_s3_bucket_policy" "frontend_bucket_policy" {
 EOF
 }
 
+# ..... VPC ..... #
 data "aws_vpc" "default_vpc" {
   default = true
 }
