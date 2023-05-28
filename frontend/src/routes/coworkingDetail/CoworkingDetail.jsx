@@ -10,10 +10,10 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import PrintIcon from '@mui/icons-material/Print';
 
-import "./detail.css";
+import "./coworkingDetail.css";
 import oficinas from "../../data.json"
 
-export const Detail = () => {
+export const CoworkingDetail = () => {
 
     const [singleOffice, setSingleOffice] = useState({})
     const { officeId } = useParams()
