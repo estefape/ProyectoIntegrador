@@ -1,9 +1,9 @@
-import "./cardRecommend.css"
+import "./coworkingCard.css"
 import { Icons } from "../icons/Icons";
 import { Link } from 'react-router-dom';
 
 
-export const CardRecommend = ({images, name, category, city, address, description, officeId}) => {
+export const CoworkingCard = ({images, name, category, city, address, description, officeId}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?

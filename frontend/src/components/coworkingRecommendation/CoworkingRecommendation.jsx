@@ -1,12 +1,12 @@
-import "./recommendedOffices.css"
-import { CardRecommend } from "../cardRecommend/CardRecommend"
+import "./coworkingRecommendation.css"
+import { CoworkingCard } from "../coworkingCard/CoworkingCard"
 import oficinas from "../../data.json"
 
-export const RecommendedOffices = () => {
+export const CoworkingRecommendation = () => {
   // este componente va a recibir un array de las oficinas mejor valoradas
   // por cada una de ellas vamos a crear un componenete CardRecommend
 
-  const getRecommendedOfficesList = () => {
+  const getCoworkingRecommendation = () => {
     return oficinas
   }
 
@@ -26,8 +26,8 @@ export const RecommendedOffices = () => {
           <h2>Recomendaciones</h2>
         </div>
         <div className="recommended-offices-comp-container">
-          {getRandomList(getRecommendedOfficesList()).map(item =>(
-            <CardRecommend {...item} key={item.officeId} />
+          {getRandomList(getCoworkingRecommendation()).map(item =>(
+            <CoworkingCard {...item} key={item.officeId} />
           ))}
         </div>
       </div>
