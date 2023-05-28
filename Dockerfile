@@ -10,7 +10,7 @@ COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 # Production step
-FROM openjdk:17-jdk-slim
+FROM openjdk:17.0.2-jdk
 WORKDIR /app
 
 # Copy the JAR file

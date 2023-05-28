@@ -4,7 +4,6 @@ ruta="/home/ubuntu"
 nombre_usuario="cinthyarondon"
 nombre_repositorio="digitalbooking"
 etiqueta="latest"
-contenedor="digitalbooking"
 container_id=$(docker ps --filter "publish=80" --format "{{.ID}}")
 
 # Verificar máquina virtual
