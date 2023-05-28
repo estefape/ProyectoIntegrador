@@ -1,6 +1,6 @@
-import "./cardCategory.css";
+import "./categoryCard.css";
 
-export const CardCategory = ({image, name}) => {
+export const CategoryCard = ({categoryId, image, name, results}) => {
   // cardCategory va a recibir cada objeto Category del back
   // y vamos a mostrar una imagen representativa de la categoria
   // el nombre de la categoria y la cantidad de resultados para esa categoria aprox
@@ -16,7 +16,7 @@ export const CardCategory = ({image, name}) => {
           {/* categoria */}
           <h4>{name}</h4>
           {/* cantidad de resultados */}
-          <p>Cantidad de resultados</p>
+          <p>{results} oficinas en esta categoria</p>
         </div>
       </div>
     </>
