@@ -1,5 +1,5 @@
 # Build step
-FROM maven:3.6.3-openjdk-17-slim AS build
+FROM maven:3.6.3-openjdk-17 AS build
 WORKDIR /app
 
 # Copy the configuration files and the pom.xml file
