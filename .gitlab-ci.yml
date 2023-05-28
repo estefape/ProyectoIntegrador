@@ -1,14 +1,12 @@
-default:
-  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
-
-before_script:
-  - cd infra/terraform
-
 stages:
   - infra
+  - build
+  - deploy
 
 infra_job:
   stage: infra
+  before_script:
+    - cd infra/terraform
   script:
     - echo $(pwd)
     - gitlab-terraform init
@@ -20,4 +18,54 @@ infra_job:
         echo "Terraform plan failed!"
       fi
   rules:
+    - changes:
+        - infra/terraform/**/*
+      if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+
+build_frontend:
+  stage: build
+  before_script:
+    - cd frontend
+  script:
+    - echo $(pwd)
+    - npm install
+    - npm run build
+    - echo $(ls)
+  rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: node:16-alpine
+  artifacts:
+    paths:
+      - frontend/dist/
+
+deploy_frontend:
+  stage: deploy
+  before_script:
+    - cd frontend
+  script:
+    - echo $(pwd)
+    - echo $(ls)
+    - echo "Deploy frontend to S3 bucket"
+    - aws s3 cp dist/assets s3://frontend-c3-equipo3/assets --recursive
+    - aws s3 cp dist/index.html s3://frontend-c3-equipo3
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  dependencies:
+    - build_frontend
+
+deploy_backend:
+  stage: deploy
+  before_script:
+    - apt-get update && apt-get install -y openssh-client
+    - echo "$SSH_PRIVATE_KEY" > private_key.pem
+    - chmod 400 private_key.pem
+  script:
+    - echo $(pwd)
+    - scp -i private_key.pem -o StrictHostKeyChecking=no -r backend Dockerfile ubuntu@3.141.149.37:/home/ubuntu/
+    - echo $(ls)
+    - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@3.141.149.37 'bash -s' < infra/scripts/instance_script.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: ubuntu:mantic
