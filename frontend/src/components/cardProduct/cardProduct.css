@@ -9,8 +9,9 @@
     box-shadow: 3px 3px 5px rgba(0,0,0, .2);
 }
 
-svg {
-    width: 15px;
+.card-product-container svg {
+    width: 18px;
+    height: 18px;
     display: inline;
 }
 
@@ -52,12 +53,31 @@ svg {
 .card-product-container .trash-container {
     display: flex;
     flex-direction: row-reverse;
-    background-color: white;
+    background-color: #f2921d;
     border-radius: 5px;
     margin: 10px;
     padding: 8px;
     float: right;
     cursor:pointer;
+}
+
+.card-product-container .edit-container {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #f2921d;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 8px;
+    float: right;
+    cursor:pointer;
+}
+
+.edit-container:hover{
+    background-color: #a61f69;
+}
+
+.trash-container:hover{
+    background-color: #a61f69;
 }
 
 /* Large devices (desktops, 992px and up) */
