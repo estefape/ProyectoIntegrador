@@ -22,6 +22,7 @@ if ! command -v docker &>/dev/null; then
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
   sudo apt update
   sudo apt install -y docker-ce
+  sudo usermod -aG docker $USER
 else
   echo "Docker ya está instalado!"
   docker --version
@@ -52,14 +53,14 @@ if [ -f "$ruta/Dockerfile" ]; then
     echo "La carpeta 'backend' existe en la ruta especificada."
 
     # Construir la imagen
-    sudo docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
+    docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
 
     # Verificar si la construcción de la imagen fue exitosa
     if [ $? -eq 0 ]; then
       echo "La imagen se ha construido correctamente."
 
       # Ejecutar el contenedor
-      sudo docker run -d -p 80:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
+      docker run -d -p 80:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
     else
       echo "La construcción de la imagen ha fallado."
     fi
