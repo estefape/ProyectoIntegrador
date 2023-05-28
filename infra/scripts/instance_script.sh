@@ -5,7 +5,7 @@ nombre_usuario="cinthyarondon"
 nombre_repositorio="digitalbooking"
 etiqueta="latest"
 contenedor="digitalbooking"
-container_id=$(sudo docker ps -aqf "name=digitalbooking")
+container_id=$(docker ps --filter "publish=80" --format "{{.ID}}")
 
 # Verificar máquina virtual
 echo "Host: $(hostname)"
@@ -29,15 +29,6 @@ else
 
 fi
 
-## Verificar si el contenedor existe
-if [ -n "$container_id" ]; then
-  echo "El contenedor 'digitalbooking' existe. Eliminándolo..."
-  sudo docker stop "$container_id"
-  sudo docker rm "$container_id"
-else
-  echo "El contenedor 'digitalbooking' no existe."
-fi
-
 # Verificar si el Dockerfile existe
 if [ -f "$ruta/Dockerfile" ]; then
   echo "El archivo Dockerfile existe en la ruta especificada."
@@ -53,7 +44,7 @@ if [ -f "$ruta/Dockerfile" ]; then
       echo "La imagen se ha construido correctamente."
 
       # Ejecutar el contenedor
-      sudo docker run -d -p 80:8080 "$contenedor" "$nombre_usuario/$nombre_repositorio:$etiqueta"
+      sudo docker run -d -p 80:8080 "$nombre_usuario/$nombre_repositorio:$etiqueta"
     else
       echo "La construcción de la imagen ha fallado."
     fi
