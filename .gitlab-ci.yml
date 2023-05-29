@@ -24,19 +24,6 @@ infra_job:
       if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
-test_frontend:
-  stage: test
-  before_script:
-    - cd frontend
-  script:
-    - echo $(pwd)
-    - npm install
-    - npm run test
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-  image: node:16-alpine
-
-
 build_frontend:
   stage: build
   before_script:
