@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
-import StarIcon from '@mui/icons-material/Star';
 import TvIcon from '@mui/icons-material/Tv';
 import WifiIcon from '@mui/icons-material/Wifi';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -12,6 +11,9 @@ import PrintIcon from '@mui/icons-material/Print';
 
 import "./coworkingDetail.css";
 import { coworking } from "../../data.json"
+import StarRating from "../../components/starRating/StarRating";
+
+
 
 export const CoworkingDetail = () => {
 
@@ -43,8 +45,8 @@ export const CoworkingDetail = () => {
                             <div className="address">
                                 <p className="icon-container"> <LocationOnIcon className="icon" /> <span>{singleOffice.address} {singleOffice.city}</span></p>
                             </div>
-                            <div className="star">
-                                <p className="icon-container"> <StarIcon className="icon" /> <span>Muy Bueno</span></p>
+                            <div className="icon-container">
+                                Calificacion &nbsp;&nbsp;<StarRating value={singleOffice.rating} />
                             </div>
                         </div>
 

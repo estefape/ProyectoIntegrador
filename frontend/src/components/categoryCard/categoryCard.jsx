@@ -2,8 +2,6 @@ import "./categoryCard.css";
 import { Link } from "react-router-dom";
 
 export const CategoryCard = ({id, image, name, results}) => {
-
-  console.log(id)
   // cardCategory va a recibir cada objeto Category del back
   // y vamos a mostrar una imagen representativa de la categoria
   // el nombre de la categoria y la cantidad de resultados para esa categoria aprox
