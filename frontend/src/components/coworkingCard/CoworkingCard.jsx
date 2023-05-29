@@ -1,9 +1,10 @@
 import "./coworkingCard.css"
 import { Icons } from "../icons/Icons";
 import { Link } from 'react-router-dom';
+import StarRating  from "../starRating/StarRating";
 
 
-export const CoworkingCard = ({images, name, category, city, address, description, officeId}) => {
+export const CoworkingCard = ({images, name, category, city, address, description, officeId, rating}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
@@ -23,9 +24,7 @@ export const CoworkingCard = ({images, name, category, city, address, descriptio
           <div className="coworking-card-top">
             <h3>{name}</h3>
             <h4>{category.name}</h4>
-            <div>
-              <p> <Icons name="star" /> Muy Bueno</p>
-            </div>
+            <StarRating className="rating-container" value={rating || 0} />
           </div>
           <div className="coworking-card-body">
             <div>
