@@ -1,6 +1,7 @@
 stages:
   - infra
   - build
+  - test
   - deploy
 
 infra_job:
