@@ -17,23 +17,23 @@ export const CoworkingCard = ({images, name, category, city, address, descriptio
 
   return (
     <>
-      <div className="card-recommend">
-        <div className="card-recommend-img" style={ imageStyle }></div>
-        <div className="card-recommend-container">
-          <div className="card-recommend-top">
+      <div className="coworking-card">
+        <div className="coworking-card-img" style={ imageStyle }></div>
+        <div className="coworking-card-container">
+          <div className="coworking-card-top">
             <h3>{name}</h3>
-            <h4>{category}</h4>
+            <h4>{category.name}</h4>
             <div>
               <p> <Icons name="star" /> Muy Bueno</p>
             </div>
           </div>
-          <div className="card-recommend-body">
+          <div className="coworking-card-body">
             <div>
               <p> <Icons name="pin" /> {address} {city}</p>
               <p>MOSTRAR EN EL MAPA</p>
             </div>
           </div>
-          <div className="card-recommend-footer">
+          <div className="coworking-card-footer">
             <p>{description.substring(0, 70)}...</p>
             <Link className="btn" to={`/detail/${officeId}`}>Ver Mas</Link>
           </div>

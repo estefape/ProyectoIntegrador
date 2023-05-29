@@ -11,7 +11,7 @@ import CoffeeIcon from '@mui/icons-material/Coffee';
 import PrintIcon from '@mui/icons-material/Print';
 
 import "./coworkingDetail.css";
-import oficinas from "../../data.json"
+import { coworking } from "../../data.json"
 
 export const CoworkingDetail = () => {
 
@@ -19,7 +19,7 @@ export const CoworkingDetail = () => {
     const { officeId } = useParams()
 
     const getOfficeByOfficeId = (id) => {
-        return oficinas.find(item => item.officeId === parseInt(id));
+        return coworking.find(item => item.officeId === parseInt(id));
     }
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export const CoworkingDetail = () => {
                             </div>
                         </div>
                         <div className="container">
-                            <h2 className="category"> Categoria: {singleOffice.category}</h2>
+                            <h2 className="category"> Categoria: {singleOffice.category.name}</h2>
                             <p>{singleOffice.description}</p>
                         </div>
                         <div className="container with-border-bottom">
