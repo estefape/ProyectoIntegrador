@@ -6,7 +6,7 @@ import "./home.css"
 export const Home = () => {
   return (
     <>
-      <div className="body-comp">
+      <div className="home">
         <Search />
         <CategoryList />
         <CoworkingRecommendation />
