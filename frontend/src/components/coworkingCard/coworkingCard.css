@@ -1,4 +1,4 @@
-.card-recommend {
+.coworking-card {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -9,57 +9,75 @@
     box-shadow: 3px 3px 5px rgba(0,0,0, .2);
 }
 
-svg {
+.coworking-card svg {
     width: 15px;
     display: inline;
 }
 
-.card-recommend-img {
+.coworking-card-img {
     width: 100%;
     height: 300px;
     background-size: cover;
     background-position: center;
 }
 
-.card-recommend-top,
-.card-recommend-body,
-.card-recommend-footer {
+.rating-container{
+    margin-bottom: 10px;
+}
+
+.coworking-card-top,
+.coworking-card-body,
+.coworking-card-footer {
     padding: 0 20px;
 }
 
-.card-recommend-top {
+.coworking-card-top {
     padding-top: 10px;
 }
 
-.card-recommend-footer {
+.coworking-card-footer {
     padding-bottom: 20px;
 }
 
-.card-recommend h3 {
+.coworking-card h3 {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-.card-recommend h4 {
+.coworking-card h4 {
     margin-bottom: 15px;
 }
 
-.card-recommend p {
+.coworking-card p {
     margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .coworking-card {
+        flex-direction: row;
+        width: 90%;
+    }
+    .coworking-card-img {
+        width: 450px;
+        height: auto;
+    }
+    .coworking-card-container {
+        width: 70%;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .card-recommend {
+    .coworking-card {
         flex-direction: row;
         width: 48%;
     }
-    .card-recommend-img {
+    .coworking-card-img {
         width: 450px;
         height: auto;
     }
-    .card-recommend-container {
+    .coworking-card-container {
         width: 600px;
         height: 100%;
     }

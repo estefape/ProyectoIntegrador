@@ -4,8 +4,7 @@ ruta="/home/ubuntu"
 nombre_usuario="cinthyarondon"
 nombre_repositorio="digitalbooking"
 etiqueta="latest"
-contenedor="digitalbooking"
-container_id=$(docker ps --filter "publish=80" --format "{{.ID}}")
+container_id=$(sudo docker ps --filter "publish=80" --format "{{.ID}}")
 
 # Verificar máquina virtual
 echo "Host: $(hostname)"
@@ -22,11 +21,11 @@ if ! command -v docker &>/dev/null; then
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
   sudo apt update
   sudo apt install -y docker-ce
+  sudo usermod -aG docker $USER
 else
   echo "Docker ya está instalado!"
   docker --version
   sudo systemctl enable docker
-
 fi
 
 # Verificar si se encontró un contenedor
@@ -34,10 +33,10 @@ if [ -n "$container_id" ]; then
   echo "Se encontró un contenedor en ejecución con el puerto 80 asignado. Deteniendo y eliminando el contenedor..."
 
   # Detener el contenedor
-  docker stop "$container_id"
+  sudo docker stop "$container_id"
 
   # Eliminar el contenedor
-  docker rm "$container_id"
+  sudo docker rm "$container_id"
 
   echo "El contenedor ha sido detenido y eliminado correctamente."
 else
