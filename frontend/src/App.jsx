@@ -23,15 +23,6 @@ function App() {
       <div className='App'>
         <Header />
         <Routes>
-<<<<<<< HEAD
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp/>} />
-          <Route path='/detail/:officeId' element={<Detail />} />
-          <Route path='admin' element={<SideBar />}>
-            <Route path='create' element={<ProductForm />} />
-            <Route path='products' element={<Products />} />
-=======
           <Route path='/' element={<Home/>} />
           <Route path='/detail/:officeId' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
@@ -39,7 +30,6 @@ function App() {
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>
             <Route path='categories/create' element={<CategoryForm/>}/>
->>>>>>> d7758f213f490d8f2ed2059aad980af96c74947d
           </Route>
           <Route path='/*' element={<Navigate to='/' replace />} />
         </Routes>

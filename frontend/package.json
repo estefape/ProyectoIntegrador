@@ -17,12 +17,7 @@
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
-    "react-router-dom": "^6.8.0",
-    "swal": "^0.1.0",
-=======
     "react-router-dom": "^6.11.1",
->>>>>>> d7758f213f490d8f2ed2059aad980af96c74947d
     "sweetalert2": "^11.7.5"
   },
   "devDependencies": {
