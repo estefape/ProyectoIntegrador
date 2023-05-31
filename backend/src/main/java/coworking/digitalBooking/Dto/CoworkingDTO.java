@@ -17,6 +17,6 @@ public class CoworkingDTO {
     private String address;
     private String description;
     private String image;
-    private Category category;
+    private CategoryDTO category;
 
 }
