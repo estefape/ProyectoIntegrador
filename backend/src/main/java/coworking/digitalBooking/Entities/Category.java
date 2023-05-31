@@ -1,8 +1,7 @@
 package coworking.digitalBooking.Entities;
 
-
-import jakarta.persistence.*;
 import lombok.*;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -10,16 +9,19 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "categories",uniqueConstraints = { @UniqueConstraint(columnNames = { "name" })})
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idCategory;
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idCategory;
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column
+    @Column(name = "description", nullable = false)
     private String description;
-    @Column
+    @Column(name = "image", nullable = false)
     private String image;
+    @Column
+    final Integer results = 2;
 
     public Category(String name, String description, String image) {
         this.name = name;
@@ -33,7 +35,7 @@ public class Category {
                 ", Description = " + description ;
     }
 
-    public Integer getIdCategory() {
+    public long getIdCategory() {
         return idCategory;
     }
 

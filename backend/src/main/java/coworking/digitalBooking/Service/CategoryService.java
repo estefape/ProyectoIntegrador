@@ -1,40 +1,18 @@
 package coworking.digitalBooking.Service;
 
-import coworking.digitalBooking.Entities.Category;
-import coworking.digitalBooking.Entities.Coworking;
-import coworking.digitalBooking.Repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import coworking.digitalBooking.Dto.CategoryDTO;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class CategoryService {
+public interface CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    public CategoryDTO searchById(Long id);
 
-    public Category registerCategory(Category cat){
-        return categoryRepository.save(cat);
-    }
+    public List<CategoryDTO> searchAll();
 
-    public Category update(Category cat){
-        return categoryRepository.save(cat);
-    }
+    public CategoryDTO registerCategory(CategoryDTO categoryDTO);
 
-    public Optional<Category> searchById(Integer id){
-        return categoryRepository.findById(id);
-    }
+    public CategoryDTO update(CategoryDTO categoryDTO, Long id);
 
-    public List<Category> searchAll(){
-        return categoryRepository.findAll();
-    }
-
-    public void delete(Integer id){
-        Optional<Category> categorySearch = searchById(id);
-        if(categorySearch.isPresent())
-            categoryRepository.deleteById(id);
-    }
-
+    public void delete(Long id);
 }

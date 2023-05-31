@@ -1,23 +1,21 @@
 package coworking.digitalBooking.Controller;
 
-import coworking.digitalBooking.Entities.Category;
+import coworking.digitalBooking.Dto.CategoryDTO;
 import coworking.digitalBooking.Service.CategoryService;
 import coworking.digitalBooking.Service.ManageFileS3Service;
-import jakarta.servlet.annotation.MultipartConfig;
+//import jakarta.servlet.annotation.MultipartConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-
-import java.io.File;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
-@RequestMapping("/Categories")
+@RequestMapping("/api/Categories")
 @CrossOrigin(origins = "*")
 public class CategoryController {
 
@@ -26,55 +24,51 @@ public class CategoryController {
     @Autowired
     private ManageFileS3Service manageFilesS3Service;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Category>> searchAll(){
-        return ResponseEntity.ok(categoryService.searchAll());
-    }
-
-    @PostMapping(value = "/register", consumes = {"multipart/form-data", "application/octet-stream"})
-    public ResponseEntity<Category> registerCategory(
-            @RequestParam("name") String name,
-            @RequestParam("description") String description,
-            @RequestParam("image") MultipartFile imageFile){
-        try {
-            // Aquí puedes usar la instancia de S3FileManager para subir el archivo a S3
-            String imageUrl = manageFilesS3Service.uploadFileToS3(imageFile);
-            Category cat = new Category(name, description, imageUrl);
-
-            return ResponseEntity.ok(categoryService.registerCategory(cat));
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id){
-
-        Category category = categoryService.searchById(id).orElse(null);
-        categoryService.delete(id);
-        manageFilesS3Service.deleteFileFromS3(category.getImage());
-
-        return ResponseEntity.ok("removed category");
+    @GetMapping()
+    public List<CategoryDTO> searchAll() {
+        return categoryService.searchAll();
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> searchCategory(@PathVariable Integer id){
-        Category category = categoryService.searchById(id).orElse(null);
-        return ResponseEntity.ok(category);
+    public ResponseEntity<CategoryDTO> searchCategory(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(categoryService.searchById(id));
     }
 
 
-    @PutMapping("/update")
-    public ResponseEntity<Category> update(@RequestBody Category cat){
-        ResponseEntity<Category> response = null;
-        if(cat.getIdCategory() !=null && categoryService.searchById(cat.getIdCategory()).isPresent())
-            response = ResponseEntity.ok(categoryService.update(cat));
-        else
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(consumes = {"multipart/form-data", "application/octet-stream"})
+    public ResponseEntity<CategoryDTO> registerCategory(
+           @RequestBody CategoryDTO categoryDTO,
+           @RequestParam("image") MultipartFile imageFile){
+        try{
+        String imageUrl = manageFilesS3Service.uploadFileToS3(imageFile);
+        categoryDTO.setImage(imageUrl);
+            return new ResponseEntity<>(categoryService.registerCategory(null),HttpStatus.CREATED);
+    } catch(
+    IOException e)
 
-        return response;
+    {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+}
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO categoryDTO, @PathVariable(name = "id") Long id){
+        CategoryDTO categoryDResponse = categoryService.update(categoryDTO,id);
+        return new ResponseEntity<>(categoryDResponse, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable(name = "id") Long id){
+        CategoryDTO category = categoryService.searchById(id);
+        categoryService.delete(id);
+        manageFilesS3Service.deleteFileFromS3(category.getImage());
+        return new ResponseEntity<>("Category Delete",HttpStatus.OK);
+    }
 
 }
