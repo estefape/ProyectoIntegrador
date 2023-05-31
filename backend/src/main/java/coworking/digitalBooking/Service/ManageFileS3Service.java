@@ -37,11 +37,10 @@ public class ManageFileS3Service {
         return generateS3FileUrl(fileName);
     }
 
-    public boolean deleteFileFromS3(String url) {
+    public void deleteFileFromS3(String url) {
         String fileName = getFileNameFromUrl(url);
         DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucketName, folderName + fileName);
         s3Client.deleteObject(deleteObjectRequest);
-        return true; // Assuming deletion is successful
     }
 
     private String generateRandomFileName(String originalFilename) {
