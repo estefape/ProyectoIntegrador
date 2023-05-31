@@ -1,8 +1,8 @@
 import { constants } from "./constants"
-import { getData, postData } from "./utils"
+import { getData, postData, postDataWithFormData } from "./utils"
 
-export const categoryRegister = (category = {}) => {
-    return postData(constants.REGISTER_CATEGORIES_ENDPOINT, category)
+export const categoryRegister = (category) => {
+    return postDataWithFormData(constants.REGISTER_CATEGORIES_ENDPOINT, category)
 }
 
 export const categoryAll = () => {

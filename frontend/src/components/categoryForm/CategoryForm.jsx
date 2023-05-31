@@ -20,12 +20,13 @@ const CategoryForm = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     if (validation()) {
+      const data = new FormData()
+      console.log(image)
+      data.append('name', name)
+      data.append('description', description)
+      data.append('image', image, "/C:/Users/Panda/Pictures/6081829.jpg")
       categoryService
-        .categoryRegister({
-          name,
-          description,
-          image: "/images/photo1.jpg"
-        })
+        .categoryRegister(data)
         .then(async (result) => {
             if (result.status == 200) {
               Swal.fire({
@@ -47,7 +48,7 @@ const CategoryForm = () => {
           
         });
       setErrors("");
-      reset();
+      //reset();
     }
   };
 
