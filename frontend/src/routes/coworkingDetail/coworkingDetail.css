@@ -1,0 +1,108 @@
+.title {
+    display: flex;
+    background-color: #a61f69;
+    justify-content: space-between;
+    padding: 14px 20px;
+
+}
+
+.title h1 {
+    font-family: Rubik, sans-serif;
+    font-size: 30px;
+    color: #FFF;
+    font-weight: 700;
+
+}
+
+.title .arrowBack svg {
+    margin-right: 20px;
+    width: 33px;
+    fill: #FFF;
+}
+
+.imageContainer {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.star-address {
+    background-color: #e8e3e7;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px
+}
+
+.container {
+    padding: 20px 20px 0 20px
+}
+
+.grid {
+    display: grid;
+    grid-gap: 10px;
+}
+
+.item {
+    overflow: hidden;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.icon {
+    color: #f2921d;
+}
+
+.more-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+h2.category {
+    font-family: Rubik, sans-serif;
+    color: #400E32;
+    font-weight: 700;
+    font-size: 25px;
+    margin-bottom: 20px;
+
+}
+
+.with-border-bottom {
+    border-bottom: 1px solid #400E32;
+}
+
+.comodidades .item {
+    margin: 10px 0;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-container span {
+    margin-left: 10px
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .imageContainer img {
+        width: 600px;
+    }
+
+}

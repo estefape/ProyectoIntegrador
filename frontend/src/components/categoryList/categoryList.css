@@ -1,10 +1,14 @@
-.office-list-comp{
+.category-list {
     padding: 1rem;
     border-bottom: 2px solid white;
     width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;    
 }
 
-.office-list-comp h2 {
+.category-list h2 {
     font-family: "Rubik", sans-serif;
     font-weight: bold;
     font-size: xx-large;
@@ -12,7 +16,7 @@
     padding: 1rem 0rem;
 }
 
-.office-list-comp > div {
+.category-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,16 +25,17 @@
     padding: 1rem 0rem;
 }
 
+
 @media (min-width: 768px) {
-    .office-list-comp > div {
+    .category-list-container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-    }    
+    }
 }
 
 @media (min-width: 992px) {
-    .office-list-comp {
+    .category-list {
         width: 90%;
-    }      
+    }
 }

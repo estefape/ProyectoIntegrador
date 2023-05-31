@@ -1,15 +1,15 @@
-import { OfficeListByCategory } from "../../components/officeListByCategory/OfficeListByCategory"
-import { RecommendedOffices } from "../../components/recommendedOficces/RecommendedOffices"
+import { CategoryList } from "../../components/categoryList/CategoryList"
+import { CoworkingRecommendation } from "../../components/coworkingRecommendation/CoworkingRecommendation"
 import { Search } from "../../components/search/Search"
 import "./home.css"
 
 export const Home = () => {
   return (
     <>
-      <div className="body-comp">
+      <div className="home">
         <Search />
-        <OfficeListByCategory />
-        <RecommendedOffices />
+        <CategoryList />
+        <CoworkingRecommendation />
       </div>
     </>
   )
