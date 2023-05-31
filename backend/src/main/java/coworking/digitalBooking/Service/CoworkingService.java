@@ -1,46 +1,18 @@
 package coworking.digitalBooking.Service;
 
-
-import coworking.digitalBooking.Entities.Coworking;
-import coworking.digitalBooking.Repository.CoworkingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import coworking.digitalBooking.Dto.CoworkingDTO;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class CoworkingService {
+public interface CoworkingService {
 
-    @Autowired
-    private CoworkingRepository coworkingRepository;
+    public CoworkingDTO searchById(Long id);
 
-    public ResponseEntity<String> registerProduct(Coworking cow){
-        Coworking findCow = coworkingRepository.findByName(cow.getName());
-        if (findCow !=null){
-            return ResponseEntity.badRequest().body("Ya existe un Coworking con este nombre");
-        }
-        coworkingRepository.save(cow);
-        return ResponseEntity.ok("Coworking Agregado Correctamente");
-    }
+    public List<CoworkingDTO> searchAll();
 
-    public Coworking update(Coworking cow){
-        return coworkingRepository.save(cow);
-    }
+    public CoworkingDTO registerProduct(CoworkingDTO coworkingDTO);
 
-    public Optional<Coworking> searchById(Integer id){
-        return coworkingRepository.findById(id);
-    }
+    public CoworkingDTO update(CoworkingDTO coworkingDTO, Long id);
 
-    public List<Coworking> searchAll(){
-        return coworkingRepository.findAll();
-    }
-
-    public void delete(Integer id){
-        Optional<Coworking> productSearch = searchById(id);
-        if(productSearch.isPresent())
-            coworkingRepository.deleteById(id);
-    }
-
+    public void delete(Long id);
 }
