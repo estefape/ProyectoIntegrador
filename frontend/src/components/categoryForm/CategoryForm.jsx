@@ -21,10 +21,9 @@ const CategoryForm = () => {
     event.preventDefault();
     if (validation()) {
       const data = new FormData()
-      console.log(image)
       data.append('name', name)
       data.append('description', description)
-      data.append('image', image, "/C:/Users/Panda/Pictures/6081829.jpg")
+      data.append('image', image)
       categoryService
         .categoryRegister(data)
         .then(async (result) => {
