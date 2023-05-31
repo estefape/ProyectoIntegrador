@@ -1,21 +1,25 @@
 package coworking.digitalBooking;
 
-import coworking.digitalBooking.Entities.Category;
-import coworking.digitalBooking.Entities.Coworking;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DigitalBookingApplication {
 
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(DigitalBookingApplication.class, args);
 
-
-		Category cat = new Category("state categori","categori state","categosinimage");
-		Coworking cow  = new Coworking("oficina","medellin","aranjuez","cowork 123","no tengo image",cat);
-		System.out.println(cow.toString());
-
 	}
 
+
 }
+

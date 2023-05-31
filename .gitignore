@@ -4,6 +4,7 @@ backend/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+backend/src/main/resources/application-secrets.properties
 
 ### STS ###
 .apt_generated
@@ -58,3 +59,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Infra
+infra/terraform/.terraform
+infra/terraform/.terraform.lock.hcl
+infra/terraform/terraform.tfstate
+infra/scripts/instance-key-equipo3.pem

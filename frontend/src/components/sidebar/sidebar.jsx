@@ -5,12 +5,15 @@ import './sideBar.css'
 const SideBar = () => {
   return (
     <>
-      <div className="sidebar">
-        <NavLink to="/admin" end>Inicio</NavLink>
-        <NavLink to="/admin/create">Agregar oficina</NavLink>
-        <NavLink to="/admin/products">Oficinas</NavLink>
+      <div className='adminWrapper'>
+        <div className="sidebar">
+          <NavLink to="/admin" end>Inicio</NavLink>
+          <NavLink to="/admin/newproduct">Agregar oficina</NavLink>
+          <NavLink to="/admin/products">Oficinas</NavLink>
+          <NavLink to="/admin/categories/create">Agregar Categoria</NavLink>
+        </div>
+        <Outlet />
       </div>
-      <Outlet/>
     </>
   )
 }

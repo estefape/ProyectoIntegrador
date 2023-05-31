@@ -1,6 +1,6 @@
 .wrapper {
   margin-top: 30px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   font-family: "Rubik", sans-serif;
 }
 
@@ -13,16 +13,16 @@ div.form-tittle {
   height: 15%;
 }
 
-.product-form {
+form .product-form {
   display: flex;
   flex-direction: column;
   align-items: left;
-  max-width: 40%;
-  margin: 0 auto;
+  max-width: 600px;
+  
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
-  background-color: #a61f6904;
+  margin-bottom: 30px;
 }
 
 h3.form-header {
@@ -42,7 +42,8 @@ h3.form-header {
   padding-top: 20px;
 }
 
-form > input, textarea {
+form > input,
+textarea {
   font-size: 16px;
   margin-left: 50%;
   padding: 10px;
@@ -50,7 +51,8 @@ form > input, textarea {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-input[type="text"], textarea{
+input[type="text"],
+textarea {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -83,7 +85,9 @@ input[type="text"], textarea{
   margin: 10px;
 }
 
-.product-form label > input,select,textarea {
+.product-form label > input,
+select,
+textarea {
   font-family: Roboto, sans-serif;
   height: 2.1rem;
   width: 100%;
@@ -96,17 +100,16 @@ textarea {
   margin-left: 0;
 }
 
-.product-form label > input:focus, textarea:focus {
+.product-form label > input:focus,
+textarea:focus {
   border: 3px solid #a61f69;
   outline: none;
 }
 
-
-
 input[type="file"] {
-  margin:20px;
+  margin: 20px;
   font-family: Rubik, sans-serif;
-  color:#888;
+  color: #888;
 }
 
 input[type="file"]::file-selector-button {
@@ -128,5 +131,5 @@ input[type="file"]::file-selector-button:hover {
 .product-form button {
   width: 200px;
   height: 40px;
-  margin:20px;
+  margin: 20px;
 }

@@ -9,9 +9,24 @@ export const postData = async (url, data) => {
     return response
 }
 
+export const postDataWithFormData = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: data,
+    })
+    return response
+}
+
 export const getData = async (url) => {
     const response = await fetch(url, {
         method: 'GET'
+    })
+    return response
+}
+
+export const deleteData = async (url) => {
+    const response = await fetch(url, {
+        method: 'DELETE'
     })
     return response
 }

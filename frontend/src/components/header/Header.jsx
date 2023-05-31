@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
-import AppContext from '../../context/AppContext';
-import Swal from 'sweetalert2';
 
 export const Header = () => {
 
@@ -84,6 +82,9 @@ export const Header = () => {
                 }
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
+                <div className="nav-header">
+                    MENU
+                </div>
                 <ul>
                     {
                         isAuthGlobalState()
@@ -98,12 +99,19 @@ export const Header = () => {
 
                     }
                 </ul>
+                <div className='redes-sociales'>
+                    <span><FacebookIcon /></span>
+                    <span><InstagramIcon /></span>
+                    <span><WhatsAppIcon /></span>
+                    <span><LinkedInIcon /></span>
+                </div>
             </nav>
-            <div className="menu-btn" onClick={handleMenuClick}>
+            <div className={menuOpen ? 'menu-btn menu-open' : 'menu-btn'} onClick={handleMenuClick}>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+
         </header>
     )
 }
