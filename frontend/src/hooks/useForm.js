@@ -20,7 +20,7 @@ const useForm = (initialState = {}) => {
         reader.onloadend = function (e) {
             setValues({
                 ...values,
-                [target.name]: '2'
+                [target.name]: file
     
             })
                 //console.log(reader.result)
@@ -28,7 +28,7 @@ const useForm = (initialState = {}) => {
 
         setValues({
             ...values,
-            [target.name]:target.files[0]
+            [target.name]: file
 
         })
         console.log(target.files)

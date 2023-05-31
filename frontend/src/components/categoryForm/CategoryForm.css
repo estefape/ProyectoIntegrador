@@ -1,7 +1,8 @@
 .wrapper {
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-family: "Rubik", sans-serif;
+  background-color: #a61f69;
 }
 
 div.form-tittle {
@@ -9,20 +10,20 @@ div.form-tittle {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  background-color: #a61f69;
   height: 15%;
 }
 
-form .product-form {
+.product-form {
   display: flex;
   flex-direction: column;
   align-items: left;
   max-width: 600px;
-  
+  margin: 0 auto;
+  margin-top:30px;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
-  margin-bottom: 30px;
+  background-color: white;
 }
 
 h3.form-header {

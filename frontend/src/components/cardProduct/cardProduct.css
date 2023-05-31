@@ -1,10 +1,10 @@
-.card-recommend {
+.card-product {
     display: flex;
     flex-direction: column;
     overflow: hidden;
     border-radius: 10px;
     background-color: #f5e1a5;
-    margin: 0 auto 15px;
+    margin: 0 auto 30px;
     width: 80%;
     box-shadow: 3px 3px 5px rgba(0,0,0, .2);
 }
@@ -14,42 +14,42 @@ svg {
     display: inline;
 }
 
-.card-recommend-img {
+.card-product-img {
     width: 100%;
     height: 300px;
     background-size: cover;
     background-position: center;
 }
 
-.card-recommend-top,
-.card-recommend-body,
-.card-recommend-footer {
+.card-product-top,
+.card-product-body,
+.card-product-footer {
     padding: 0 20px;
 }
 
-.card-recommend-top {
+.card-product-top {
     padding-top: 10px;
 }
 
-.card-recommend-footer {
+.card-product-footer {
     padding-bottom: 20px;
 }
 
-.card-recommend h3 {
+.card-product h3 {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-.card-recommend h4 {
+.card-product h4 {
     margin-bottom: 15px;
 }
 
-.card-recommend p {
+.card-product p {
     margin-bottom: 10px;
 }
 
-.card-recommend-container .trash-container {
+.card-product-container .trash-container {
     display: flex;
     flex-direction: row-reverse;
     background-color: white;
@@ -62,15 +62,15 @@ svg {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .card-recommend {
+    .card-product {
         flex-direction: row;
-        width: 48%;
+        width: 45%;
     }
-    .card-recommend-img {
+    .card-product-img {
         width: 450px;
         height: auto;
     }
-    .card-recommend-container {
+    .card-product-container {
         width: 600px;
         height: 100%;
     }

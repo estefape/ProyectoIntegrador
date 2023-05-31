@@ -4,7 +4,7 @@ import Pagination from "../pagination/pagination";
 import { CardProduct } from "../cardProduct/cardProduct";
 import * as productService from "../../services/productServices";
 
-let PageSize = 5;
+let PageSize = 6;
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,31 +27,33 @@ const Products = () => {
   }, [currentPage, products]);
 
   return (
-    <div className="products-container">
-      {showProducts.map((prod) => {
-        return (
-          <CardProduct
-            key={prod.idCoworking}
-            image={prod.image}
-            name={prod.name}
-            category={prod.category.name}
-            city={prod.city}
-            address={prod.address}
-            description={prod.description}
-            officeId={prod.officeId}
-            role={'admin'}
-            id={prod.idCoworking}
-            onDelete={() => {setProducts(() => {return products.filter(prd => prd.idCoworking != prod.idCoworking)})}}
-          />
-        );
-      })}
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={products.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      <div className="products-paginator">
+        <div className="products-container">
+          {showProducts.map((prod) => {
+            return (
+              <CardProduct
+                key={prod.idCoworking}
+                image={prod.image}
+                name={prod.name}
+                category={prod.category.name}
+                city={prod.city}
+                address={prod.address}
+                description={prod.description}
+                officeId={prod.officeId}
+                role={'admin'}
+                id={prod.idCoworking}
+                onDelete={() => {setProducts(() => {return products.filter(prd => prd.idCoworking != prod.idCoworking)})}}
+              />
+            );
+          })}
+        </div>
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={products.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
     </div>
   );
 };
