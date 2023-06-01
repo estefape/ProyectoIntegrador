@@ -36,47 +36,48 @@ const ProductForm = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     if (validation()) {
-      const data = new FormData()
-      data.append('name', name)
-      data.append('description', description)
-      data.append('category', category)
-      data.append('city', city)
-      data.append('address', address)
-      data.append('imageFile', image)
-      productService
-        .productRegister(data)
-        .then(async (result) => {
-          console.log(result.body)
-          const response = await result.text();
+      const data = new FormData();
+      data.append("name", name);
+      data.append("description", description);
+      data.append("category", category);
+      data.append("city", city);
+      data.append("address", address);
+      data.append("rating", 0);
+      for (let i = 1; i <= image.length; i++) {
+        console.log(i);
+        data.append(`imageFile${i}`, image[i - 1]);
+      }
+      productService.productRegister(data).then(async (result) => {
+        const response = await result.text();
 
-          if (result.status == 404) {
+        if (result.status == 404) {
+          Swal.fire({
+            title: "Aviso",
+            text: "Ya existe una oficina con este nombre.",
+            icon: "warning",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#A61F69",
+          });
+        } else {
+          if (result.status >= 200 && result.status < 300) {
             Swal.fire({
-              title: "Aviso",
-              text: "Ya existe una oficina con este nombre.",
-              icon: "warning",
+              title: "Registro exitoso",
+              text: "La oficina ha sido agregada correctamente.",
+              icon: "success",
               confirmButtonText: "Aceptar",
               confirmButtonColor: "#A61F69",
             });
           } else {
-            if (result.status >= 200 && result.status < 300) {
-              Swal.fire({
-                title: "Registro exitoso",
-                text: "La oficina ha sido agregada correctamente.",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#A61F69",
-              });
-            } else {
-              Swal.fire({
-                title: "Error",
-                text: "No fue posible registrar la oficina.",
-                icon: "error",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#F2921D",
-              });
-            }
+            Swal.fire({
+              title: "Error",
+              text: "No fue posible registrar la oficina.",
+              icon: "error",
+              confirmButtonText: "Aceptar",
+              confirmButtonColor: "#F2921D",
+            });
           }
-        });
+        }
+      });
       setErrors("");
       reset();
     }
@@ -84,7 +85,11 @@ const ProductForm = () => {
 
   const validation = () => {
     if (name && city && address && description && image) {
-      return true;
+      if (image.length == 5) {
+        return true;
+      }
+      setErrors("Debe subir 5 imagenes");
+      return false;
     } else {
       setErrors("Todos los campos son obligatorios");
       return false;
@@ -154,6 +159,7 @@ const ProductForm = () => {
             name="image"
             type="file"
             accept="image/*"
+            multiple="multiple"
             onChange={handleFileChanges}
           />
           <span style={{ color: "red" }}>{errors}</span>

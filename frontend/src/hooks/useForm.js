@@ -1,51 +1,48 @@
-import {useState} from 'react'
+import { useState } from "react";
 
 const useForm = (initialState = {}) => {
+  const [values, setValues] = useState(initialState);
 
-    const [values, setValues] = useState(initialState)
+  const initValues = (initValues) => {
+    setValues({
+      ...values,
+      ...initValues,
+    });
+  };
 
-    const initValues = (initValues) => {
-        setValues({
-            ...values,
-            ...initValues
-        })
-    }
+  const handleInputChanges = ({ target }) => {
+    setValues({
+      ...values,
+      [target.name]: target.value,
+    });
+  };
 
-    const handleInputChanges = ({target}) => {
-        setValues({
-            ...values,
-            [target.name]:target.value
+  const handleFileChanges = ({ target }) => {
+    let file = target.files;
+    //let reader = new FileReader();
+    //let url = reader.readAsDataURL(file);
 
-        })
-    }
-
-    const handleFileChanges = ({target}) => {
-        let file = target.files[0];
-        let reader = new FileReader();
-        let url = reader.readAsDataURL(file);
-      
-        reader.onloadend = function (e) {
+    /*reader.onloadend = function (e) {
             setValues({
                 ...values,
                 [target.name]: file
     
             })
                 //console.log(reader.result)
-          }
+          }*/
 
-        setValues({
-            ...values,
-            [target.name]: file
+    setValues({
+      ...values,
+      [target.name]: file,
+    });
+    console.log(target.files);
+  };
 
-        })
-        console.log(target.files)
-    }
+  const reset = () => {
+    setValues(initialState);
+  };
 
-    const reset = () => {
-        setValues(initialState)
-    }
-
-    return [values,handleInputChanges,handleFileChanges,reset, initValues]
-}
+  return [values, handleInputChanges, handleFileChanges, reset, initValues];
+};
 
 export default useForm;

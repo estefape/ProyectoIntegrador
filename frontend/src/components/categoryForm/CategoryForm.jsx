@@ -20,33 +20,30 @@ const CategoryForm = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     if (validation()) {
-      const data = new FormData()
-      data.append('name', name)
-      data.append('description', description)
-      data.append('imageFile', image)
-      categoryService
-        .categoryRegister(data)
-        .then(async (result) => {
-          console.log(result)
-            if (result.status >= 200 && result.status < 300) {
-              Swal.fire({
-                title: "Registro exitoso",
-                text: "La categoría ha sido creada correctamente.",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#A61F69",
-              });
-            } else {
-              Swal.fire({
-                title: "Error",
-                text: "No fue posible registrar la categoría.",
-                icon: "error",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#F2921D",
-              });
-            }
-          
-        });
+      const data = new FormData();
+      data.append("name", name);
+      data.append("description", description);
+      data.append("imageFile", image[0]);
+      categoryService.categoryRegister(data).then(async (result) => {
+        console.log(result);
+        if (result.status >= 200 && result.status < 300) {
+          Swal.fire({
+            title: "Registro exitoso",
+            text: "La categoría ha sido creada correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#A61F69",
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: "No fue posible registrar la categoría.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#F2921D",
+          });
+        }
+      });
       setErrors("");
       //reset();
     }

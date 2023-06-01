@@ -18,7 +18,7 @@ export const CardProduct = ({
   onDelete,
 }) => {
   const imageStyle = {
-    backgroundImage: `url(${image})`,
+    backgroundImage: `url(${image ? image.split(';')[0] : ''})`,
   };
 
   const confirmation = () => {

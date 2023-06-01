@@ -55,16 +55,15 @@ const EditProductForm = () => {
           city,
           address,
           description,
-          image: "/images/photo1.jpg",
+          rating: 3,
+          image: image,
           category: {
             idCategory: category,
           },
         })
         .then(async (result) => {
-          console.log('............. ', result)
-          const response = await result.json();
-          console.log('------------ ', response)
-          if (result.status == 200) {
+          
+          if (result.status >= 200 && result.status < 300) {
             Swal.fire({
               title: "Actualización exitosa",
               text: "La oficina ha sido actualizada correctamente.",
@@ -163,7 +162,7 @@ const EditProductForm = () => {
             name="image"
             type="file"
             accept="image/*"
-            onChange={handleFileChanges}
+            //onChange={handleFileChanges}
           />
           <span style={{ color: "red" }}>{errors}</span>
           <button className="btn" onClick={handleUpdate}>
