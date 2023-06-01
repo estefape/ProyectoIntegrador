@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import StarRating  from "../starRating/StarRating";
 
 
-export const CoworkingCard = ({images, name, category, city, address, description, officeId, rating}) => {
+export const CoworkingCard = ({image, name, category, city, address, description, idCoworking, rating}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
   // distancia al centro de la ciudad en la que se encuentra
   // breve descripcion
   // comodidades ?
+  const images = image.split(";");
 
   const imageStyle = {
     backgroundImage: `url(${images[0]})`
@@ -34,7 +35,7 @@ export const CoworkingCard = ({images, name, category, city, address, descriptio
           </div>
           <div className="coworking-card-footer">
             <p>{description.substring(0, 70)}...</p>
-            <Link className="btn" to={`/detail/${officeId}`}>Ver Mas</Link>
+            <Link className="btn" to={`/detail/${idCoworking}`}>Ver Mas</Link>
           </div>
         </div>
       </div>
