@@ -20,7 +20,7 @@ html {
     background-color: #f7c281;
 }
 
-.input[type=text] {
+.input[type=text], .input[type=email], .input[type=password] {
     border-radius: 5px;
     font-family: Roboto, sans-serif;
     padding: 10px;
