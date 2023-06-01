@@ -50,56 +50,45 @@ Por decisión del equipo, el proyecto en Java correspondiente al backend fue doc
 
 Una vez se copia el archivo Dockerfile y la carpeta backend/ en la instancia EC2, se corre un script de bash que verifica si docker está instalado en la máquina virtual y de ser así, construye la imagen de Docker y ejecuta un contenedor basado en esa imagen.
 
-### Conexión por SSH a la EC2
-cd /home/jose/tech_projects/equipo-03/infra/scripts/
-chmod 400 instance-key-equipo3.pem
-ssh -i instance-key-equipo3.pem -o IdentitiesOnly=yes ubuntu@3.133.253.103
-
-
 ### Configuración de la EC2 básica 
 
-Au
-### Instalar Java 17
-sudo apt update
-sudo apt upgrade
-sudo apt install -y openjdk-17-jdk
-java -version
+Aunque en este proyecto la instancia de EC2 (Ubuntu 20.04) no fue configurada de forma manual, si se verificó la instalación de los paquetes necesarios para la aplicación del backend de forma manual. A continuación, se muestran los comandos necesarios para instalar los paquetes de forma manual dado el caso de que la aproximación del despliegue para el backend llegué a ser modificada. 
 
-### Instalar Maven 3.6.3
-sudo apt update
-wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-tar -xvf apache-maven-3.6.3-bin.tar.gz
-sudo mv apache-maven-3.6.3 /opt/
-sudo apt install maven
-mvn -version
+**Conexión por SSH a la EC2**
+* cd path_file_key.pem
+* chmod 400 key.pem
+* sh -i key.pem -o IdentitiesOnly=yes ubuntu@<IP_insatance>
 
-### Configuración variables de entorno 
-nano ~/.bashrc
+**Instalación de Java 17**
+* sudo apt update
+* sudo apt upgrade
+* sudo apt install -y openjdk-17-jdk
+* java -version
 
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export PATH=$PATH:$JAVA_HOME/bin
-export M2_HOME=/usr/share/maven
-export M2=$M2_HOME/bin
-export PATH=$PATH:$M2
+**Instalación de Maven 3.6.3**
+* sudo apt update
+* wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+* tar -xvf apache-maven-3.6.3-bin.tar.gz
+* sudo mv apache-maven-3.6.3 /opt/
+* sudo apt install maven
+* mvn -version
 
-source ~/.bashrc
+**Configuración de las variables de entorno**
+* nano ~/.bashrc 
 
-echo $JAVA_HOME
-echo $PATH
-echo $M2_HOME
-echo $M2
+  <! --- Agregar las siguientes líneas en el editor de texto --->
 
+  export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
-sudo nano /etc/nginx/conf.d/java.conf
-server {
-    listen 80;
-    server_name your-domain.com;
-    location / {
-        proxy_pass http://localhost:8080;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header Host $http_host;
-    }
-}
-cd /etc/nginx/conf.d
-ls
-sudo nginx -t
+  export PATH=$PATH:$JAVA_HOME/bin
+
+  export M2_HOME=/usr/share/maven
+
+  export M2=$M2_HOME/bin
+
+  export PATH=$PATH:$M2
+* source ~/.bashrc
+* echo $JAVA_HOME
+* echo $PATH
+* echo $M2_HOME
+* echo $M2
