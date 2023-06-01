@@ -23,11 +23,12 @@ const CategoryForm = () => {
       const data = new FormData()
       data.append('name', name)
       data.append('description', description)
-      data.append('image', image)
+      data.append('imageFile', image)
       categoryService
         .categoryRegister(data)
         .then(async (result) => {
-            if (result.status == 200) {
+          console.log(result)
+            if (result.status >= 200 && result.status < 300) {
               Swal.fire({
                 title: "Registro exitoso",
                 text: "La categoría ha sido creada correctamente.",

@@ -27,9 +27,8 @@ export const CardProduct = ({image, name, category, city, address, description, 
 
   const handleDelete = () => {
     productService.productDelete(id).then(async (result) => {
-      const response = await result.text();
       onDelete()
-      if (response == "removed product") {
+      if (result.status >= 200 || result.status < 300) {
         Swal.fire({
           title: "Eliminada exitosamente",
           text: "La oficina ha sido eliminada correctamente.",

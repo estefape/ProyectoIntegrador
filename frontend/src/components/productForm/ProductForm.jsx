@@ -36,21 +36,20 @@ const ProductForm = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     if (validation()) {
+      const data = new FormData()
+      data.append('name', name)
+      data.append('description', description)
+      data.append('category', category)
+      data.append('city', city)
+      data.append('address', address)
+      data.append('imageFile', image)
       productService
-        .productRegister({
-          name,
-          city,
-          address,
-          description,
-          image: "/images/photo1.jpg",
-          category: {
-            idCategory: category,
-          },
-        })
+        .productRegister(data)
         .then(async (result) => {
+          console.log(result.body)
           const response = await result.text();
 
-          if (response == "Ya existe un Coworking con este nombre") {
+          if (result.status == 404) {
             Swal.fire({
               title: "Aviso",
               text: "Ya existe una oficina con este nombre.",
@@ -59,7 +58,7 @@ const ProductForm = () => {
               confirmButtonColor: "#A61F69",
             });
           } else {
-            if (response == "Coworking Agregado Correctamente") {
+            if (result.status >= 200 && result.status < 300) {
               Swal.fire({
                 title: "Registro exitoso",
                 text: "La oficina ha sido agregada correctamente.",
