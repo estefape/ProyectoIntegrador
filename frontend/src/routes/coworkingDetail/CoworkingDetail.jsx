@@ -8,26 +8,32 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import PrintIcon from '@mui/icons-material/Print';
-
+import { constants } from "../../services/constants";
 import "./coworkingDetail.css";
-import { coworking } from "../../data.json"
 import StarRating from "../../components/starRating/StarRating";
-
-
 
 export const CoworkingDetail = () => {
 
     const [singleOffice, setSingleOffice] = useState({})
-    const { officeId } = useParams()
+    const { id } = useParams()
 
-    const getOfficeByOfficeId = (id) => {
-        return coworking.find(item => item.officeId === parseInt(id));
+
+    const getOfficeByOfficeId = async (id) => {
+        const requestConfig = {
+            method: 'GET',
+            headers: constants.AUTH_HEADERS,
+        }
+        const url = constants.PRODUCTS_ENDPOINT + id;
+        const response = await fetch(url, requestConfig);
+        return await response.json();
     }
 
     useEffect(() => {
-        const data = getOfficeByOfficeId(officeId);
-        setSingleOffice(data)
-    }, [officeId])
+        getOfficeByOfficeId(id).then(data => {
+            data.images = data.image.split(";");
+            setSingleOffice(data)
+        });
+    }, [id])
 
 
     return (

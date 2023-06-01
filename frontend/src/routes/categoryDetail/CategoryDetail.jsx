@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import "./categoryDetail.css";
-import { coworking, categories } from "../../data.json"
 import { CoworkingCard } from "../../components/coworkingCard/CoworkingCard";
+import { constants } from "../../services/constants";
 
 export const CategoryDetail = () => {
 
@@ -11,23 +11,37 @@ export const CategoryDetail = () => {
     const [coworkingByCategory, setCoworkingByCategory] = useState([])
     const { categoryId } = useParams()
 
-    const getCategoryById = (id) => {
-        return categories.find(category => category.id === parseInt(id));
+    const getCategoryById = async (id) => {
+        const requestConfig = {
+            method: 'GET',
+        }
+        const url = constants.CATEGORIES_ENDPOINT + id;
+        const response = await fetch(url, requestConfig);
+        return await response.json();
     }
 
-    const getCoworkingByCategoryId = (id) => {
-        return coworking.filter(coworking => coworking.category.id === parseInt(id));
-    }
+    const getData = async () => {
+        const requestConfig = {
+            method: 'GET',
+           
+        }
 
+        const url = constants.PRODUCTS_ENDPOINT ;
+        const response = await fetch(url, requestConfig);
+        return await response.json();
+    }
 
     useEffect(() => {
-        const data = getCategoryById(categoryId);
-        setCategory(data)
-        const coworkingByCategory = getCoworkingByCategoryId(categoryId);
-        console.log(coworkingByCategory)
-        setCoworkingByCategory(coworkingByCategory)
+        getCategoryById(categoryId).then(data => { 
+            setCategory(data)
+        })
+        getData().then(data => {
+            const coworkingByCategory = data.filter(item => item.category.idCategory === parseInt(categoryId))
+            console.log(coworkingByCategory)
+            setCoworkingByCategory(coworkingByCategory)
+        });
+    }, [categoryId]);
 
-    }, [categoryId])
 
     return (
         <>
