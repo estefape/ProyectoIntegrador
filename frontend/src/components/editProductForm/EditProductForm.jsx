@@ -3,14 +3,17 @@ import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import Swal from "sweetalert2";
-import "./ProductForm.css";
+import "./EditProductForm.css";
+import { useParams, redirect, useNavigate } from "react-router-dom";
 
-const ProductForm = () => {
+const EditProductForm = () => {
+  const navigate = useNavigate()
   const [
     { name, category, city, address, description, image },
     handleInputChanges,
     handleFileChanges,
     reset,
+    initValues
   ] = useForm({
     name: "",
     category: "",
@@ -21,6 +24,7 @@ const ProductForm = () => {
   });
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
+  const {productId} = useParams()
 
   useEffect(() => {
     categoryService
@@ -31,53 +35,56 @@ const ProductForm = () => {
       .then((categories) => {
         setCategories(categories);
       });
+
+      productService.productFindById(productId)
+      .then(result => {
+        return result.json()
+      })
+      .then(product => {
+        initValues({...product, category: product.category.idCategory})
+      })
   }, []);
 
-  const handleRegister = (event) => {
+  const handleUpdate = (event) => {
     event.preventDefault();
     if (validation()) {
-      const data = new FormData();
-      data.append("name", name);
-      data.append("description", description);
-      data.append("category", category);
-      data.append("city", city);
-      data.append("address", address);
-      data.append("rating", 0);
-      for (let i = 1; i <= image.length; i++) {
-        console.log(i);
-        data.append(`imageFile${i}`, image[i - 1]);
-      }
-      productService.productRegister(data).then(async (result) => {
-        const response = await result.text();
-
-        if (result.status == 404) {
-          Swal.fire({
-            title: "Aviso",
-            text: "Ya existe una oficina con este nombre.",
-            icon: "warning",
-            confirmButtonText: "Aceptar",
-            confirmButtonColor: "#A61F69",
-          });
-        } else {
+      productService
+        .productUpdate({
+          idCoworking: productId,
+          name,
+          city,
+          address,
+          description,
+          rating: 3,
+          image: image,
+          category: {
+            idCategory: category,
+          },
+        })
+        .then(async (result) => {
+          
           if (result.status >= 200 && result.status < 300) {
             Swal.fire({
-              title: "Registro exitoso",
-              text: "La oficina ha sido agregada correctamente.",
+              title: "Actualización exitosa",
+              text: "La oficina ha sido actualizada correctamente.",
               icon: "success",
               confirmButtonText: "Aceptar",
               confirmButtonColor: "#A61F69",
+            }).then(result => {
+              console.log(result)
+              navigate('/admin/products')
             });
+            
           } else {
             Swal.fire({
               title: "Error",
-              text: "No fue posible registrar la oficina.",
+              text: "No fue posible actualizar la oficina.",
               icon: "error",
               confirmButtonText: "Aceptar",
               confirmButtonColor: "#F2921D",
             });
           }
-        }
-      });
+        });
       setErrors("");
       reset();
     }
@@ -85,11 +92,7 @@ const ProductForm = () => {
 
   const validation = () => {
     if (name && city && address && description && image) {
-      if (image.length == 5) {
-        return true;
-      }
-      setErrors("Debe subir 5 imagenes");
-      return false;
+      return true;
     } else {
       setErrors("Todos los campos son obligatorios");
       return false;
@@ -100,7 +103,7 @@ const ProductForm = () => {
     <div className="wrapper">
       <form className="product-form">
         <div className="form-tittle">
-          <h3 className="form-header">Registrar Nueva Oficina</h3>
+          <h3 className="form-header">Editar Datos de Oficina</h3>
         </div>
         <div className="form-inputs">
           <label>
@@ -159,12 +162,11 @@ const ProductForm = () => {
             name="image"
             type="file"
             accept="image/*"
-            multiple="multiple"
-            onChange={handleFileChanges}
+            //onChange={handleFileChanges}
           />
           <span style={{ color: "red" }}>{errors}</span>
-          <button className="btn" onClick={handleRegister}>
-            REGISTRAR
+          <button className="btn" onClick={handleUpdate}>
+            GUARDAR
           </button>
         </div>
       </form>
@@ -172,4 +174,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default EditProductForm;
