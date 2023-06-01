@@ -24,7 +24,7 @@ export const Header = () => {
                 </Link>
             </div>
             <div className="buttons">
-                <a className='btn' to={`/admin/`}>Admin</a>
+                <Link className='btn' to={`/admin/`}>Admin</Link>
                 <button className='btn'>Crear cuenta</button>
                 <button className='btn'>Iniciar sesión</button>
             </div>
