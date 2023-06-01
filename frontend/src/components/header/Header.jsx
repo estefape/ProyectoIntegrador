@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 import AppContext from '../../context/AppContext';
+import Swal from 'sweetalert2';
 
 export const Header = () => {
 
@@ -21,10 +22,10 @@ export const Header = () => {
     } = useContext(AppContext);
 
     useEffect(() => {
-        if (!isAuthGlobalState()) {
+        if ( isAuthGlobalState() ) {
             setAvatar(getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0))
         }
-    }, []);
+    }, [isAuthGlobalState]);
 
     useEffect(() => {
         if( window.location.href.includes("login") ){

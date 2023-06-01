@@ -5,8 +5,8 @@ import AppContext from './AppContext'
 export const AppProvider = ({ children }) => {
 
     const [globalState, setGlobalState] = useState({
-        nombre: "Jorgelina",
-        apellido: "Cueli",
+        nombre: "",
+        apellido: "",
         authenticado: false,
         email: "",
     });
@@ -27,8 +27,8 @@ export const AppProvider = ({ children }) => {
         return globalState.authenticado;
     }
 
-    const login = ({ email }) => {
-        setGlobalState({ ...globalState, email, authenticado: true });
+    const login = ({ nombre, apellido, email }) => {
+        setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true });
     }
 
     const signOf = () => {

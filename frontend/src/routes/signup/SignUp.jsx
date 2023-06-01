@@ -42,18 +42,20 @@ export const SignUp = () => {
                 })
             }).then(resp => {
                 if (resp.ok) {
-                    resp.text()
-                        .then(msg => {
+                    resp.json()
+                        .then(userAuth => {
                             Swal.fire({
-                                title: msg,
+                                title: "Inicio de sesion exitoso!",
                                 text: "Seras redirigido...",
                                 icon: "success",
                                 confirmButtonText: "Aceptar",
                                 confirmButtonColor: "#F2921D",
                             }).then(() => {
                                 login({
-                                    email: newUser.email,
-                                });
+									nombre: userAuth.name,
+									apellido: userAuth.lastname,
+									email: userAuth.email,
+								});
                                 navigate("/")
                             });
                         })
