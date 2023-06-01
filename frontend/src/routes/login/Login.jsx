@@ -107,7 +107,7 @@ export const Login = () => {
 
 					<div className="login-pt1">
 
-						<div className="icon-container">
+						<div className="login-icon-container">
 							<svg xmlns="http://www.w3.org/2000/svg"
 								width="16"
 								height="16"

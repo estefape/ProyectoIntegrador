@@ -21,7 +21,6 @@ export const CoworkingDetail = () => {
     const getOfficeByOfficeId = async (id) => {
         const requestConfig = {
             method: 'GET',
-            headers: constants.AUTH_HEADERS,
         }
         const url = constants.PRODUCTS_ENDPOINT + id;
         const response = await fetch(url, requestConfig);
