@@ -9,6 +9,17 @@ export const postData = async (url, data) => {
     return response
 }
 
+export const putData = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        
+    return reponse
+}
 export const postDataWithFormData = async (url, data) => {
     const response = await fetch(url, {
         method: 'POST',

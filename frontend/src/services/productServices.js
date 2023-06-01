@@ -10,5 +10,13 @@ export const productDelete = (id) => {
 }
 
 export const productAll = () => {
-    return getData(constants.PRODUCTS_ENDPOINT )
+    return getData(constants.PRODUCTS_ENDPOINT)
+}
+
+export const productFindById = (id) => {
+    return getData(constants.PRODUCTS_ENDPOINT + id)
+}
+
+export const productUpdate = (product) => {
+    return putData(constants.PRODUCTS_ENDPOINT, product)
 }
