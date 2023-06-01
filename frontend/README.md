@@ -1,2 +1,2 @@
 # Digital Booking
-## Frontend 
+## Frontend
