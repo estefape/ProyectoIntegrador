@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SideBar from './components/sidebar/sidebar';
 import Products from './components/products/products';
 import { CoworkingDetail } from './routes/coworkingDetail/CoworkingDetail';
+import { CategoryDetail } from './routes/categoryDetail/CategoryDetail';
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/detail/:officeId' element={<CoworkingDetail/>}/>
-          <Route path='admin' element={<SideBar/>}>
+          <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
+          <Route path='admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>
             <Route path='editproduct' element={<EditProductForm/>}>

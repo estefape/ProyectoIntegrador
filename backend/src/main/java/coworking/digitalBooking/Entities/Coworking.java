@@ -1,9 +1,7 @@
 package coworking.digitalBooking.Entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.*;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -11,32 +9,37 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "Coworking",uniqueConstraints = { @UniqueConstraint(columnNames = { "name" })})
 public class Coworking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idCoworking;
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idCoworking;
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column
+    @Column(name = "city", nullable = false)
     private String city;
-    @Column
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column
+    @Column(name = "description", nullable = false)
     private String description;
-    @Column
+    @Column(name = "image", nullable = false)
     private String image;
+
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
 
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
 
-    public Coworking(String name, String city, String address, String description, String image, Category category) {
+    public Coworking(String name, String city, String address, String description, String image, Integer rating, Category category) {
         this.name = name;
         this.city = city;
         this.address = address;
         this.description = description;
         this.image = image;
+        this.rating = rating;
         this.category = category;
     }
 

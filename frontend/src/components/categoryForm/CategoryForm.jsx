@@ -20,12 +20,12 @@ const CategoryForm = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     if (validation()) {
+      const data = new FormData()
+      data.append('name', name)
+      data.append('description', description)
+      data.append('image', image)
       categoryService
-        .categoryRegister({
-          name,
-          description,
-          image: "/images/photo1.jpg"
-        })
+        .categoryRegister(data)
         .then(async (result) => {
             if (result.status == 200) {
               Swal.fire({
@@ -47,7 +47,7 @@ const CategoryForm = () => {
           
         });
       setErrors("");
-      reset();
+      //reset();
     }
   };
 

@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
-import StarIcon from '@mui/icons-material/Star';
 import TvIcon from '@mui/icons-material/Tv';
 import WifiIcon from '@mui/icons-material/Wifi';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -11,7 +10,10 @@ import CoffeeIcon from '@mui/icons-material/Coffee';
 import PrintIcon from '@mui/icons-material/Print';
 
 import "./coworkingDetail.css";
-import oficinas from "../../data.json"
+import { coworking } from "../../data.json"
+import StarRating from "../../components/starRating/StarRating";
+
+
 
 export const CoworkingDetail = () => {
 
@@ -19,7 +21,7 @@ export const CoworkingDetail = () => {
     const { officeId } = useParams()
 
     const getOfficeByOfficeId = (id) => {
-        return oficinas.find(item => item.officeId === parseInt(id));
+        return coworking.find(item => item.officeId === parseInt(id));
     }
 
     useEffect(() => {
@@ -43,8 +45,8 @@ export const CoworkingDetail = () => {
                             <div className="address">
                                 <p className="icon-container"> <LocationOnIcon className="icon" /> <span>{singleOffice.address} {singleOffice.city}</span></p>
                             </div>
-                            <div className="star">
-                                <p className="icon-container"> <StarIcon className="icon" /> <span>Muy Bueno</span></p>
+                            <div className="icon-container">
+                                Calificacion &nbsp;&nbsp;<StarRating value={singleOffice.rating} />
                             </div>
                         </div>
 
@@ -61,7 +63,7 @@ export const CoworkingDetail = () => {
                             </div>
                         </div>
                         <div className="container">
-                            <h2 className="category"> Categoria: {singleOffice.category}</h2>
+                            <h2 className="category"> Categoria: {singleOffice.category.name}</h2>
                             <p>{singleOffice.description}</p>
                         </div>
                         <div className="container with-border-bottom">
