@@ -1,4 +1,4 @@
-const root = 'http://localhost:8080'
+const root = 'http://3.141.149.37'
 
 export const constants = {
     REGISTER_PRODUCTS_ENDPOINT: root + '/Products/register',
