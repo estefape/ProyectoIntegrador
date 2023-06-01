@@ -31,7 +31,7 @@ export const SignUp = () => {
 
         if (validation()) {
 
-            fetch("http://localhost:8080/api/auth/register", {
+            fetch("http://3.141.149.37/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
