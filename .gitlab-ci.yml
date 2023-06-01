@@ -49,8 +49,7 @@ deploy_frontend:
     - echo $(pwd)
     - echo $(ls)
     - echo "Deploy frontend to S3 bucket"
-    - aws s3 cp dist/assets s3://frontend-c3-equipo3/assets --recursive
-    - aws s3 cp dist/index.html s3://frontend-c3-equipo3
+    - aws s3 sync dist/ s3://frontend-c3-equipo3 --acl public-read --recursive
   rules:
     - changes:
         - frontend/**/*
