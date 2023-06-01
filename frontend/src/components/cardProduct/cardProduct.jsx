@@ -1,14 +1,25 @@
-import "./cardProduct.css"
+import "./cardProduct.css";
 import * as productService from "../../services/productServices";
 import { Icons } from "../icons/Icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
-export const CardProduct = ({image, name, category, city, address, description, officeId, role = "user", id, onDelete}) => {
+export const CardProduct = ({
+  image,
+  name,
+  category,
+  city,
+  address,
+  description,
+  officeId,
+  role = "user",
+  id,
+  onDelete,
+}) => {
   const imageStyle = {
-    backgroundImage: `url(${image})`
-  }
+    backgroundImage: `url(${image ? image.split(';')[0] : ''})`,
+  };
 
   const confirmation = () => {
     Swal.fire({
@@ -27,9 +38,8 @@ export const CardProduct = ({image, name, category, city, address, description, 
 
   const handleDelete = () => {
     productService.productDelete(id).then(async (result) => {
-      const response = await result.text();
       onDelete()
-      if (response == "removed product") {
+      if (result.status >= 200 || result.status < 300) {
         Swal.fire({
           title: "Eliminada exitosamente",
           text: "La oficina ha sido eliminada correctamente.",
@@ -52,29 +62,45 @@ export const CardProduct = ({image, name, category, city, address, description, 
   return (
     <>
       <div className="card-product">
-        <div className="card-product-img" style={ imageStyle }></div>
+        <div className="card-product-img" style={imageStyle}></div>
         <div className="card-product-container">
           {role == "admin" && (
+            <>
               <div className="trash-container" onClick={confirmation}>
                 <Icons name="trash" />
               </div>
-            )}
+              <NavLink
+                to={`/admin/editproduct/${id}`}
+                className="edit-container"
+              >
+                <Icons name="edit" />
+              </NavLink>
+            </>
+          )}
           <div className="card-product-top">
             <h3>{name}</h3>
             <h4>{category}</h4>
             <div>
-              <p> <Icons name="star" /> Muy Bueno</p>
+              <p>
+                {" "}
+                <Icons name="star" /> Muy Bueno
+              </p>
             </div>
           </div>
           <div className="card-product-body">
             <div>
-              <p> <Icons name="pin" /> {address} {city}</p>
+              <p>
+                {" "}
+                <Icons name="pin" /> {address} {city}
+              </p>
               <p>MOSTRAR EN EL MAPA</p>
             </div>
           </div>
           <div className="card-product-footer">
             <p>{description.substring(0, 70)}...</p>
-            <Link className="btn" to={`/detail/${officeId}`}>Ver Mas</Link>
+            <Link className="btn" to={`/detail/${officeId}`}>
+              Ver Mas
+            </Link>
           </div>
         </div>
       </div>

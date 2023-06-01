@@ -42,7 +42,12 @@ public class CoworkingController {
             @RequestParam String city,
             @RequestParam String address,
             @RequestParam String description,
-            @RequestParam MultipartFile imageFile
+            @RequestParam Integer rating,
+            @RequestParam MultipartFile imageFile1,
+            @RequestParam MultipartFile imageFile2,
+            @RequestParam MultipartFile imageFile3,
+            @RequestParam MultipartFile imageFile4,
+            @RequestParam MultipartFile imageFile5
     ) {
         try {
             CategoryDTO categoryDTO = new CategoryDTO();
@@ -53,9 +58,18 @@ public class CoworkingController {
             coworkingDTO.setCity(city);
             coworkingDTO.setAddress(address);
             coworkingDTO.setDescription(description);
+            coworkingDTO.setRating(rating);
 
-            String imageUrl = manageFilesS3Service.uploadFileToS3(imageFile);
-            coworkingDTO.setImage(imageUrl);
+            String imageUrl1 = manageFilesS3Service.uploadFileToS3(imageFile1);
+            String imageUrl2 = manageFilesS3Service.uploadFileToS3(imageFile2);
+            String imageUrl3 = manageFilesS3Service.uploadFileToS3(imageFile3);
+            String imageUrl4 = manageFilesS3Service.uploadFileToS3(imageFile4);
+            String imageUrl5 = manageFilesS3Service.uploadFileToS3(imageFile5);
+
+
+            coworkingDTO.setImage(imageUrl1 + ";" + imageUrl2 + ";" + imageUrl3+ ";" + imageUrl4 + ";" + imageUrl5);
+
+           // coworkingDTO.setImage(imageUrl1.concat(";").concat(imageUrl2).concat(";").concat(imageUrl3).concat(";").concat(imageUrl4).concat(";").concat(imageUrl5));
 
             return new ResponseEntity<>(coworkingService.registerProduct(coworkingDTO), HttpStatus.CREATED);
         } catch (

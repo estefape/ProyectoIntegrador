@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -37,12 +38,16 @@ public class AuthController {
 
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> authenticateUser(@RequestBody LoginDTO loginDTO){
+	public ResponseEntity<User> authenticateUser(@RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		return new ResponseEntity<>("Inicio de sesion exitosa", HttpStatus.OK);
+
+		Optional<User> usuario = userRepository.findByEmail(loginDTO.getEmail());
+
+
+
+		return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/register")
@@ -62,6 +67,6 @@ public class AuthController {
 		user.setRoles(Collections.singleton(roles));
 
 		userRepository.save(user);
-		return new ResponseEntity<>("Registrado Exitosamente",HttpStatus.OK);
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 }
