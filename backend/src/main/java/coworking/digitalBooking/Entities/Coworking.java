@@ -26,16 +26,20 @@ public class Coworking {
     @Column(name = "image", nullable = false)
     private String image;
 
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
+
     @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
 
-    public Coworking(String name, String city, String address, String description, String image, Category category) {
+    public Coworking(String name, String city, String address, String description, String image, Integer rating, Category category) {
         this.name = name;
         this.city = city;
         this.address = address;
         this.description = description;
         this.image = image;
+        this.rating = rating;
         this.category = category;
     }
 
