@@ -3,6 +3,8 @@ import "./signup.css";
 import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../context/AppContext";
+import { constants } from "../../services/constants";
+
 
 export const SignUp = () => {
 
@@ -31,7 +33,7 @@ export const SignUp = () => {
 
         if (validation()) {
 
-            fetch("http://3.141.149.37/api/auth/register", {
+            fetch( constants.REGISTER_ENDPOINT , {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

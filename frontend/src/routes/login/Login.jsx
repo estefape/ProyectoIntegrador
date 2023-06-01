@@ -4,6 +4,7 @@ import "./login.css"
 import React, { useContext, useState } from 'react'
 import AppContext from "../../context/AppContext"
 import { useNavigate } from "react-router-dom"
+import { constants } from "../../services/constants"
 
 export const Login = () => {
 
@@ -27,7 +28,7 @@ export const Login = () => {
 		e.preventDefault();
 		if (validation()) {
 
-			fetch("http://3.141.149.37/api/auth/login", {
+			fetch( constants.LOGIN_ENDPOINT , {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
