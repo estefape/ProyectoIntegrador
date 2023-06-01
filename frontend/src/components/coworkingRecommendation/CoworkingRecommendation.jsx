@@ -12,7 +12,6 @@ export const CoworkingRecommendation = () => {
   const getData = async () => {
     const requestConfig = {
       method: 'GET',
-     
     }
 
     const response = await fetch(`${constants.PRODUCTS_ENDPOINT}`, requestConfig);
