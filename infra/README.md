@@ -46,7 +46,9 @@ En el archivo .gitlab-ci.yml se elaboró un pipeline que consta de los siguiente
 
 ![Estructura de carpetas](img/pipeline_diagram.png)
 
-Por decisión del equipo, el proyecto en Java correspondiente al backend fue dockerizado. Para esto, en la raíz del proyecto se realizó un archivo Dockerfile con los pasos de *build* y *production* para generar el archivo .tar 
+Por decisión del equipo, el proyecto en Java correspondiente al backend fue dockerizado. Para esto, en la raíz del proyecto se realizó un archivo Dockerfile con las etapas de *build* y *production*. En el primera etapa se compila y empaqueta la aplicación en un archivo .jar y posteriormente, en la segunda etapa se copia el archivo .jar generado en la etapa anterior y se expone la aplicación en el puerto 8080. Finalmente, se especifica el comando que inicializa la aplicación dentro del contenedor. 
+
+Una vez se copia el archivo Dockerfile y la carpeta backend/ en la instancia EC2, se corre un script de bash que verifica si docker está instalado en la máquina virtual y de ser así, construye la imagen de Docker y ejecuta un contenedor basado en esa imagen.
 
 ### Conexión por SSH a la EC2
 cd /home/jose/tech_projects/equipo-03/infra/scripts/
