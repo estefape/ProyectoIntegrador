@@ -1,15 +1,59 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import AppContext from '../../context/AppContext';
+import Swal from 'sweetalert2';
 
 export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [avatar, setAvatar] = useState("");
+    const [buttonsHeader, setButtonsHeader] = useState(true);
+    const [buttonCrearCuenta, setButtonCrearCuenta] = useState(true);
+    const [buttonInicioSesion, setButtonInicioSesion] = useState(true);
+
+    const navigate = useNavigate();
+
+    const { isAuthGlobalState,
+        signOf,
+        getNameGlobalState,
+        getSurnameGlobalState
+    } = useContext(AppContext);
+
+    useEffect(() => {
+        if ( isAuthGlobalState() ) {
+            setAvatar(getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0))
+        }
+    }, [isAuthGlobalState]);
+
+    useEffect(() => {
+        if( window.location.href.includes("login") ){
+            setButtonInicioSesion(false)
+            setButtonCrearCuenta(true)
+        }else if( window.location.href.includes("signup") ){
+            setButtonInicioSesion(true)
+            setButtonCrearCuenta(false)
+        }else{
+            setButtonInicioSesion(true)
+            setButtonCrearCuenta(true)
+        }
+    })
+
+
+    const closeSesion = () => {
+        signOf();
+        Swal.fire({
+            title: "Cerrando sesion!",
+            text: "Seras redirigido...",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#F2921D",
+        })
+            .then(() => {
+                navigate("/")
+            })
+    }
 
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
@@ -24,23 +68,45 @@ export const Header = () => {
                 </Link>
             </div>
             <div className="buttons">
-                <Link className='btn' to={`/admin/`}>Admin</Link>
-                <button className='btn'>Crear cuenta</button>
-                <button className='btn'>Iniciar sesión</button>
+                {
+                    isAuthGlobalState()
+                        ?
+                        <>
+                            <li className='avatar-container'>
+                                <span className='avatar'> {avatar}</span>
+                                <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
+                            </li>
+                        </>
+                        :
+                        <>
+                            { buttonCrearCuenta && <li><Link to="/signup" className='btn'>Crear cuenta</Link></li> }
+                            { buttonInicioSesion && <li><Link to="/login" className='btn'>Iniciar sesión</Link></li> }
+                        </>
+                }
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <div className="nav-header">
                     MENU
                 </div>
                 <ul>
-                    <li><a href="#">Crear cuenta</a></li>
-                    <li><a href="#">Iniciar sesión</a></li>
+                    {
+                        isAuthGlobalState()
+                            ?
+                            <li><Link to="#" className='btn'>Cerrar sesión</Link></li>
+                            :
+                            <>
+                                <li><Link to="/signup" className='btn'>Crear cuenta</Link></li>
+                                <li><Link to="/login" className='btn'>Iniciar sesión</Link></li>
+                            </>
+
+
+                    }
                 </ul>
                 <div className='redes-sociales'>
-                    <span><FacebookIcon /></span>
+                    {/* <span><FacebookIcon /></span>
                     <span><InstagramIcon /></span>
                     <span><WhatsAppIcon /></span>
-                    <span><LinkedInIcon /></span>
+                    <span><LinkedInIcon /></span> */}
                 </div>
             </nav>
             <div className={menuOpen ? 'menu-btn menu-open' : 'menu-btn'} onClick={handleMenuClick}>
