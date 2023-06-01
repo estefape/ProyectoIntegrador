@@ -2,12 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import iconoLogo from "../../assets/logo1.png";
 import './header.css';
+import AppContext from '../../context/AppContext';
 
 export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [avatar, setAvatar] = useState("");
     const [buttonsHeader, setButtonsHeader] = useState(true);
+    const [buttonCrearCuenta, setButtonCrearCuenta] = useState(true);
+    const [buttonInicioSesion, setButtonInicioSesion] = useState(true);
 
     const navigate = useNavigate();
 
@@ -18,27 +21,27 @@ export const Header = () => {
     } = useContext(AppContext);
 
     useEffect(() => {
-
         if (!isAuthGlobalState()) {
             setAvatar(getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0))
         }
-
     }, []);
 
-    // useEffect(() => {
-
-    //     if (window.location.href.includes("login") || window.location.href.includes("signup")) {
-    //         setButtonsHeader(false);
-    //     }
-
-    // }, [])
-
+    useEffect(() => {
+        if( window.location.href.includes("login") ){
+            setButtonInicioSesion(false)
+            setButtonCrearCuenta(true)
+        }else if( window.location.href.includes("signup") ){
+            setButtonInicioSesion(true)
+            setButtonCrearCuenta(false)
+        }else{
+            setButtonInicioSesion(true)
+            setButtonCrearCuenta(true)
+        }
+    })
 
 
     const closeSesion = () => {
-
         signOf();
-
         Swal.fire({
             title: "Cerrando sesion!",
             text: "Seras redirigido...",
@@ -49,7 +52,6 @@ export const Header = () => {
             .then(() => {
                 navigate("/")
             })
-
     }
 
     const handleMenuClick = () => {
@@ -76,8 +78,8 @@ export const Header = () => {
                         </>
                         :
                         <>
-                            <li><Link to="/signup" className='btn'>Crear cuenta</Link></li>
-                            <li><Link to="/login" className='btn'>Iniciar sesión</Link></li>
+                            { buttonCrearCuenta && <li><Link to="/signup" className='btn'>Crear cuenta</Link></li> }
+                            { buttonInicioSesion && <li><Link to="/login" className='btn'>Iniciar sesión</Link></li> }
                         </>
                 }
             </div>
@@ -100,10 +102,10 @@ export const Header = () => {
                     }
                 </ul>
                 <div className='redes-sociales'>
-                    <span><FacebookIcon /></span>
+                    {/* <span><FacebookIcon /></span>
                     <span><InstagramIcon /></span>
                     <span><WhatsAppIcon /></span>
-                    <span><LinkedInIcon /></span>
+                    <span><LinkedInIcon /></span> */}
                 </div>
             </nav>
             <div className={menuOpen ? 'menu-btn menu-open' : 'menu-btn'} onClick={handleMenuClick}>

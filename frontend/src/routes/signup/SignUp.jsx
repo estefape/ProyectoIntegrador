@@ -1,16 +1,20 @@
 import Swal from "sweetalert2";
 import "./signup.css";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import AppContext from "../../context/AppContext";
 
 export const SignUp = () => {
 
+    const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
         nombre: "",
         apellido: "",
         email: "",
         password: "",
         replyPassword: ""
-    })
+    });
+    const { login } = useContext(AppContext);
 
     const resetInputs = () => {
         setNewUser({
@@ -27,26 +31,46 @@ export const SignUp = () => {
 
         if (validation()) {
 
-            Swal.fire({
-                title: "Registro exitoso!",
-                text: "Seras redirigido...",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#F2921D",
+            fetch("http://localhost:8080/api/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: newUser.nombre,
+                    lastname: newUser.apellido,
+                    email: newUser.email,
+                    password: newUser.password
+                })
+            }).then(resp => {
+                if (resp.ok) {
+                    resp.text()
+                        .then(msg => {
+                            Swal.fire({
+                                title: msg,
+                                text: "Seras redirigido...",
+                                icon: "success",
+                                confirmButtonText: "Aceptar",
+                                confirmButtonColor: "#F2921D",
+                            }).then(() => {
+                                login({
+                                    email: newUser.email,
+                                });
+                                navigate("/")
+                            });
+                        })
+                } else {
+                    resp.text()
+                        .then(errorMessage => {
+                            Swal.fire({
+                                title: "Error",
+                                text: errorMessage,
+                                icon: "error",
+                                confirmButtonText: "Aceptar",
+                                confirmButtonColor: "#F2921D",
+                            })
+                        })
+                }
             })
-                .then(
-                    // TODO: peticion fetch al back para inicio de sesion... 
-                    console.log({
-                        nombre: newUser.nombre,
-                        apellido: newUser.apellido,
-                        email: newUser.email,
-                        password: newUser.password
-                    })
-                )
-
         }
-
-        console.log(newUser);
     }
 
     const validation = () => {

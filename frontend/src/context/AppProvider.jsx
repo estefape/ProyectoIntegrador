@@ -9,8 +9,7 @@ export const AppProvider = ({ children }) => {
         apellido: "Cueli",
         authenticado: false,
         email: "",
-        password: "",
-    })
+    });
 
 
     // Aca van todos los metodos para extraer y setear los valores de las propiedades del Global Context,
@@ -28,10 +27,8 @@ export const AppProvider = ({ children }) => {
         return globalState.authenticado;
     }
 
-    const login = ({
-        email, password
-    }) => {
-        setGlobalState({ ...globalState, email, password, authenticado: true });
+    const login = ({ email }) => {
+        setGlobalState({ ...globalState, email, authenticado: true });
     }
 
     const signOf = () => {
@@ -40,7 +37,6 @@ export const AppProvider = ({ children }) => {
             apellido: "",
             authenticado: false,
             email: "",
-            password: "",
         })
     }
 
