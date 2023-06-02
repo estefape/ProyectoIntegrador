@@ -34,7 +34,7 @@ En la carpeta "infra", se creó otra carpeta denominada "terraform" para almacen
 
 Teniendo en cuenta el aprovisionamiento de la infraestructura, el diagrama de infraestructura del pasado sprint fue modificado con los respectivos nombres de cada recurso.
 
-![Estructura de carpetas](img/infraDiagramUpdate.png)
+![Diagrama de infraestructura actualizado](img/infraDiagramUpdate.png)
 
 ### CI/CD
 
@@ -44,7 +44,7 @@ En el archivo .gitlab-ci.yml se elaboró un pipeline que consta de los siguiente
 3. Despliegue de la aplicación web (frontend) en el bucket S3 en AWS
 4. Despliegue del proyecto en Java (backend) en la EC2 en AWS 
 
-![Estructura de carpetas](img/pipeline_diagram.png)
+![CI/CD](img/pipelineDiagram.png)
 
 Por decisión del equipo, el proyecto en Java correspondiente al backend fue dockerizado. Para esto, en la raíz del proyecto se realizó un archivo Dockerfile con las etapas de *build* y *production*. En el primera etapa se compila y empaqueta la aplicación en un archivo .jar y posteriormente, en la segunda etapa se copia el archivo .jar generado en la etapa anterior y se expone la aplicación en el puerto 8080. Finalmente, se especifica el comando que inicializa la aplicación dentro del contenedor. 
 
