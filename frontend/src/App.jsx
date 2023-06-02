@@ -51,7 +51,7 @@ function App() {
           <Route path='/signup' element={ <SignUp/> }/>
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
-          <Route path='/admin' element={<SideBar />}>
+          <Route path='admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>
             <Route path='editproduct' element={<EditProductForm/>}>
