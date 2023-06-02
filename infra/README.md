@@ -34,7 +34,7 @@ En la carpeta "infra", se creó otra carpeta denominada "terraform" para almacen
 
 Teniendo en cuenta el aprovisionamiento de la infraestructura, el diagrama de infraestructura del pasado sprint fue modificado con los respectivos nombres de cada recurso.
 
--------------------poner nuevo diagrama de infra----------------
+![Estructura de carpetas](img/infraDiagramUpdate.png)
 
 ### CI/CD
 
