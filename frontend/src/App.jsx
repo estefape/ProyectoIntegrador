@@ -5,7 +5,7 @@ import { Header } from './components/header/Header';
 import ProductForm from './components/productForm/ProductForm';
 import EditProductForm from './components/editProductForm/EditProductForm';
 import CategoryForm from './components/categoryForm/CategoryForm';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SideBar from './components/sidebar/sidebar';
 import Products from './components/products/products';
 import { CoworkingDetail } from './routes/coworkingDetail/CoworkingDetail';
@@ -42,7 +42,7 @@ function App() {
   */
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className='App'>
         <Header />
         <Routes>
@@ -51,7 +51,7 @@ function App() {
           <Route path='/signup' element={ <SignUp/> }/>
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
-          <Route path='admin' element={<SideBar />}>
+          <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>
             <Route path='editproduct' element={<EditProductForm/>}>
@@ -63,7 +63,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
