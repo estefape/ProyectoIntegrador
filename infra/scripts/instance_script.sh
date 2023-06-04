@@ -50,6 +50,8 @@ if [ -f "$ruta/Dockerfile" ]; then
   if [ -d "$ruta/backend/" ]; then
     echo "La carpeta 'backend' existe en la ruta especificada."
 
+    docker system prune --force
+
     # Construir la imagen
     sudo docker build -t "$nombre_usuario/$nombre_repositorio:$etiqueta" .
 
