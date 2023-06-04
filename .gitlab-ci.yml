@@ -36,8 +36,10 @@ build_frontend:
   rules:
     - changes:
         - frontend/**/*
-      if: '$CI_COMMIT_REF_NAME == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+      exists:
+        - $CI_COMMIT_REF_NAME
     - exists:
+        - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
         - $CI_COMMIT_REF_NAME
   image: node:16-alpine
   artifacts:
@@ -56,8 +58,10 @@ deploy_frontend:
   rules:
     - changes:
         - frontend/**/*
-      if: '$CI_COMMIT_REF_NAME == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+      exists:
+        - $CI_COMMIT_REF_NAME
     - exists:
+        - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
         - $CI_COMMIT_REF_NAME
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
