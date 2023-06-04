@@ -93,8 +93,10 @@ public class CoworkingController {
 
         CoworkingDTO coworkingDTO = coworkingService.searchById(id);
         coworkingService.delete(id);
-        manageFilesS3Service.deleteFileFromS3(coworkingDTO.getImage());
+        String[] imageUrls = coworkingDTO.getImage().split(";");
+        for (String imageUrl : imageUrls) {
+            manageFilesS3Service.deleteFileFromS3(imageUrl.trim());
+        }
         return new ResponseEntity<>("Coworking Delete", HttpStatus.OK);
     }
-
 }
