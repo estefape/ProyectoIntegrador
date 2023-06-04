@@ -40,6 +40,9 @@ build_frontend:
         - frontend/**/*
     - exists:
         - $CI_COMMIT_REF_NAME:merge_request
+    - exists:
+        - $CI_COMMIT_REF_NAME:develop
+      when: manual
   image: node:16-alpine
   artifacts:
     paths:
@@ -61,6 +64,9 @@ deploy_frontend:
         - frontend/**/*
     - exists:
         - $CI_COMMIT_REF_NAME:merge_request
+    - exists:
+        - $CI_COMMIT_REF_NAME:develop
+      when: manual
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
