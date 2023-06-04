@@ -36,6 +36,8 @@ build_frontend:
   rules:
     - exists:
         - $CI_COMMIT_REF_NAME:develop
+      changes:
+        - frontend/**/*
   image: node:16-alpine
   artifacts:
     paths:
