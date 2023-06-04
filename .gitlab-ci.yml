@@ -34,15 +34,14 @@ build_frontend:
     - npm run build
     - echo $(ls)
   rules:
-    - exists:
-        - $CI_COMMIT_REF_NAME:develop
-      changes:
+    - changes:
         - frontend/**/*
+      exists:
+        - $CI_COMMIT_REF_NAME
     - exists:
         - $CI_COMMIT_REF_NAME:merge_request
-    - exists:
-        - $CI_COMMIT_REF_NAME:develop
-      when: manual
+      variables:
+        - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"
   image: node:16-alpine
   artifacts:
     paths:
@@ -58,15 +57,14 @@ deploy_frontend:
     - echo "Deploy frontend to S3 bucket"
     - aws s3 cp dist/ s3://frontend-c3-equipo3 --recursive
   rules:
-    - exists:
-        - $CI_COMMIT_REF_NAME:develop
-      changes:
+    - changes:
         - frontend/**/*
+      exists:
+        - $CI_COMMIT_REF_NAME
     - exists:
         - $CI_COMMIT_REF_NAME:merge_request
-    - exists:
-        - $CI_COMMIT_REF_NAME:develop
-      when: manual
+      variables:
+        - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - build_frontend
