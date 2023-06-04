@@ -4,6 +4,10 @@ import iconoLogo from "../../assets/logo1.png";
 import './header.css';
 import AppContext from '../../context/AppContext';
 import Swal from 'sweetalert2';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export const Header = () => {
 
@@ -103,10 +107,10 @@ export const Header = () => {
                     }
                 </ul>
                 <div className='redes-sociales'>
-                    {/* <span><FacebookIcon /></span>
+                     <span><FacebookIcon /></span>
                     <span><InstagramIcon /></span>
                     <span><WhatsAppIcon /></span>
-                    <span><LinkedInIcon /></span> */}
+                    <span><LinkedInIcon /></span> 
                 </div>
             </nav>
             <div className={menuOpen ? 'menu-btn menu-open' : 'menu-btn'} onClick={handleMenuClick}>
