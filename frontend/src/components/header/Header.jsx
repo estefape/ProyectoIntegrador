@@ -81,6 +81,7 @@ export const Header = () => {
                         <>
                             <li className='avatar-container'>
                                 <span className='avatar'> {avatar}</span>
+                                <span className='nombre'> {getNameGlobalState()} {getSurnameGlobalState()}</span>
                                 <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
                             </li>
                         </>
@@ -93,13 +94,22 @@ export const Header = () => {
             </div>
             <nav className={menuOpen ? 'menu-open' : 'menu-closed'}>
                 <div className="nav-header">
-                    MENU
+                    
+                    { isAuthGlobalState() ? 
+                        <div>
+                            <div className='avatar'> {avatar}</div> 
+                        </div>
+                        : 
+                        <span>MENU</span>
+                    }    
                 </div>
                 <ul>
                     {
                         isAuthGlobalState()
                             ?
-                            <li><Link to="#" className='btn'>Cerrar sesión</Link></li>
+                            <li>
+                                <Link to="#" className='btn'>Cerrar sesión</Link>
+                            </li>
                             :
                             <>
                                 <li><Link to="/signup" className='btn'>Crear cuenta</Link></li>
