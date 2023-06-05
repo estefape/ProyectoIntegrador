@@ -27,7 +27,10 @@ export const Header = () => {
 
     useEffect(() => {
         if ( isAuthGlobalState() ) {
-            setAvatar(getNameGlobalState().charAt(0) + getSurnameGlobalState().charAt(0))
+            const name = getNameGlobalState();
+            const lastName = getSurnameGlobalState();
+            const initials = `${name.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+            setAvatar(initials)
         }
     }, [isAuthGlobalState]);
 

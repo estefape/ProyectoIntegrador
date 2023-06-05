@@ -175,10 +175,10 @@ nav.menu-closed {
 
   .avatar{
     color: #400E32;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
-    border: 3px solid #400E32;
-    padding: .7rem;
+    border: 2px solid #400E32;
+    padding: .6rem;
     border-radius: 50%;
   }
 }
