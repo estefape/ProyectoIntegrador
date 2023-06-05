@@ -108,7 +108,7 @@ export const Header = () => {
                         isAuthGlobalState()
                             ?
                             <li>
-                                <Link to="#" className='btn'>Cerrar sesión</Link>
+                                <Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link>
                             </li>
                             :
                             <>
