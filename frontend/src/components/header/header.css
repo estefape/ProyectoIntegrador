@@ -57,20 +57,22 @@ nav.menu-open {
   right: 0;
   width: 50%;
   height: 100vh;
-  background-color:#fefdfe;
+  background-color: #fefdfe;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
-  box-shadow: 0 5px 5px rgba(0,0,0,.5);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .5);
 }
 
 .nav-header {
+  position: relative;
   background-color: #f2921d;
   padding: 35px;
   font-weight: 700;
   height: 20px;
 }
+
 
 nav ul {
   list-style: none;
@@ -152,6 +154,33 @@ nav.menu-closed {
   fill: #400e32;
 }
 
+.nav-header .avatar {
+  position: absolute;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  border: 2px solid #fff;
+  background-color: #400E32;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+
+.nav-header .nombre {
+  position: absolute;
+  top: 65px;
+  left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+
+
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
@@ -163,30 +192,67 @@ nav.menu-closed {
     display: block;
   }
 
-  .buttons button{
+  .buttons button {
     display: inline-block;
   }
 
   .avatar-container{
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: end;
   }
 
-  .avatar{
+  .avatar {
+    width: 40px;
+    height: 40px;
     color: #400E32;
+    border: 2px solid #400E32;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 5px;
     font-size: 25px;
     font-weight: bold;
-    border: 2px solid #400E32;
-    padding: .6rem;
-    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 10px;
   }
-}
+
+  .avatar-container .nombre {
+    top: 60px;
+    right: 170px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #400E32;
+  }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .logo span {
     display: inline;
   }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    color: #400E32;
+    border: 2px solid #400E32;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .avatar-container .nombre {
+    top: 65px;
+    right: 170px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #400E32;
+  }
+
+  
 
 }
