@@ -14,9 +14,9 @@ public class Rating {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column
-    private Integer idCoworking;
+    private Long idCoworking;
     @Column
     private Integer puntuacion;
 

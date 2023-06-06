@@ -9,13 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 public class RatingDTO {
 
-    private Integer id;
-    private Integer idCoworking;
+    private Long id;
+    private Long idCoworking;
     private Integer puntuacion;
 
     public void setpuntuacion(Integer puntuacion) {
     }
 
-    public void setidCoworking(Integer idCoworking) {
+    public void setidCoworking(Long idCoworking) {
     }
 }

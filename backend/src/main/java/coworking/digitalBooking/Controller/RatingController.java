@@ -25,7 +25,7 @@ public class RatingController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping(consumes = {"multipart/form-data", "application/octet-stream"})
     public ResponseEntity<Rating> registerRating(
-            @RequestParam Integer idCoworking,
+            @RequestParam Long idCoworking,
             @RequestParam Integer puntuacion
     ) {
         RatingDTO ratingDTO = new RatingDTO();

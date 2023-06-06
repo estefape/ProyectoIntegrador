@@ -42,7 +42,6 @@ public class CoworkingController {
             @RequestParam String city,
             @RequestParam String address,
             @RequestParam String description,
-            @RequestParam Integer rating,
             @RequestParam MultipartFile imageFile1,
             @RequestParam MultipartFile imageFile2,
             @RequestParam MultipartFile imageFile3,
@@ -58,7 +57,6 @@ public class CoworkingController {
             coworkingDTO.setCity(city);
             coworkingDTO.setAddress(address);
             coworkingDTO.setDescription(description);
-            coworkingDTO.setRating(rating);
 
             String imageUrl1 = manageFilesS3Service.uploadFileToS3(imageFile1);
             String imageUrl2 = manageFilesS3Service.uploadFileToS3(imageFile2);

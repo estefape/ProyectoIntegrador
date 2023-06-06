@@ -1,5 +1,6 @@
 package coworking.digitalBooking.Dto;
 
+import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import lombok.*;
 
 
@@ -16,7 +17,7 @@ public class CoworkingDTO {
     private String address;
     private String description;
     private String image;
-    private Integer rating;
+    private RatingResult rating;
     private CategoryDTO category;
 
 }
