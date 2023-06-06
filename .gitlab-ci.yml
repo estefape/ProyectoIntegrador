@@ -21,7 +21,7 @@ infra_job:
   rules:
     - changes:
         - infra/terraform/**/*
-      if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/infra"'
+      if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/iac"'
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
 build_frontend:
