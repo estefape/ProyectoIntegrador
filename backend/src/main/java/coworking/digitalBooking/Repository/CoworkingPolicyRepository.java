@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CoworkingPolicyRepository extends JpaRepository<CoworkingPolicy, Long>{
 
-    CoworkingPolicy findByIdCoworkingPolicyId(Long idCoworkingPolicy);
+    CoworkingPolicy findByIdCoworkingPolicy(Long idCoworkingPolicy);
 
 }

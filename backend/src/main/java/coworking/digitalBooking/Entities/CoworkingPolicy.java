@@ -23,7 +23,7 @@ public class CoworkingPolicy {
     @JoinColumn(name = "policy_id", nullable = false)
     private Policy policy;
 
-    public CoworkingPolicy(coworking.digitalBooking.Entities.Coworking coworking, Policy policy) {
+    public CoworkingPolicy(Coworking coworking, Policy policy) {
         this.coworking = coworking;
         this.policy = policy;
     }

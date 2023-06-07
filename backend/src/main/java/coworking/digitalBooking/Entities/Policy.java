@@ -21,7 +21,7 @@ public class Policy {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "state", nullable = false)
+    @Column(name = "status", nullable = false)
     private boolean active;
 
     public Policy(String name, String description, boolean active) {
