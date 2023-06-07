@@ -12,5 +12,5 @@ public class PolicyDTO {
     private Long idPolicy;
     private String name;
     private String description;
-    private boolean active;
+    private boolean status;
 }

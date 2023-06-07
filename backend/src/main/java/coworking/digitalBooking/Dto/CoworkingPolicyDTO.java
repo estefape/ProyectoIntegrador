@@ -10,6 +10,6 @@ import lombok.*;
 
 public class CoworkingPolicyDTO {
     private Long idCoworkingPolicy;
-    private Long coworkingId;
-    private Long policyId;
+    private CoworkingDTO coworking;
+    private PolicyDTO policy;
 }
