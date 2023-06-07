@@ -98,9 +98,7 @@ export const CardProduct = ({
           </div>
           <div className="card-product-footer">
             <p>{description.substring(0, 70)}...</p>
-            <Link className="btn" to={`/detail/${officeId}`}>
-              Ver Mas
-            </Link>
+            <Link className="btn" to={`/detail/${id}`}>Ver Mas</Link>
           </div>
         </div>
       </div>
