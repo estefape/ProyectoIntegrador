@@ -22,11 +22,11 @@ public class Policy {
     private String description;
 
     @Column(name = "status", nullable = false)
-    private boolean active;
+    private boolean status;
 
-    public Policy(String name, String description, boolean active) {
+    public Policy(String name, String description, boolean status) {
         this.name = name;
         this.description = description;
-        this.active = active;
+        this.status = status;
     }
 }

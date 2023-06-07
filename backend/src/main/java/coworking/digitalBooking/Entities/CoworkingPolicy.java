@@ -23,8 +23,12 @@ public class CoworkingPolicy {
     @JoinColumn(name = "policy_id", nullable = false)
     private Policy policy;
 
-    public CoworkingPolicy(Coworking coworking, Policy policy) {
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
+    public CoworkingPolicy(Coworking coworking, Policy policy, String description) {
         this.coworking = coworking;
         this.policy = policy;
+        this.description = description;
     }
 }
