@@ -25,7 +25,11 @@ export const CoworkingCard = ({image, name, category, city, address, description
           <div className="coworking-card-top">
             <h3>{name}</h3>
             <h4>{category.name}</h4>
-            <StarRating className="rating-container" value={rating?.rating || 0} />
+            <StarRating className="rating-container" 
+                                    value={rating?.rating}
+                                    cantidadVotos={rating?.valoraciones} 
+                                    idCoworking={idCoworking} 
+                                />
           </div>
           <div className="coworking-card-body">
             <div>
