@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET,"/api/**").permitAll()
+				// TODO: Quitar luego de implementar JWT Auth
+				.antMatchers(HttpMethod.POST, "/api/Ratings").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/Categories/*").hasRole("ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/Products/*").hasRole("ADMIN")
 				.antMatchers("/api/auth/**").permitAll()

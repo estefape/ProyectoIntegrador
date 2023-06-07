@@ -51,7 +51,11 @@ export const CoworkingDetail = () => {
                                 <p className="icon-container"> <LocationOnIcon className="icon" /> <span>{singleOffice.address} {singleOffice.city}</span></p>
                             </div>
                             <div className="icon-container">
-                                Calificacion &nbsp;&nbsp;<StarRating value={singleOffice.rating} />
+                                <StarRating 
+                                    value={singleOffice.rating?.rating}
+                                    cantidadVotos={singleOffice.rating?.valoraciones} 
+                                    idCoworking={singleOffice.idCoworking} 
+                                />
                             </div>
                         </div>
 

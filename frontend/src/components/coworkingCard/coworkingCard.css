@@ -22,8 +22,12 @@
 }
 
 .rating-container{
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
+    
 }
+
 
 .coworking-card-top,
 .coworking-card-body,
