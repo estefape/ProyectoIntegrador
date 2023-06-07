@@ -4,6 +4,7 @@ import coworking.digitalBooking.Dto.CoworkingPolicyDTO;
 import coworking.digitalBooking.Dto.PolicyDTO;
 import coworking.digitalBooking.Entities.CoworkingPolicy;
 import coworking.digitalBooking.Entities.Policy;
+import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.CoworkingPolicyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class CoworkingPolicyImplement implements CoworkingPolicyService{
 
     @Override
     public CoworkingPolicyDTO getCoworkingPolicyById(Long id) {
-        CoworkingPolicy coworkingPolicy = coworkingPolicyRepository.findById()
-                .orElseThrow(() -> new ResourceNotFoundException("CoworkingPolicy", "id", id))
+        CoworkingPolicy coworkingPolicy = coworkingPolicyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("CoworkingPolicy", "id", id));
         return mapDTO(coworkingPolicy);
     }
 
@@ -50,8 +51,8 @@ public class CoworkingPolicyImplement implements CoworkingPolicyService{
         CoworkingPolicy existingCoworkingPolicy = coworkingPolicyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("CoworkingPolicy", "id", id));
 
-        existingCoworkingPolicy.setCoworking(coworkingPolicyDTO.getCoworkingId());
-        existingCoworkingPolicy.setPolicy(coworkingPolicyDTO.getPolicyId());
+        existingCoworkingPolicy.setCoworking(existingCoworkingPolicy.getCoworking());
+        existingCoworkingPolicy.setPolicy(existingCoworkingPolicy.getPolicy());
 
         CoworkingPolicy updatedCoworkingPolicy = coworkingPolicyRepository.save(existingCoworkingPolicy);
         return mapDTO(updatedCoworkingPolicy);
