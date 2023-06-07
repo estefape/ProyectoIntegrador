@@ -4,7 +4,6 @@ import coworking.digitalBooking.Dto.PolicyDTO;
 import coworking.digitalBooking.Entities.Policy;
 import coworking.digitalBooking.Repository.PolicyRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,44 +12,48 @@ import java.util.stream.Collectors;
 @Service
 public class PolicyServiceImplement implements PolicyService{
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final PolicyRepository policyRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private PolicyRepository policyRepository;
+    public PolicyServiceImplement(PolicyRepository policyRepository, ModelMapper modelMapper) {
+        this.policyRepository = policyRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public PolicyDTO searchById(Long id) {
         Policy policy = policyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Policy not found"));
-        return convertToDTO(policy);
+                .orElseThrow(() -> new ResourceNotFoundException("Policy", "id", id));
+        return mapDTO(policy);
     }
 
     @Override
     public List<PolicyDTO> searchAll() {
         List<Policy> policies = policyRepository.findAll();
         return policies.stream()
-                .map(this::convertToDTO)
+                .map(policy -> mapDTO(policy))
                 .collect(Collectors.toList());
     }
 
     @Override
     public PolicyDTO createPolicy(PolicyDTO policyDTO) {
-        Policy policy = convertToEntity(policyDTO);
-        Policy savedPolicy = policyRepository.save(policy);
-        return convertToDTO(savedPolicy);
+        Policy policy = mapEntity(policyDTO);
+        Policy createdPolicy = policyRepository.save(policy);
+        PolicyDTO policyResponse = mapDTO(createdPolicy);
+        return policyResponse;
     }
 
     @Override
     public PolicyDTO updatePolicy(Long id, PolicyDTO policyDTO) {
         Policy existingPolicy = policyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Policy not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Policy", "id", id));
 
-        Policy updatedPolicy = convertToEntity(policyDTO);
-        updatedPolicy.setIdPolicy(existingPolicy.getIdPolicy());
+        existingPolicy.setName(policyDTO.getName());
+        existingPolicy.setDescription(policyDTO.getDescription());
 
-        Policy savedPolicy = policyRepository.save(updatedPolicy);
-        return convertToDTO(savedPolicy);
+        Policy updatedPolicy = policyRepository.save(existingPolicy);
+        return mapDTO(updatedPolicy);
+
     }
 
     @Override
@@ -58,15 +61,16 @@ public class PolicyServiceImplement implements PolicyService{
         policyRepository.deleteById(id);
     }
 
-    private PolicyDTO convertToDTO(Policy policy) {
-        PolicyDTO policyDTO = new PolicyDTO();
-        BeanUtils.copyProperties(policy, policyDTO);
+
+    // Convierte entidad a DTO
+    private PolicyDTO mapDTO(Policy policy) {
+        PolicyDTO policyDTO = modelMapper.map(policy, PolicyDTO.class);
         return policyDTO;
     }
 
-    private Policy convertToEntity(PolicyDTO policyDTO) {
-        Policy policy = new Policy();
-        BeanUtils.copyProperties(policyDTO, policy);
+    // Convierte de DTO a Entidad
+    private Policy mapEntity(PolicyDTO policyDTO) {
+        Policy policy = modelMapper.map(policyDTO, Policy.class);
         return policy;
     }
 }
