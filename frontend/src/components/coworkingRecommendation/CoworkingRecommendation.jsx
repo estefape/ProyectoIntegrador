@@ -41,7 +41,7 @@ export const CoworkingRecommendation = () => {
       {coworkingRecommendation.length > 0 ?
         (
           <div className="coworking-recommendation-container">
-            {getRandomList(coworkingRecommendation).filter(item => item.rating >= 4).map(item => (
+            {getRandomList(coworkingRecommendation).map(item => (
               <CoworkingCard {...item} key={item.idCoworking} />
             ))}
           </div>

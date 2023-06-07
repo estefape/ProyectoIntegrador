@@ -22,7 +22,6 @@ public class RatingController {
     @Autowired
     private RatingServiceImplement ratingService;
 
-    @PreAuthorize("hasRole('USER')")
     @PostMapping(consumes = {"multipart/form-data", "application/octet-stream"})
     public ResponseEntity<Rating> registerRating(
             @RequestParam Long idCoworking,
