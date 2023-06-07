@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
         apellido: "",
         authenticado: false,
         email: "",
+        roles: [],
     });
 
 
@@ -27,16 +28,22 @@ export const AppProvider = ({ children }) => {
         return globalState.authenticado;
     }
 
-    const login = ({ nombre, apellido, email }) => {
-        setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true });
+    const login = ({ nombre, apellido, email, roles }) => {
+        setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true, roles });
+    }
+
+    const getRolesGlobalState = () => {
+        return globalState.roles;
     }
 
     const signOf = () => {
+        localStorage.clear()
         setGlobalState({
             nombre: "",
             apellido: "",
             authenticado: false,
             email: "",
+            roles: "",
         })
     }
 
@@ -49,6 +56,7 @@ export const AppProvider = ({ children }) => {
             getSurnameGlobalState,
             isAuthGlobalState,
             login,
+            getRolesGlobalState,
             signOf
         }}>
             {children}

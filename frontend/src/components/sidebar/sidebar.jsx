@@ -1,8 +1,20 @@
-import { React } from 'react'
-import { NavLink, Outlet, } from 'react-router-dom'
+import { React, useEffect, useContext } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import AppContext from '../../context/AppContext';
 import './sideBar.css'
 
 const SideBar = () => {
+
+  const navigate = useNavigate()
+  const { getRolesGlobalState } = useContext(AppContext);
+
+  useEffect(() => {
+    const roles = getRolesGlobalState();
+    if ( roles.find(({ name }) => name === "ROLE_ADMIN") == undefined)  {
+        navigate("/")
+    }
+}, []);
+
   return (
     <>
       <div className='adminWrapper'>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import Swal from "sweetalert2";
 import "./ProductForm.css";
+import AppContext from "../../context/AppContext";
 
 const ProductForm = () => {
   const [

@@ -39,6 +39,7 @@ export const Login = () => {
 				if (resp.ok) {
 					resp.json()
 						.then(userAuth => {
+							console.table(userAuth)
 							Swal.fire({
 								title: "Inicio de sesion exitoso!",
 								text: "Seras redirigido...",
@@ -46,12 +47,22 @@ export const Login = () => {
 								confirmButtonText: "Aceptar",
 								confirmButtonColor: "#F2921D",
 							}).then(() => {
+								const  userData = {
+									password: user.password,
+									email: user.email
+								}
+								localStorage.setItem('data', btoa(JSON.stringify(userData)))
 								login({
 									nombre: userAuth.name,
 									apellido: userAuth.lastname,
 									email: userAuth.email,
+									roles: userAuth.roles,
 								});
-								navigate("/");
+								if(userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined){
+									navigate("/admin");
+								} else {
+									navigate("/");
+								}	
 							});
 						})
 				} else {
