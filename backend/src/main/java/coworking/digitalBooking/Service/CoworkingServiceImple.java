@@ -6,10 +6,13 @@ import coworking.digitalBooking.Entities.Coworking;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.CategoryRepository;
 import coworking.digitalBooking.Repository.CoworkingRepository;
+import coworking.digitalBooking.Repository.RatingRepository;
+import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,9 @@ public class CoworkingServiceImple implements CoworkingService{
     private CoworkingRepository coworkingRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private RatingRepository ratingRepository;
 
 
     @Override
@@ -80,6 +86,8 @@ public class CoworkingServiceImple implements CoworkingService{
     // Convierte entidad a DTO
     private CoworkingDTO mapDTO(Coworking coworking) {
         CoworkingDTO coworkingDTO = modelMapper.map(coworking, CoworkingDTO.class);
+        RatingResult ratingResult = ratingRepository.getRatingByIdCoworking(coworking.getIdCoworking());
+        coworkingDTO.setRating(ratingResult);
         return coworkingDTO;
     }
 

@@ -1,4 +1,20 @@
 .star {
-    color:#f2921d; 
-  }
+  color:#f2921d;
+  cursor: pointer;
+
+}
+
+.rating-valoracion {
+  position: relative;
+  top: -5px;
+  left: 5px;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 400px;
+  border: 2px solid #f2921d;
+  background-color: #f2921d;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+}
   
