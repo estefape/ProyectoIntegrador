@@ -2,6 +2,7 @@ package coworking.digitalBooking.Service;
 
 import coworking.digitalBooking.Dto.PolicyDTO;
 import coworking.digitalBooking.Entities.Policy;
+import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.PolicyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class PolicyServiceImplement implements PolicyService{
 
         existingPolicy.setName(policyDTO.getName());
         existingPolicy.setDescription(policyDTO.getDescription());
+        existingPolicy.setStatus(policyDTO.isStatus());
 
         Policy updatedPolicy = policyRepository.save(existingPolicy);
         return mapDTO(updatedPolicy);
