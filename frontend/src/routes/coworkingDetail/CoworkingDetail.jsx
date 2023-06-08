@@ -63,7 +63,11 @@ export const CoworkingDetail = () => {
                         </div>
                         <div className="star-address">
                             <div className="address">
-                                <p className="icon-container"> <LocationOnIcon className="icon" /> <span>{singleOffice.address} {singleOffice.city}</span></p>
+                                <p className="icon-container"> <LocationOnIcon className="icon" />
+                                 <span>
+                                    {singleOffice.address} {singleOffice.city.name}
+                                 </span>
+                                 </p>
                             </div>
                             <div className="icon-container">
                                 <StarRating 
