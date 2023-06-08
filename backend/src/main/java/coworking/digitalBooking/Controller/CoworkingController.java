@@ -1,8 +1,11 @@
 package coworking.digitalBooking.Controller;
 
-import coworking.digitalBooking.Dto.CategoryDTO;
-import coworking.digitalBooking.Dto.CityDTO;
-import coworking.digitalBooking.Dto.CoworkingDTO;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import coworking.digitalBooking.Dto.*;
+import coworking.digitalBooking.Service.CoworkingPolicyService;
 import coworking.digitalBooking.Service.CoworkingService;
 import coworking.digitalBooking.Service.ManageFileS3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +22,35 @@ import java.util.List;
 @RequestMapping("/api/Products")
 @CrossOrigin(origins = "*")
 public class CoworkingController {
+    public static class DataItem {
+        @JsonProperty("id")
+        private int id;
+
+        @JsonProperty("description")
+        private String description;
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
 
     @Autowired
     private CoworkingService coworkingService;
     @Autowired
     private ManageFileS3Service manageFilesS3Service;
+    @Autowired
+    private CoworkingPolicyService coworkingPolicyService;
 
     @GetMapping()
     public List<CoworkingDTO> searchAll() {
@@ -47,7 +74,8 @@ public class CoworkingController {
             @RequestParam MultipartFile imageFile2,
             @RequestParam MultipartFile imageFile3,
             @RequestParam MultipartFile imageFile4,
-            @RequestParam MultipartFile imageFile5
+            @RequestParam MultipartFile imageFile5,
+            @RequestParam String coworkingPolicies
     ) {
         try {
 
@@ -73,11 +101,26 @@ public class CoworkingController {
 
             coworkingDTO.setImage(imageUrl1 + ";" + imageUrl2 + ";" + imageUrl3+ ";" + imageUrl4 + ";" + imageUrl5);
 
-            // coworkingDTO.setImage(imageUrl1.concat(";").concat(imageUrl2).concat(";").concat(imageUrl3).concat(";").concat(imageUrl4).concat(";").concat(imageUrl5));
 
-            return new ResponseEntity<>(coworkingService.registerProduct(coworkingDTO), HttpStatus.CREATED);
+            coworkingDTO = coworkingService.registerProduct(coworkingDTO);
+            ObjectMapper mapper = new ObjectMapper();
+            List<DataItem> items = mapper.readValue(coworkingPolicies, new TypeReference<List<DataItem>>() {});
+            System.out.println(items);
+            for (DataItem item : items) {
+                System.out.println(item);
+                CoworkingPolicyDTO coworkingPolicyDTO = new CoworkingPolicyDTO();
+                PolicyDTO policyDTO = new PolicyDTO();
+                policyDTO.setIdPolicy((long)item.getId());
+                coworkingPolicyDTO.setDescription(item.getDescription());
+                coworkingPolicyDTO.setPolicy(policyDTO);
+                coworkingPolicyDTO.setCoworking(coworkingDTO);
+                coworkingPolicyService.createCoworkingPolicy(coworkingPolicyDTO);
+            }
+
+            return new ResponseEntity<>(coworkingDTO, HttpStatus.CREATED);
         } catch (
-                IOException e) {
+                Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

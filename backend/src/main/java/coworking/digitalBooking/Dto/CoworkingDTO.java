@@ -1,8 +1,10 @@
 package coworking.digitalBooking.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import lombok.*;
 
+import java.util.List;
 
 @Data
 @Getter
@@ -19,5 +21,5 @@ public class CoworkingDTO {
     private RatingResult rating;
     private CityDTO city;
     private CategoryDTO category;
-
+    private List<CoworkingPolicyDTO> coworkingPolicies;
 }
