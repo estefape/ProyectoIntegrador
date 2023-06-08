@@ -2,6 +2,10 @@ import "./categoryList.css"
 import { CategoryCard } from "../categoryCard/categoryCard";
 import { categories } from "../../data.json"
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
 
 
 export const CategoryList = () => {
@@ -29,7 +33,29 @@ export const CategoryList = () => {
       <div className="category-list-container">
         {
           categoriesList ? (
-            categoriesList.map(category => (<CategoryCard {...category} key={category.id} />))
+            <Swiper
+              navigation={true}
+              slidesPerView={1}
+              spaceBetween={20}
+              modules={[Navigation]}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                992: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                }
+              }}
+              className="mySwiper"
+            >
+                {categoriesList.map(category => (
+                  <SwiperSlide key={`swiper-${category.id}`}>
+                    <CategoryCard {...category} key={category.id} />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           )
           :
           (<p>Cargando...</p>)
