@@ -10,9 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class CityDTO {
 
-    private long id;
+    private long idCity;
     private String name;
     private String country;
-
 
 }

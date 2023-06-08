@@ -11,8 +11,6 @@ import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +63,7 @@ public class CoworkingServiceImple implements CoworkingService{
                 .orElseThrow(() -> new ResourceNotFoundException("Coworking", "id",id));
 
         coworking.setName(coworkingDTO.getName());
-        coworking.setCity(coworkingDTO.getCity());
+        coworking.setCity(coworking.getCity());
         coworking.setAddress(coworkingDTO.getAddress());
         coworking.setDescription(coworkingDTO.getDescription());
         coworking.setImage(coworking.getImage());
