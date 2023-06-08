@@ -18,8 +18,6 @@ public class Coworking {
     private long idCoworking;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "city", nullable = false)
-    private String city;
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "description", nullable = false)
@@ -31,23 +29,18 @@ public class Coworking {
     private RatingResult ratingResult;
 
     @ManyToOne
+    @JoinColumn(name = "idCity")
+    private City city;
+    @ManyToOne
     @JoinColumn(name = "idCategory")
     private Category category;
 
-    public Coworking(String name, String city, String address, String description, String image, Category category) {
-        this.name = name;
-        this.city = city;
-        this.address = address;
-        this.description = description;
-        this.image = image;
-        this.category = category;
-    }
+
 
     @Override
     public String toString(){
         return  "Category =  " + category.getName() +
                 ", Name Coworking = " + name +
-                ", City = " + city  +
                 ", Address = " + address;
     }
 
