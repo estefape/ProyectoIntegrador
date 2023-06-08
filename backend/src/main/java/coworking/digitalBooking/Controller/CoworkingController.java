@@ -1,6 +1,5 @@
 package coworking.digitalBooking.Controller;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,21 +22,17 @@ public class CoworkingController {
     public static class DataItem {
         @JsonProperty("id")
         private int id;
-
         @JsonProperty("description")
         private String description;
         public int getId() {
             return id;
         }
-
         public void setId(int id) {
             this.id = id;
         }
-
         public String getDescription() {
             return description;
         }
-
         public void setDescription(String description) {
             this.description = description;
         }
@@ -100,14 +93,11 @@ public class CoworkingController {
 
 
             coworkingDTO.setImage(imageUrl1 + ";" + imageUrl2 + ";" + imageUrl3+ ";" + imageUrl4 + ";" + imageUrl5);
-
-
             coworkingDTO = coworkingService.registerProduct(coworkingDTO);
+
             ObjectMapper mapper = new ObjectMapper();
             List<DataItem> items = mapper.readValue(coworkingPolicies, new TypeReference<List<DataItem>>() {});
-            System.out.println(items);
             for (DataItem item : items) {
-                System.out.println(item);
                 CoworkingPolicyDTO coworkingPolicyDTO = new CoworkingPolicyDTO();
                 PolicyDTO policyDTO = new PolicyDTO();
                 policyDTO.setIdPolicy((long)item.getId());
@@ -118,13 +108,10 @@ public class CoworkingController {
             }
 
             return new ResponseEntity<>(coworkingDTO, HttpStatus.CREATED);
-        } catch (
-                Exception e) {
-            System.out.println(e);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
@@ -132,7 +119,6 @@ public class CoworkingController {
         CoworkingDTO coworkingResponse = coworkingService.update(coworkingDTO, id);
         return new ResponseEntity<>(coworkingResponse, HttpStatus.OK);
     }
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
