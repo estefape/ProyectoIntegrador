@@ -11,6 +11,7 @@ import PrintIcon from '@mui/icons-material/Print';
 import { constants } from "../../services/constants";
 import "./coworkingDetail.css";
 import StarRating from "../../components/starRating/StarRating";
+import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
 
 export const CoworkingDetail = () => {
 
@@ -30,6 +31,20 @@ export const CoworkingDetail = () => {
     useEffect(() => {
         getOfficeByOfficeId(id).then(data => {
             data.images = data.image.split(";");
+            data.reservations = [
+                {
+                    start: '2023-06-07',
+                    end: '2023-06-15',
+                },
+                {
+                    start: '2023-06-19',
+                    end: '2023-06-22',
+                },
+                {
+                    start: '2023-07-20',
+                    end: '2023-07-22',
+                }
+            ];
             setSingleOffice(data)
         });
     }, [id])
@@ -86,6 +101,16 @@ export const CoworkingDetail = () => {
                                 <div className="item icon-container"><DirectionsCarIcon className="icon" /> <span>Estacionamiento</span></div>
                                 <div className="item icon-container"><CoffeeIcon className="icon" /> <span>Cafe</span></div>
                                 <div className="item icon-container"><PrintIcon className="icon" /> <span>Impresora</span></div>
+                            </div>
+                        </div>
+                        <div className="container calendario">
+                            <h2 className="category">Fechas disponibles</h2>
+                            <div className="reserva">
+                                <ReservationCalendar fechasNoDisponibles={ singleOffice.reservations }/>
+                                <div className="botonReserva">
+                                    <h3 className="category">Agregá tus fechas de reservas para obtener precios exactos</h3>
+                                    <button className="btn">Reservar</button>
+                                </div>                                
                             </div>
                         </div>
                     </>
