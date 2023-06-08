@@ -4,6 +4,7 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css'
 import { DateRange } from 'react-date-range';
 import { addDays, eachDayOfInterval } from 'date-fns';
+import { useMediaQuery } from 'react-responsive';
 
 const ReservationCalendar = ({fechasNoDisponibles = []}) => {
     const [state, setState] = useState([
@@ -13,6 +14,8 @@ const ReservationCalendar = ({fechasNoDisponibles = []}) => {
             key: 'selection',
         }
     ]);
+
+    const isMobile = useMediaQuery({ maxWidth: 767 });
 
     const disabledDates = fechasNoDisponibles.length > 0 ? 
         fechasNoDisponibles.map(rango => {
@@ -28,15 +31,17 @@ const ReservationCalendar = ({fechasNoDisponibles = []}) => {
         : [];
 
     return (
+        
         <DateRange
             onChange={item => setState([item.selection])}
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
-            months={2}
+            months={isMobile ? 1 : 2 }
             disabledDates={disabledDates}
             ranges={state}
-            direction="horizontal"
+            direction='horizontal'
         />
+        
     )
 };
 
