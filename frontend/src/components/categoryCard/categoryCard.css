@@ -29,14 +29,3 @@
     font-weight: 700;
 }
 
-@media (min-width: 768px) {
-    .card-category {
-        width: 40%;
-    }   
-}
-
-@media (min-width: 992px) {
-    .card-category {
-        width: 23%;
-    }      
-}
