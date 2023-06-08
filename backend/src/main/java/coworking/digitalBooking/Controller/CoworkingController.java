@@ -1,6 +1,7 @@
 package coworking.digitalBooking.Controller;
 
 import coworking.digitalBooking.Dto.CategoryDTO;
+import coworking.digitalBooking.Dto.CityDTO;
 import coworking.digitalBooking.Dto.CoworkingDTO;
 import coworking.digitalBooking.Service.CoworkingService;
 import coworking.digitalBooking.Service.ManageFileS3Service;
@@ -39,7 +40,7 @@ public class CoworkingController {
     public ResponseEntity<CoworkingDTO> registerProduct(
             @RequestParam String name,
             @RequestParam Long category,
-            @RequestParam String city,
+            @RequestParam Long city,
             @RequestParam String address,
             @RequestParam String description,
             @RequestParam MultipartFile imageFile1,
@@ -49,12 +50,17 @@ public class CoworkingController {
             @RequestParam MultipartFile imageFile5
     ) {
         try {
+
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setIdCategory(category);
+
+            CityDTO cityDTO = new CityDTO();
+            cityDTO.setIdCity(city);
+
             CoworkingDTO coworkingDTO = new CoworkingDTO();
             coworkingDTO.setName(name);
             coworkingDTO.setCategory(categoryDTO);
-            coworkingDTO.setCity(city);
+            coworkingDTO.setCity(cityDTO);
             coworkingDTO.setAddress(address);
             coworkingDTO.setDescription(description);
 
@@ -67,7 +73,7 @@ public class CoworkingController {
 
             coworkingDTO.setImage(imageUrl1 + ";" + imageUrl2 + ";" + imageUrl3+ ";" + imageUrl4 + ";" + imageUrl5);
 
-           // coworkingDTO.setImage(imageUrl1.concat(";").concat(imageUrl2).concat(";").concat(imageUrl3).concat(";").concat(imageUrl4).concat(";").concat(imageUrl5));
+            // coworkingDTO.setImage(imageUrl1.concat(";").concat(imageUrl2).concat(";").concat(imageUrl3).concat(";").concat(imageUrl4).concat(";").concat(imageUrl5));
 
             return new ResponseEntity<>(coworkingService.registerProduct(coworkingDTO), HttpStatus.CREATED);
         } catch (

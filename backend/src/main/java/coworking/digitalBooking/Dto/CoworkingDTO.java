@@ -13,11 +13,11 @@ public class CoworkingDTO {
 
     private long idCoworking;
     private String name;
-    private String city;
     private String address;
     private String description;
     private String image;
     private RatingResult rating;
+    private CityDTO city;
     private CategoryDTO category;
 
 }
