@@ -36,10 +36,9 @@ const Products = () => {
                 image={prod.image}
                 name={prod.name}
                 category={prod.category.name}
-                city={prod.city}
+                city={prod.city.name}
                 address={prod.address}
                 description={prod.description}
-                officeId={prod.officeId}
                 role={'admin'}
                 id={prod.idCoworking}
                 onDelete={() => {setProducts(() => {return products.filter(prd => prd.idCoworking != prod.idCoworking)})}}

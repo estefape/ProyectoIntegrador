@@ -12,7 +12,6 @@ export const CardProduct = ({
   city,
   address,
   description,
-  officeId,
   role = "user",
   id,
   onDelete,

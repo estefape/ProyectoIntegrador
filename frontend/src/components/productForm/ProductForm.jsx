@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
+import AddressAutocomplete from "../addressAutocomplete/addressAutocomplete";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
+import * as cityService from "../../services/cityServices";
 import Swal from "sweetalert2";
 import "./ProductForm.css";
-import AppContext from "../../context/AppContext";
 
 const ProductForm = () => {
   const [
-    { name, category, city, address, description, image },
+    { name, category, city, address, description, image, lat, lng },
     handleInputChanges,
     handleFileChanges,
     reset,
@@ -19,9 +20,14 @@ const ProductForm = () => {
     address: "",
     description: "",
     image: "",
+    lat: "",
+    lng: ""
   });
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [coord, setCoord] = useState({lat: '', lng: ''});
+  const [mensaje, setMensaje] = useState("")
 
   useEffect(() => {
     categoryService
@@ -32,10 +38,31 @@ const ProductForm = () => {
       .then((categories) => {
         setCategories(categories);
       });
+      cityService
+      .cityAll()
+      .then((response) => {
+        return response.json();
+      })
+      .then((cities) => {
+        setCities(cities);
+      });   
   }, []);
+
+
+  const changeLatLng = (x, y) => {
+    console.log('changelat', x)
+    const lat = { target: {name: 'lat', value: x}}
+    const lng = { target: {name: 'lng', value: y}}
+    handleInputChanges(lat)
+    handleInputChanges(lng)
+    console.log(lat)
+    setCoord({ lat: x, lng: y})
+    console.log(coord)
+  }
 
   const handleRegister = (event) => {
     event.preventDefault();
+    console.log(address)
     if (validation()) {
       const data = new FormData();
       data.append("name", name);
@@ -44,6 +71,8 @@ const ProductForm = () => {
       data.append("city", city);
       data.append("address", address);
       data.append("rating", 0);
+      data.append("lat", coord.lat)
+      data.append("lat", coord.lng)
       for (let i = 1; i <= image.length; i++) {
         console.log(i);
         data.append(`imageFile${i}`, image[i - 1]);
@@ -85,7 +114,7 @@ const ProductForm = () => {
   };
 
   const validation = () => {
-    if (name && city && address && description && image) {
+    if (name && address && description && image) {
       if (image.length == 5) {
         return true;
       }
@@ -132,19 +161,40 @@ const ProductForm = () => {
           </label>
           <label>
             <span>Ciudad</span>
-            <input
+            <select
               name="city"
+              value={city}
+              onChange={handleInputChanges}
+            >
+              <option value="">Seleccione una ciudad</option>
+              {cities.map((cit) => {
+                return (
+                  <option key={cit.idCity} value={cit.idCity}>
+                    {cit.name}
+                  </option>
+                );
+              })}
+            </select>            
+          </label>
+          <label>
+            <span>Dirección</span>
+            <AddressAutocomplete address={address}handleInputChange={handleInputChanges} changeLatLng={changeLatLng}/>
+          </label>
+          <label>
+            <span>Latitud</span>
+            <input
+              name="lat"
               type="text"
-              value={city || ""}
+              value={coord.lat}
               onChange={handleInputChanges}
             />
           </label>
           <label>
-            <span>Dirección</span>
+            <span>Longitud</span>
             <input
-              name="address"
+              name="lng"
               type="text"
-              value={address || ""}
+              value={coord.lng}
               onChange={handleInputChanges}
             />
           </label>
