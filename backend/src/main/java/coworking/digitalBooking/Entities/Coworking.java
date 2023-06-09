@@ -3,6 +3,7 @@ package coworking.digitalBooking.Entities;
 import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -35,6 +36,8 @@ public class Coworking {
     @JoinColumn(name = "idCategory")
     private Category category;
 
+    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CoworkingPolicy> coworkingPolicies;
 
 
     @Override

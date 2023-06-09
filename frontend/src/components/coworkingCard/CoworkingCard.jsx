@@ -33,7 +33,7 @@ export const CoworkingCard = ({image, name, category, city, address, description
           </div>
           <div className="coworking-card-body">
             <div>
-              <p> <Icons name="pin" /> {address} {city}</p>
+              <p> <Icons name="pin" /> {address} {city.country}</p>
               <p>MOSTRAR EN EL MAPA</p>
             </div>
           </div>

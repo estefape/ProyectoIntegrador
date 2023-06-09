@@ -2,6 +2,11 @@ import "./categoryList.css"
 import { CategoryCard } from "../categoryCard/categoryCard";
 import { categories } from "../../data.json"
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
+import { constants } from "../../services/constants";
 
 
 export const CategoryList = () => {
@@ -13,14 +18,18 @@ export const CategoryList = () => {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  const getCategoriesList = () => {
+  const getCategoriesList = async() => {
     // Aca deberiamos hacer un fetch a la API para obtener las categorias
-    return categories;
+    const requestConfig = {
+      method: 'GET',
+    }
+
+    const response = await fetch(`${constants.CATEGORIES_ENDPOINT}`, requestConfig);
+    return await response.json();
   }
 
   useEffect(() => {
-    const data = getCategoriesList();
-    setCategoriesList(data)
+    getCategoriesList().then(data => setCategoriesList(data));
   }, []);
 
   return (
@@ -29,7 +38,29 @@ export const CategoryList = () => {
       <div className="category-list-container">
         {
           categoriesList ? (
-            categoriesList.map(category => (<CategoryCard {...category} key={category.id} />))
+            <Swiper
+              navigation={true}
+              slidesPerView={1}
+              spaceBetween={20}
+              modules={[Navigation]}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                992: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                }
+              }}
+              className="mySwiper"
+            >
+               {categoriesList.map(category => (
+                  <SwiperSlide key={`swiper-${category.id}`}>
+                    <CategoryCard {...category} key={category.id} />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           )
           :
           (<p>Cargando...</p>)
