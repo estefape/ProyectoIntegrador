@@ -1,7 +1,7 @@
 import "./categoryCard.css";
 import { Link } from "react-router-dom";
 
-export const CategoryCard = ({id, image, name, results}) => {
+export const CategoryCard = ({idCategory, image, name, results}) => {
   // cardCategory va a recibir cada objeto Category del back
   // y vamos a mostrar una imagen representativa de la categoria
   // el nombre de la categoria y la cantidad de resultados para esa categoria aprox
@@ -9,7 +9,7 @@ export const CategoryCard = ({id, image, name, results}) => {
     <>
      
       <div className="card-category">
-        <Link to={`/category/${id}`} className="card-category-link">
+        <Link to={`/category/${idCategory}`} className="card-category-link">
         <img
           src={image}
           className="card-category-img-top"

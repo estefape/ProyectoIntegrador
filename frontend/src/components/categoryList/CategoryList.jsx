@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
+import { constants } from "../../services/constants";
 
 
 export const CategoryList = () => {
@@ -17,14 +18,18 @@ export const CategoryList = () => {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  const getCategoriesList = () => {
+  const getCategoriesList = async() => {
     // Aca deberiamos hacer un fetch a la API para obtener las categorias
-    return categories;
+    const requestConfig = {
+      method: 'GET',
+    }
+
+    const response = await fetch(`${constants.CATEGORIES_ENDPOINT}`, requestConfig);
+    return await response.json();
   }
 
   useEffect(() => {
-    const data = getCategoriesList();
-    setCategoriesList(data)
+    getCategoriesList().then(data => setCategoriesList(data));
   }, []);
 
   return (
@@ -50,7 +55,7 @@ export const CategoryList = () => {
               }}
               className="mySwiper"
             >
-                {categoriesList.map(category => (
+               {categoriesList.map(category => (
                   <SwiperSlide key={`swiper-${category.id}`}>
                     <CategoryCard {...category} key={category.id} />
                   </SwiperSlide>
