@@ -56,8 +56,8 @@ export const CategoryList = () => {
               className="mySwiper"
             >
                {categoriesList.map(category => (
-                  <SwiperSlide key={`swiper-${category.id}`}>
-                    <CategoryCard {...category} key={category.id} />
+                  <SwiperSlide key={`swiper-${category.idCategory}`}>
+                    <CategoryCard {...category} key={category.idCategory} />
                   </SwiperSlide>
                 ))}
             </Swiper>
