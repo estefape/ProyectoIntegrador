@@ -19,7 +19,10 @@ public class CoworkingDTO {
     private String description;
     private String image;
     private RatingResult rating;
+    private String coworking_rules_policy;
+    private String health_safety_policy;
+    private String cancellation_policy;
     private CityDTO city;
     private CategoryDTO category;
-    private List<CoworkingPolicyDTO> coworkingPolicies;
+//    private List<CoworkingPolicyDTO> coworkingPolicies;
 }
