@@ -71,7 +71,6 @@ const EditProductForm = () => {
               confirmButtonText: "Aceptar",
               confirmButtonColor: "#A61F69",
             }).then(result => {
-              console.log(result)
               navigate('/admin/products')
             });
             

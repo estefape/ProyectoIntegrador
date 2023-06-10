@@ -12,6 +12,10 @@ import { CoworkingDetail } from './routes/coworkingDetail/CoworkingDetail';
 import { CategoryDetail } from './routes/categoryDetail/CategoryDetail';
 import { Login } from './routes/login/Login';
 import { SignUp } from './routes/signup/SignUp';
+import CityForm from './components/cityForm/CityForm.jsx'
+import Cities from './components/cities/Cities'
+import EditCityForm from './components/editCityForm/EditCityForm';
+
 
 
 function App() {
@@ -53,9 +57,14 @@ function App() {
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
           <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
-            <Route path='newproduct' element={<ProductForm/>}/>
+            <Route path='newproduct' element={<ProductForm/>}/>            
             <Route path='editproduct' element={<EditProductForm/>}>
               <Route path=':productId' element={<EditProductForm/>}/>
+            </Route>
+            <Route path='cities' element={<Cities/>}/>
+            <Route path='newcity' element={<CityForm/>}/>
+            <Route path='editcity' element={<EditCityForm/>}>
+              <Route path=':name' element={<EditCityForm/>}/>
             </Route>
             <Route path='categories/create' element={<CategoryForm/>}/>
           </Route>
