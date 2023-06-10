@@ -71,6 +71,8 @@ public class CoworkingServiceImple implements CoworkingService{
         coworking.setDescription(coworkingDTO.getDescription());
         coworking.setImage(coworking.getImage());
         coworking.setCategory(coworking.getCategory());
+        coworking.setLatitude(coworkingDTO.getLatitude());
+        coworking.setLongitude(coworkingDTO.getLongitude());
 
         Coworking coworkingUpdate = coworkingRepository.save(coworking);
 

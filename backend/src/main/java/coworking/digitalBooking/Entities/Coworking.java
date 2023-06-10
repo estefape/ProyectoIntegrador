@@ -26,10 +26,10 @@ public class Coworking {
     @Column(name = "image", nullable = false)
     private String image;
 
-    @Column(name = "latitude")
+    @Column(name = "latitude", nullable = false)
     private double latitude;
 
-    @Column(name = "longitude")
+    @Column(name = "longitude", nullable = false)
     private double longitude;
 
     @Transient
