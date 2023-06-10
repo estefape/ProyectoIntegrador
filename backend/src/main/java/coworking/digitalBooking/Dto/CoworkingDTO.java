@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -24,5 +25,7 @@ public class CoworkingDTO {
     private String cancellationPolicy;
     private CityDTO city;
     private CategoryDTO category;
+    private double latitude;
+    private double longitude;
 //    private List<CoworkingPolicyDTO> coworkingPolicies;
 }

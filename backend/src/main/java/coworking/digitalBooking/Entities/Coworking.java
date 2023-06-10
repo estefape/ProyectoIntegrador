@@ -26,6 +26,12 @@ public class Coworking {
     @Column(name = "image", nullable = false)
     private String image;
 
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
     @Transient
     private RatingResult ratingResult;
 

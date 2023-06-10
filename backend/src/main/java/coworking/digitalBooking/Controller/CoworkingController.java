@@ -1,10 +1,6 @@
 package coworking.digitalBooking.Controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import coworking.digitalBooking.Dto.*;
-import coworking.digitalBooking.Service.CoworkingPolicyService;
 import coworking.digitalBooking.Service.CoworkingService;
 import coworking.digitalBooking.Service.ManageFileS3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +38,6 @@ public class CoworkingController {
     private CoworkingService coworkingService;
     @Autowired
     private ManageFileS3Service manageFilesS3Service;
-    @Autowired
-    private CoworkingPolicyService coworkingPolicyService;
 
     @GetMapping()
     public List<CoworkingDTO> searchAll() {
@@ -70,7 +64,9 @@ public class CoworkingController {
             @RequestParam MultipartFile imageFile5,
             @RequestParam String coworking_rules_policy,
             @RequestParam String health_safety_policy,
-            @RequestParam String cancellation_policy
+            @RequestParam String cancellation_policy,
+            @RequestParam double latitude,
+            @RequestParam double longitude
 //            @RequestParam String coworkingPolicies
     ) {
         try {
@@ -90,6 +86,8 @@ public class CoworkingController {
             coworkingDTO.setCoworkingRulesPolicy(coworking_rules_policy);
             coworkingDTO.setHealthSafetyPolicy(health_safety_policy);
             coworkingDTO.setCancellationPolicy(cancellation_policy);
+            coworkingDTO.setLatitude(latitude);
+            coworkingDTO.setLongitude(longitude);
 
             String imageUrl1 = manageFilesS3Service.uploadFileToS3(imageFile1);
             String imageUrl2 = manageFilesS3Service.uploadFileToS3(imageFile2);
@@ -99,6 +97,7 @@ public class CoworkingController {
 
 
             coworkingDTO.setImage(imageUrl1 + ";" + imageUrl2 + ";" + imageUrl3+ ";" + imageUrl4 + ";" + imageUrl5);
+            coworkingService.validateCoordinates(latitude,longitude);
             coworkingDTO = coworkingService.registerProduct(coworkingDTO);
 
             /*ObjectMapper mapper = new ObjectMapper();

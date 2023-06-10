@@ -41,6 +41,8 @@ public class CoworkingServiceImple implements CoworkingService{
         return coworkings.stream().map(coworking -> mapDTO(coworking)).collect(Collectors.toList());
     }
 
+
+
     @Override
     public CoworkingDTO registerProduct(CoworkingDTO coworkingDTO) {
         Coworking coworkingDuplicate = coworkingRepository.findByName(coworkingDTO.getName());
@@ -51,6 +53,7 @@ public class CoworkingServiceImple implements CoworkingService{
         if (category == null) {
             throw new ResourceNotFoundException("Category", "id",coworkingDTO.getCategory().getIdCategory());
         }
+
         Coworking coworking = mapEntity(coworkingDTO);
         Coworking newCoworking = coworkingRepository.save(coworking);
         CoworkingDTO coworkingResponse = mapDTO(newCoworking);
@@ -94,4 +97,24 @@ public class CoworkingServiceImple implements CoworkingService{
         Coworking coworking = modelMapper.map(coworkingDTO, Coworking.class);
         return coworking;
     }
+
+
+
+    public void validateCoordinates(double latitud, double longitud) {
+        if (!validLatitude(latitud)) {
+            throw new IllegalArgumentException("Latitud inválida, debe estar entre -90 y 90: " + latitud);
+        }
+        if (!validLongitude(longitud)) {
+            throw new IllegalArgumentException("Longitud inválida, debe estar entre -180 y 180: " + longitud);
+        }
+    }
+
+    private static boolean validLatitude(double latitude) {
+        return latitude >= -90 && latitude <= 90;
+    }
+
+    private static boolean validLongitude(double longitude) {
+        return longitude >= -180 && longitude <= 180;
+    }
+
 }
