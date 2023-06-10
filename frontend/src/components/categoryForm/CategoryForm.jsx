@@ -25,7 +25,6 @@ const CategoryForm = () => {
       data.append("description", description);
       data.append("imageFile", image[0]);
       categoryService.categoryRegister(data).then(async (result) => {
-        console.log(result);
         if (result.status >= 200 && result.status < 300) {
           Swal.fire({
             title: "Registro exitoso",

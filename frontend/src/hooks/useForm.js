@@ -35,7 +35,6 @@ const useForm = (initialState = {}) => {
       ...values,
       [target.name]: file,
     });
-    console.log(target.files);
   };
 
   const reset = () => {

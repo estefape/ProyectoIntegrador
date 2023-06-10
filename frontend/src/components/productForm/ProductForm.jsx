@@ -45,7 +45,6 @@ const ProductForm = () => {
       data.append("address", address);
       data.append("rating", 0);
       for (let i = 1; i <= image.length; i++) {
-        console.log(i);
         data.append(`imageFile${i}`, image[i - 1]);
       }
       productService.productRegister(data).then(async (result) => {

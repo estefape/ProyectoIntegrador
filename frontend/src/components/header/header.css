@@ -215,6 +215,7 @@ nav.menu-closed {
     text-align: center;
     line-height: 40px;
     margin-right: 10px;
+    box-sizing: content-box;
   }
 
   .avatar-container .nombre {
