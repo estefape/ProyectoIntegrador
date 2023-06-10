@@ -9,9 +9,10 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import PrintIcon from '@mui/icons-material/Print';
 import { constants } from "../../services/constants";
-import "./coworkingDetail.css";
 import StarRating from "../../components/starRating/StarRating";
 import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
+
+import "./coworkingDetail.css";
 
 export const CoworkingDetail = () => {
 
@@ -117,6 +118,26 @@ export const CoworkingDetail = () => {
                                 </div>                                
                             </div>
                         </div>
+                        <div className="container with-border-bottom">
+                            <h2 className="category">Políticas</h2>
+                        </div>
+
+                        <div className="container policies">
+                            <div>
+                                <h3 className="category">Normas del Coworking</h3>
+                                <p>{singleOffice.coworkingRulesPolicy}</p>
+                            </div>
+                            <div>
+                                <h3 className="category">Salud y seguridad</h3>
+                                <p>{singleOffice.healthSafetyPolicy}</p>
+                            </div>
+                            <div>
+                                <h3 className="category">Politicas de cancelación</h3>
+                                <p>{singleOffice.cancellationPolicy}</p>
+                            </div>
+                        </div>      
+
+                     
                     </>
                 ) : (<p>Cargando...</p>)}
         </>

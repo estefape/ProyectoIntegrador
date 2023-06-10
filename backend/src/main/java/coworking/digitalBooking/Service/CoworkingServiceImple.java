@@ -65,12 +65,15 @@ public class CoworkingServiceImple implements CoworkingService{
         Coworking coworking = coworkingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Coworking", "id",id));
 
-        coworking.setName(coworkingDTO.getName());
         coworking.setCity(coworking.getCity());
+        coworking.setCategory(coworking.getCategory());
+        coworking.setImage(coworking.getImage());
+        coworking.setName(coworkingDTO.getName());
         coworking.setAddress(coworkingDTO.getAddress());
         coworking.setDescription(coworkingDTO.getDescription());
-        coworking.setImage(coworking.getImage());
-        coworking.setCategory(coworking.getCategory());
+        coworking.setCancellationPolicy(coworkingDTO.getCancellationPolicy());
+        coworking.setCoworkingRulesPolicy(coworkingDTO.getCoworkingRulesPolicy());
+        coworking.setHealthSafetyPolicy(coworkingDTO.getHealthSafetyPolicy());
         coworking.setLatitude(coworkingDTO.getLatitude());
         coworking.setLongitude(coworkingDTO.getLongitude());
 
