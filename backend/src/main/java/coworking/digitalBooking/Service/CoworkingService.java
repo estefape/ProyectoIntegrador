@@ -15,4 +15,7 @@ public interface CoworkingService {
     public CoworkingDTO update(CoworkingDTO coworkingDTO, Long id);
 
     public void delete(Long id);
+
+    public void validateCoordinates(double latitud, double longitud);
+
 }
