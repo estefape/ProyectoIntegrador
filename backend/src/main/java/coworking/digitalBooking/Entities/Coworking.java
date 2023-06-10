@@ -31,13 +31,13 @@ public class Coworking {
 
     // Se agregan 3 columnas, una para cada política
     @Column(name= "coworking_rules_policy", columnDefinition = "TEXT")
-    private String coworking_rules_policy;
+    private String coworkingRulesPolicy;
 
     @Column(name= "health_safety_policy", columnDefinition = "TEXT")
-    private String health_safety_policy;
+    private String healthSafetyPolicy;
 
     @Column(name= "cancellation_policy", columnDefinition = "TEXT")
-    private String cancellation_policy;
+    private String cancellationPolicy;
 
     @ManyToOne
     @JoinColumn(name = "idCity")

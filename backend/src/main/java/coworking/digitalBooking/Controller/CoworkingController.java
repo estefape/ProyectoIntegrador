@@ -67,7 +67,10 @@ public class CoworkingController {
             @RequestParam MultipartFile imageFile2,
             @RequestParam MultipartFile imageFile3,
             @RequestParam MultipartFile imageFile4,
-            @RequestParam MultipartFile imageFile5
+            @RequestParam MultipartFile imageFile5,
+            @RequestParam String coworking_rules_policy,
+            @RequestParam String health_safety_policy,
+            @RequestParam String cancellation_policy
 //            @RequestParam String coworkingPolicies
     ) {
         try {
@@ -84,6 +87,9 @@ public class CoworkingController {
             coworkingDTO.setCity(cityDTO);
             coworkingDTO.setAddress(address);
             coworkingDTO.setDescription(description);
+            coworkingDTO.setCoworkingRulesPolicy(coworking_rules_policy);
+            coworkingDTO.setHealthSafetyPolicy(health_safety_policy);
+            coworkingDTO.setCancellationPolicy(cancellation_policy);
 
             String imageUrl1 = manageFilesS3Service.uploadFileToS3(imageFile1);
             String imageUrl2 = manageFilesS3Service.uploadFileToS3(imageFile2);
