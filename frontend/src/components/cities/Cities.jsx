@@ -7,9 +7,8 @@ import { Icons } from "../icons/Icons";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-import "primereact/resources/themes/soho-light/theme.css";
+//import "primereact/resources/themes/soho-light/theme.css";
 import "./Cities.css";
-//import 'primereact/resources/themes/lara-light-purple/theme.css'
 
 const Cities = () => {
   const [cities, setCities] = useState([]);
