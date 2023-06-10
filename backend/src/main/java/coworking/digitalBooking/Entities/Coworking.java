@@ -29,6 +29,16 @@ public class Coworking {
     @Transient
     private RatingResult ratingResult;
 
+    // Se agregan 3 columnas, una para cada política
+    @Column(name= "coworking_rules_policy", columnDefinition = "TEXT")
+    private String coworking_rules_policy;
+
+    @Column(name= "health_safety_policy", columnDefinition = "TEXT")
+    private String health_safety_policy;
+
+    @Column(name= "cancellation_policy", columnDefinition = "TEXT")
+    private String cancellation_policy;
+
     @ManyToOne
     @JoinColumn(name = "idCity")
     private City city;
@@ -36,8 +46,8 @@ public class Coworking {
     @JoinColumn(name = "idCategory")
     private Category category;
 
-    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CoworkingPolicy> coworkingPolicies;
+/*    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CoworkingPolicy> coworkingPolicies;*/
 
 
     @Override
