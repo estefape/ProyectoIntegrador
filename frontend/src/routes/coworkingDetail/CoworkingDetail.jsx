@@ -11,6 +11,7 @@ import PrintIcon from '@mui/icons-material/Print';
 import { constants } from "../../services/constants";
 import StarRating from "../../components/starRating/StarRating";
 import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
+import Map from "../../components/maps/Map";
 
 import "./coworkingDetail.css";
 
@@ -119,7 +120,13 @@ export const CoworkingDetail = () => {
                             </div>
                         </div>
                         <div className="container with-border-bottom">
-                            <h2 className="category">Políticas</h2>
+                            <h2 className="category">Ubicación</h2>
+                        </div>
+                        <div className="container">
+                            <Map lat={singleOffice.latitude} lng={singleOffice.longitude} address={singleOffice.address} />
+                        </div>
+                        <div className="container with-border-bottom">
+                            <h2 className="category">Qué tenés que saber</h2>
                         </div>
 
                         <div className="container policies">
