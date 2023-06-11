@@ -50,6 +50,26 @@
     color:#495057;
 }
 
+div.search > div.search-container >  div.p-dropdown.p-component.p-inputwrapper{
+    border-radius: 10px;
+    height: 37px;
+    width: 20%;
+}
+
+span.p-dropdown-label.p-inputtext{
+    font-family: Roboto;
+    color:#6C757D;
+    display: flex;
+    align-items: end;
+}
+
+span.p-dropdown-label.p-inputtext.p-placeholder{
+    font-family: Roboto;
+    color:#6C757D;
+    display: flex;
+    align-items: end;
+}
+
 div .search-container {
     display: flex;
     justify-content: center;
@@ -72,9 +92,31 @@ span.p-calendar {
     height: 36px;
 }
 
+span.p-dropdown-label.p-inputtext {
+    font-family: Roboto;
+    font-size: 1rem;
+    display: flex;
+    align-items: end;
+}
+
+p.co-filter{
+    color:white;
+    padding: 10px;
+}
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .search > div {
         flex-direction: row;
+    }
+}
+
+@media (max-width: 768px) {
+    div.search > div.search-container >  div.p-dropdown.p-component.p-inputwrapper{
+        width: 100%;
+    }
+
+    #calendar-picker{
+        width: 100%;
+        margin:0px;
     }
 }
