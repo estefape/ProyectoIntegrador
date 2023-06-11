@@ -103,9 +103,30 @@ p.co-filter{
     color:white;
     padding: 10px;
 }
+
+.result-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.result-list-container {
+    gap: 1rem;
+    margin-top: .7rem;
+}
+
+.swiper-horizontal {
+    padding: 5px !important;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: #e8e3e7 !important;
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .search > div {
+    .search > .search-container {
         flex-direction: row;
     }
 }
@@ -118,5 +139,14 @@ p.co-filter{
     #calendar-picker{
         width: 100%;
         margin:0px;
+    }
+}
+
+@media (min-width: 992px) {
+    .result-list {
+        width: 90%;
+    }
+    .coworking-card {
+        width: 100%important;
     }
 }

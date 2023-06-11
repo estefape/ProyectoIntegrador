@@ -75,54 +75,46 @@ export const Search = () => {
           Buscar
         </button>
       </div>
-      {/* El estado productsFilter contiene la lista de productos filtrados segun los criterios
-      de busqueda, reemplazar este bloque por el renderizado de los productos mostrados con cards
-      en la seccion home */}
-      {/* <div>
-        {productsFilter.map((prod) => {
-          return (
-            <p className="co-filter" key={prod.name}>
-              {prod.name}
-            </p>
-          );
-        })}
-      </div> */}
 
-      <div className="category-list">
-        <h2>Buscar por tipo de oficina</h2>
-        <div className="category-list-container">
-          {
-            productsFilter ? (
-              <Swiper
-                navigation={true}
-                slidesPerView={1}
-                spaceBetween={20}
-                modules={[Navigation]}
-                breakpoints={{
-                  768: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  992: {
-                    slidesPerView: 4,
-                    spaceBetween: 20,
-                  }
-                }}
-                className="mySwiper"
-              >
-                {productsFilter.map(product => (
-                  <SwiperSlide key={`swiper-${product.idCoworking}`}>
-                    <CoworkingCard  {...product} key={product.idCoworking} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )
-              :
-              (<p>Cargando...</p>)
-          }
-        </div>
-      </div>
+
+      {
+        productsFilter.length > 1 ? (
+          <>
+            <div className="result-list">
+              <h2>Resultados</h2>
+              <div className="result-list-container">
+                <Swiper
+                  navigation={true}
+                  slidesPerView={1}
+                  spaceBetween={20}
+                  modules={[Navigation]}
+                  breakpoints={{
+                    768: {
+                      slidesPerView: 1,
+                      spaceBetween: 20,
+                    },
+                    992: {
+                      slidesPerView: 1,
+                      spaceBetween: 20,
+                    },
+                  }}
+                  className="mySwiper"
+                >
+                  {productsFilter.map(product => (
+                    <SwiperSlide key={`swiper-${product.idCoworking}`}>
+                      <CoworkingCard  {...product} key={product.idCoworking} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>
+          </>)
+
+          :
+          (<></>)
+      }
 
     </div>
+
   );
 };
