@@ -26,8 +26,24 @@ public class Coworking {
     @Column(name = "image", nullable = false)
     private String image;
 
+    @Column(name = "latitude", nullable = false)
+    private double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private double longitude;
+
     @Transient
     private RatingResult ratingResult;
+
+    // Se agregan 3 columnas, una para cada política
+    @Column(name= "coworking_rules_policy", columnDefinition = "TEXT")
+    private String coworkingRulesPolicy;
+
+    @Column(name= "health_safety_policy", columnDefinition = "TEXT")
+    private String healthSafetyPolicy;
+
+    @Column(name= "cancellation_policy", columnDefinition = "TEXT")
+    private String cancellationPolicy;
 
     @ManyToOne
     @JoinColumn(name = "idCity")
@@ -36,8 +52,8 @@ public class Coworking {
     @JoinColumn(name = "idCategory")
     private Category category;
 
-    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CoworkingPolicy> coworkingPolicies;
+/*    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CoworkingPolicy> coworkingPolicies;*/
 
 
     @Override
