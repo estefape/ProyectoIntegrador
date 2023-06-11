@@ -9,6 +9,10 @@ import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "primereact/resources/themes/saga-orange/theme.css";
 import "./search.css";
+import { CoworkingCard } from "../coworkingCard/CoworkingCard";
+import { SwiperSlide, Swiper } from "swiper/react";
+import { Navigation } from "swiper";
+
 
 export const Search = () => {
   const [cities, setCities] = useState([]);
@@ -40,10 +44,12 @@ export const Search = () => {
   const filterProductsByCity = (product) => {
     return product.city?.name == selectedCity.name;
   };
-  
+
   const handleSearch = () => {
     setProductsFilter(products.filter(filterProductsByCity));
   };
+
+  console.log(productsFilter)
 
   return (
     <div className="search">
@@ -72,7 +78,7 @@ export const Search = () => {
       {/* El estado productsFilter contiene la lista de productos filtrados segun los criterios
       de busqueda, reemplazar este bloque por el renderizado de los productos mostrados con cards
       en la seccion home */}
-      <div>
+      {/* <div>
         {productsFilter.map((prod) => {
           return (
             <p className="co-filter" key={prod.name}>
@@ -80,7 +86,43 @@ export const Search = () => {
             </p>
           );
         })}
+      </div> */}
+
+      <div className="category-list">
+        <h2>Buscar por tipo de oficina</h2>
+        <div className="category-list-container">
+          {
+            productsFilter ? (
+              <Swiper
+                navigation={true}
+                slidesPerView={1}
+                spaceBetween={20}
+                modules={[Navigation]}
+                breakpoints={{
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  992: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                  }
+                }}
+                className="mySwiper"
+              >
+                {productsFilter.map(product => (
+                  <SwiperSlide key={`swiper-${product.idCoworking}`}>
+                    <CoworkingCard  {...product} key={product.idCoworking} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )
+              :
+              (<p>Cargando...</p>)
+          }
+        </div>
       </div>
+
     </div>
   );
 };
