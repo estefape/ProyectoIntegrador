@@ -105,11 +105,15 @@ p.co-filter{
 }
 
 .result-list {
-    margin-top: 1rem;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     width: 90%;
 }
+
+.result-list > h2 {
+    font-size: 2rem;
+ }
 
 .result-list-container {
     gap: 1rem;
@@ -122,6 +126,15 @@ p.co-filter{
 
 .swiper-button-next, .swiper-button-prev {
     color: #e8e3e7 !important;
+}
+
+.no-results {
+    color: white;
+    font-size: 1.5rem;
+    padding: 2rem;
+}
+
+.swiper-wrapper {
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -146,7 +159,8 @@ p.co-filter{
     .result-list {
         width: 90%;
     }
-    .coworking-card {
-        width: 100%important;
+
+    .result-card {
+        width: 90%!important;
     }
 }

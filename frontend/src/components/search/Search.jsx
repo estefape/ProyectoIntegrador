@@ -14,12 +14,13 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { Navigation } from "swiper";
 
 
-export const Search = () => {
+export const Search = ({ customEvent }) => {
   const [cities, setCities] = useState([]);
   const [dates, setDates] = useState(null);
   const [products, setProducts] = useState([]);
-  const [productsFilter, setProductsFilter] = useState([products]);
+  const [productsFilter, setProductsFilter] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
     cityService
@@ -47,9 +48,9 @@ export const Search = () => {
 
   const handleSearch = () => {
     setProductsFilter(products.filter(filterProductsByCity));
+    setShowResult(true);
+    customEvent(true);
   };
-
-  console.log(productsFilter)
 
   return (
     <div className="search">
@@ -78,41 +79,52 @@ export const Search = () => {
 
 
       {
-        productsFilter.length > 1 ? (
-          <>
-            <div className="result-list">
-              <h2>Resultados</h2>
-              <div className="result-list-container">
-                <Swiper
-                  navigation={true}
-                  slidesPerView={1}
-                  spaceBetween={20}
-                  modules={[Navigation]}
-                  breakpoints={{
-                    768: {
-                      slidesPerView: 1,
-                      spaceBetween: 20,
-                    },
-                    992: {
-                      slidesPerView: 1,
-                      spaceBetween: 20,
-                    },
-                  }}
-                  className="mySwiper"
-                >
-                  {productsFilter.map(product => (
-                    <SwiperSlide key={`swiper-${product.idCoworking}`}>
-                      <CoworkingCard  {...product} key={product.idCoworking} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+        showResult ?
+          productsFilter.length > 0 ? (
+            <>
+              <div className="result-list">
+                <h2>Resultados encontrados ({productsFilter.length})</h2>
+                <div className="result-list-container">
+                  <Swiper
+                    navigation={true}
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    modules={[Navigation]}
+                    centerInsufficientSlides={true}
+                    breakpoints={{
+                      768: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                      },
+                      992: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                      },
+                    }}
+                    className="mySwiper"
+                  >
+                    {productsFilter.map(product => (
+                      <SwiperSlide key={`swiper-${product.idCoworking}`}>
+                        <CoworkingCard 
+                          clasePersonalizada={'result-card'} 
+                          product={{ ...product }} 
+                          key={product.idCoworking} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
               </div>
-            </div>
-          </>)
+            </>)
 
-          :
-          (<></>)
+            : (
+                selectedCity && 
+                productsFilter.length === 0 &&
+                <h3 className="no-results">No se han encontrado resultados para su busqueda</h3>
+              )
+
+          : <></>
       }
+
 
     </div>
 

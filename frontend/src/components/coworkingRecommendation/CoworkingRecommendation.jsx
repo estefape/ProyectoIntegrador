@@ -40,7 +40,7 @@ export const CoworkingRecommendation = () => {
         (
           <div className="coworking-recommendation-container">
             {getRandomList(coworkingRecommendation).map(item => (
-              <CoworkingCard {...item} key={item.idCoworking} />
+              <CoworkingCard product={{...item}} key={item.idCoworking} />
             ))}
           </div>
         ) : (<p>Cargando...</p>)}
