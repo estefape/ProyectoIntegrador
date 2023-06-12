@@ -78,7 +78,7 @@ h2.category {
 }
 
 .with-border-bottom {
-    border-bottom: 1px solid #400E32;
+    border-bottom: 1px solid #f2921d;
 }
 
 .comodidades .item {
@@ -124,6 +124,33 @@ h2.category {
     margin: 20px 0 0 0;
 }
 
+.container.policies {
+    display: grid;
+    grid-template-columns: 1fr ;
+    padding: 20px;
+    grid-gap: 30px;
+    
+}
+
+.container.policies h3 {
+    font-family: Rubik, sans-serif;
+    color: #400E32;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.container.policies p {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 15px;
+}
+   
+    
+
+
+
 
 @media (min-width: 768px) {
 
@@ -142,6 +169,15 @@ h2.category {
 
     .botonReserva .btn {
         margin: 20px 0 0 0;
+    }
+
+
+    .container.policies {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 20px;
+        grid-gap: 30px;
+        
     }
 }
 
@@ -183,5 +219,10 @@ h2.category {
     margin: 20px 0 0 0;
 }
 
+.container.policies {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+}
 
 }

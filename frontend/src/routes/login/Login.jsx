@@ -39,7 +39,6 @@ export const Login = () => {
 				if (resp.ok) {
 					resp.json()
 						.then(userAuth => {
-							console.table(userAuth)
 							Swal.fire({
 								title: "Inicio de sesion exitoso!",
 								text: "Seras redirigido...",

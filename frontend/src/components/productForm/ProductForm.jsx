@@ -74,7 +74,6 @@ const ProductForm = () => {
       data.append("lat", coord.lat)
       data.append("lat", coord.lng)
       for (let i = 1; i <= image.length; i++) {
-        console.log(i);
         data.append(`imageFile${i}`, image[i - 1]);
       }
       productService.productRegister(data).then(async (result) => {
