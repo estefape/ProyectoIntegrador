@@ -12,6 +12,5 @@ public class FacilityDTO {
 
     private long id;
     private String name;
-    private String icon;
     private Boolean status;
 }

@@ -18,8 +18,6 @@ public class Facility {
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "icon", nullable = false)
-    private String icon;
     @Column(name = "status", nullable = false)
     private Boolean status;
 

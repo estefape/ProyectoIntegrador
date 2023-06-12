@@ -56,7 +56,6 @@ public class FacilityServiceImplement implements FacilityService{
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", "id",id));
 
         facility.setName(facilityDTO.getName());
-        facility.setIcon(facilityDTO.getIcon());
         facility.setStatus(facilityDTO.getStatus());
 
         Facility facilityUpdate = facilityRepository.save(facility);
