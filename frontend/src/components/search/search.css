@@ -5,7 +5,7 @@
     align-items: center;
     margin: 0 auto;
     background-color:#a61f69;
-    padding: 28px 0 14px;
+    padding-top: 2rem;
     width: 100%;
 }
 
@@ -108,11 +108,14 @@ p.co-filter{
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%!important;
+    background-color: #E8E3E7;
+    padding: 1rem
 }
 
 .result-list > h2 {
     font-size: 2rem;
+    color: #400E32;
  }
 
 .result-list-container {
