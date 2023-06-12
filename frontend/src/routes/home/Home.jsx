@@ -8,9 +8,8 @@ export const Home = () => {
 
   const [ hiddenRecommedations, setHiddenRecommedantions ] = useState(false);
 
-  const handleCustomEvent = ( _ ) => {
-    console.log(_)
-    setHiddenRecommedantions(_);
+  const handleCustomEvent = ( value ) => {
+    setHiddenRecommedantions( value );
   }
 
   return (
