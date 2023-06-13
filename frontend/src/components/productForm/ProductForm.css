@@ -4,6 +4,7 @@
   font-family: "Rubik", sans-serif;
 }
 
+
 div.form-tittle {
   display: flex;
   flex-direction: column;
@@ -13,15 +14,15 @@ div.form-tittle {
   height: 15%;
 }
 
-form .product-form {
+.product-form {
   display: flex;
   flex-direction: column;
   align-items: left;
-  max-width: 600px;
-  
+  max-width: 75%;  
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
+  margin: 0 auto;
   margin-bottom: 30px;
 }
 
@@ -34,12 +35,61 @@ h3.form-header {
   margin: 20px;
 }
 
-.form-inputs {
+.form-inputs-products {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   padding-top: 20px;
+  background-color: white;
+}
+
+.panels{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  width: 100%;
+  background: white;
+}
+
+.facilities{
+  margin:20px 5px;
+  display:grid;
+  grid-template-columns: repeat(3, 2fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(50px, auto);
+  color:#888;
+  font-family: Roboto;
+  font-size: 18px;
+}
+
+.facilities-tittle{
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+}
+
+input[type=checkbox]{
+  width: 25px;
+  height: 25px;
+  accent-color:#a61f69;
+  border-radius: 50px;
+}
+
+.facility-text{
+  display:flex;
+  align-items: center;
+  font-size:1.1rem;
+}
+
+.right-panel, .left-panel {
+  margin:1rem 1rem;
+  flex-grow: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form > input,
@@ -49,13 +99,20 @@ textarea {
   padding: 10px;
   border: none;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 100%;
+}
+
+label > textarea {
+  height: auto;
+}
+
+select {
+  font-size: 16px;
 }
 
 input[type="text"],
 textarea {
   margin-bottom: -1px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   font-family: Roboto, sans-serif;
 }
 
@@ -65,7 +122,7 @@ textarea {
   display: flex;
   justify-content: flex-start;
   margin: 0px;
-  width: 70%;
+  width: 100%;
 }
 
 .product-form label > span {
@@ -88,16 +145,23 @@ textarea {
 .product-form label > input,
 select,
 textarea {
+  font-size: 16px;
   font-family: Roboto, sans-serif;
   height: 2.1rem;
   width: 100%;
   border-radius: 10px;
   border: none;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  max-width: 100%;
 }
 
 textarea {
   margin-left: 0;
+}
+
+.product-form h4{
+  font-size: 1.3rem;
+  color: #400E32;
 }
 
 .product-form label > input:focus,
@@ -132,4 +196,15 @@ input[type="file"]::file-selector-button:hover {
   width: 200px;
   height: 40px;
   margin: 20px;
+}
+
+@media (max-width: 920px) {
+  .panels {
+    flex-direction: column;
+  }
+
+  .right-panel, .left-panel {
+    margin:1rem 1rem;
+    width: 100%;
+  }
 }

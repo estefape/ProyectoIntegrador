@@ -4,19 +4,27 @@ import * as productService from "../../services/productServices";
 import React, { useEffect, useState } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import "primereact/resources/primereact.css";
+import { locale, addLocale} from 'primereact/api';        
+import "primereact/resources/primereact.css";       
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "primereact/resources/themes/saga-orange/theme.css";
 import "./search.css";
+import { CoworkingCard } from "../coworkingCard/CoworkingCard";
+import { SwiperSlide, Swiper } from "swiper/react";
+import { Navigation } from "swiper";
+import calendarESP from "../../data/calendar";
 
-export const Search = () => {
+
+export const Search = ({ customEvent }) => {
   const [cities, setCities] = useState([]);
   const [dates, setDates] = useState(null);
   const [products, setProducts] = useState([]);
-  const [productsFilter, setProductsFilter] = useState([products]);
+  const [productsFilter, setProductsFilter] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [showResult, setShowResult] = useState(false);
 
+  addLocale('es', calendarESP);
   useEffect(() => {
     cityService
       .cityAll()
@@ -40,10 +48,13 @@ export const Search = () => {
   const filterProductsByCity = (product) => {
     return product.city?.name == selectedCity.name;
   };
-  
+
   const handleSearch = () => {
     setProductsFilter(products.filter(filterProductsByCity));
+    setShowResult(true);
+    customEvent(true);
   };
+
 
   return (
     <div className="search">
@@ -62,25 +73,66 @@ export const Search = () => {
           id="calendar-picker"
           value={dates}
           onChange={(e) => setDates(e.value)}
+          numberOfMonths={2}
           selectionMode="range"
+          locale="es"
           readOnlyInput
         />
         <button className="btn" onClick={handleSearch}>
           Buscar
         </button>
       </div>
-      {/* El estado productsFilter contiene la lista de productos filtrados segun los criterios
-      de busqueda, reemplazar este bloque por el renderizado de los productos mostrados con cards
-      en la seccion home */}
-      <div>
-        {productsFilter.map((prod) => {
-          return (
-            <p className="co-filter" key={prod.name}>
-              {prod.name}
-            </p>
-          );
-        })}
-      </div>
+
+
+      {
+        showResult ?
+          productsFilter.length > 0 ? (
+            <>
+              <div className="result-list">
+                <h2>Resultados encontrados ({productsFilter.length})</h2>
+                <div className="result-list-container">
+                  <Swiper
+                    navigation={true}
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    modules={[Navigation]}
+                    centerInsufficientSlides={true}
+                    breakpoints={{
+                      768: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                      },
+                      992: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                      },
+                    }}
+                    className="mySwiper"
+                  >
+                    {productsFilter.map(product => (
+                      <SwiperSlide key={`swiper-${product.idCoworking}`}>
+                        <CoworkingCard 
+                          clasePersonalizada={'result-card'} 
+                          product={{ ...product }} 
+                          key={product.idCoworking} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+            </>)
+
+            : (
+                selectedCity && 
+                productsFilter.length === 0 &&
+                <h3 className="no-results">No se han encontrado resultados para su busqueda</h3>
+              )
+
+          : <></>
+      }
+
+
     </div>
+
   );
 };

@@ -37,7 +37,6 @@ export const CategoryDetail = () => {
         })
         getData().then(data => {
             const coworkingByCategory = data.filter(item => item.category.idCategory === parseInt(categoryId))
-            console.log(coworkingByCategory)
             setCoworkingByCategory(coworkingByCategory)
         });
     }, [categoryId]);
@@ -56,7 +55,7 @@ export const CategoryDetail = () => {
                         </div>
                         <div className="container">
                             {coworkingByCategory.map((coworking, index) => (
-                                <CoworkingCard {...coworking} key={index} />
+                                <CoworkingCard product={ coworking } key={index} />
                             ))}
                         </div>
                     </>

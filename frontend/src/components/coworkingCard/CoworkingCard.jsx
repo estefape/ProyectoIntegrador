@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import StarRating  from "../starRating/StarRating";
 
 
-export const CoworkingCard = ({image, name, category, city, address, description, idCoworking, rating}) => {
+export const CoworkingCard = ({ product, clasePersonalizada}) => {
   // este componente va a recibir una oficina de buena valoracion
   // y de este vamos a extraer, la NOTA, el promedio ej: MUY BUENO, BUENO, etc
   // cant estrellas ?
   // distancia al centro de la ciudad en la que se encuentra
   // breve descripcion
   // comodidades ?
-  const images = image.split(";");
+  const images = product.image.split(";");
 
   const imageStyle = {
     backgroundImage: `url(${images[0]})`
@@ -19,27 +19,27 @@ export const CoworkingCard = ({image, name, category, city, address, description
 
   return (
     <>
-      <div className="coworking-card">
+      <div className={ clasePersonalizada ? `coworking-card ${clasePersonalizada}` : "coworking-card"}>
         <div className="coworking-card-img" style={ imageStyle }></div>
         <div className="coworking-card-container">
           <div className="coworking-card-top">
-            <h3>{name}</h3>
-            <h4>{category.name}</h4>
+            <h3>{product.name}</h3>
+            <h4>{product.category.name}</h4>
             <StarRating className="rating-container" 
-                                    value={rating?.rating}
-                                    cantidadVotos={rating?.valoraciones} 
-                                    idCoworking={idCoworking} 
+                                    value={product.rating?.rating}
+                                    cantidadVotos={product.rating?.valoraciones} 
+                                    idCoworking={product.idCoworking} 
                                 />
           </div>
           <div className="coworking-card-body">
             <div>
-              <p> <Icons name="pin" /> {address} {city.country}</p>
+              <p> <Icons name="pin" /> {product.address} {product.city.country}</p>
               <p>MOSTRAR EN EL MAPA</p>
             </div>
           </div>
           <div className="coworking-card-footer">
-            <p>{description.substring(0, 70)}...</p>
-            <Link className="btn" to={`/detail/${idCoworking}`}>Ver Mas</Link>
+            <p>{product.description.substring(0, 70)}...</p>
+            <Link className="btn" to={`/detail/${product.idCoworking}`}>Ver Mas</Link>
           </div>
         </div>
       </div>
