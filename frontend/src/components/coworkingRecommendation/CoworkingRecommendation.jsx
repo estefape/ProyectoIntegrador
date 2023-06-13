@@ -4,8 +4,6 @@ import { useState, useEffect } from "react"
 import { constants } from "../../services/constants"
 
 export const CoworkingRecommendation = () => {
-  // este componente va a recibir un array de las oficinas mejor valoradas
-  // por cada una de ellas vamos a crear un componenete CardRecommend
 
   const [coworkingRecommendation, setCoworkingRecommendation] = useState([]);
 
@@ -42,7 +40,7 @@ export const CoworkingRecommendation = () => {
         (
           <div className="coworking-recommendation-container">
             {getRandomList(coworkingRecommendation).map(item => (
-              <CoworkingCard {...item} key={item.idCoworking} />
+              <CoworkingCard product={{...item}} key={item.idCoworking} />
             ))}
           </div>
         ) : (<p>Cargando...</p>)}
