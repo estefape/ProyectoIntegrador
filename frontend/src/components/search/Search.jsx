@@ -4,7 +4,8 @@ import * as productService from "../../services/productServices";
 import React, { useEffect, useState } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import "primereact/resources/primereact.css";
+import { locale, addLocale} from 'primereact/api';        
+import "primereact/resources/primereact.css";       
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "primereact/resources/themes/saga-orange/theme.css";
@@ -12,6 +13,7 @@ import "./search.css";
 import { CoworkingCard } from "../coworkingCard/CoworkingCard";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Navigation } from "swiper";
+import calendarESP from "../../data/calendar";
 
 
 export const Search = ({ customEvent }) => {
@@ -22,6 +24,7 @@ export const Search = ({ customEvent }) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
+  addLocale('es', calendarESP);
   useEffect(() => {
     cityService
       .cityAll()
@@ -52,6 +55,7 @@ export const Search = ({ customEvent }) => {
     customEvent(true);
   };
 
+
   return (
     <div className="search">
       <h2>Busca ofertas en oficinas...</h2>
@@ -69,7 +73,9 @@ export const Search = ({ customEvent }) => {
           id="calendar-picker"
           value={dates}
           onChange={(e) => setDates(e.value)}
+          numberOfMonths={2}
           selectionMode="range"
+          locale="es"
           readOnlyInput
         />
         <button className="btn" onClick={handleSearch}>

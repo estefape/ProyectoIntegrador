@@ -59,7 +59,7 @@ const CategoryForm = () => {
 
   return (
     <div className="wrapper">
-      <form className="product-form">
+      <form className="category-form">
         <div className="form-tittle">
           <h3 className="form-header">Registrar Nueva Categoria</h3>
         </div>

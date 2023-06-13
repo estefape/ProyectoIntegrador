@@ -1,5 +1,5 @@
 import { constants } from "./constants"
-import { getData, postData, putData, deleteData } from "./utils"
+import { getData, postData, postDataWithFormData } from "./utils"
 
 export const cityRegister = (city) => {
     return postData(constants.CITIES_ENDPOINT, city)
