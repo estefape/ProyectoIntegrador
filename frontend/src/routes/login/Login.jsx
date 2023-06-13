@@ -9,8 +9,8 @@ import { constants } from "../../services/constants"
 export const Login = () => {
 
 	const [user, setUser] = useState({
-		email: "cadorado@gmail.com",
-		password: "Elganador05*",
+		email: "",
+		password: "",
 	})
 
 	const navigate = useNavigate();

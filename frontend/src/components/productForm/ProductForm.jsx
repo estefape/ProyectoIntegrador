@@ -9,7 +9,17 @@ import "./ProductForm.css";
 
 const ProductForm = () => {
   const [
-    { name, category, city, address, description, image, lat, lng, cancelation, rules, healthpolicy },
+    {
+      name,
+      category,
+      city,
+      address,
+      description,
+      image,
+      cancelation,
+      rules,
+      healthpolicy,
+    },
     handleInputChanges,
     handleFileChanges,
     reset,
@@ -22,15 +32,21 @@ const ProductForm = () => {
     image: "",
     cancelation: "",
     rules: "",
-    healthpolicy: ""
+    healthpolicy: "",
   });
 
-  const facilities = [{name:"Wifi", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Smart TV", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Impresora", icon:'<i class="fa-solid fa-phone"></i>'}, {name:"Café", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Estacionamiento", icon:'<i class="fa-solid fa-phone"></i>'}]
+  const facilities = [
+    { name: "Wifi", icon: '<i class="fa-solid fa-phone"></i>' },
+    { name: "Smart TV", icon: '<i class="fa-solid fa-phone"></i>' },
+    { name: "Impresora", icon: '<i class="fa-solid fa-phone"></i>' },
+    { name: "Café", icon: '<i class="fa-solid fa-phone"></i>' },
+    { name: "Estacionamiento", icon: '<i class="fa-solid fa-phone"></i>' },
+  ];
 
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
-  const [coord, setCoord] = useState({lat: '', lng: ''});
+  const [{ lat, lng }, setCoord] = useState({ lat: "", lng: "" });
 
   useEffect(() => {
     categoryService
@@ -41,20 +57,31 @@ const ProductForm = () => {
       .then((categories) => {
         setCategories(categories);
       });
-      cityService
+    cityService
       .cityAll()
       .then((response) => {
         return response.json();
       })
       .then((cities) => {
         setCities(cities);
-      });   
+      });
   }, []);
 
-
   const changeLatLng = (x, y) => {
-    setCoord({ lat: x, lng: y})
-  }
+    setCoord({ lat: x, lng: y });
+  };
+
+  const onChangeLatLng = ({ target }) => {
+    target.name == "lat"
+      ? setCoord({
+          lng,
+          lat: target.value,
+        })
+      : setCoord({
+          lng: target.value,
+          lat,
+        });
+  };
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -66,11 +93,11 @@ const ProductForm = () => {
       data.append("city", city);
       data.append("address", address);
       data.append("rating", 0);
-      data.append("latitude", coord.lat)
-      data.append("longitude", coord.lng)
-      data.append("cancellation_policy", cancelation)
-      data.append("coworking_rules_policy", rules)
-      data.append("health_safety_policy", healthpolicy)
+      data.append("latitude", lat);
+      data.append("longitude", lng);
+      data.append("cancellation_policy", cancelation);
+      data.append("coworking_rules_policy", rules);
+      data.append("health_safety_policy", healthpolicy);
       for (let i = 1; i <= image.length; i++) {
         data.append(`imageFile${i}`, image[i - 1]);
       }
@@ -106,7 +133,8 @@ const ProductForm = () => {
         }
       });
       setErrors("");
-      //reset();
+      reset();
+      setCoord({ lat: "", lng: "" });
     }
   };
 
@@ -131,126 +159,135 @@ const ProductForm = () => {
         </div>
         <div className="form-inputs-products">
           <div className="panels">
-          <div className="left-panel">
-            <h4>Datos Generales</h4>
-          <label>
-            <span>Nombre</span>
-            <input
-              name="name"
-              type="text"
-              value={name || ""}
-              onChange={handleInputChanges}
-            />
-          </label>
-          <label>
-            <span>Categoría</span>
-            <select
-              name="category"
-              value={category}
-              onChange={handleInputChanges}
-            >
-              <option value="">Seleccione una categoria</option>
-              {categories.map((cat) => {
-                return (
-                  <option key={cat.idCategory} value={cat.idCategory}>
-                    {cat.name}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            <span>Ciudad</span>
-            <select
-              name="city"
-              value={city}
-              onChange={handleInputChanges}
-            >
-              <option value="">Seleccione una ciudad</option>
-              {cities.map((cit) => {
-                return (
-                  <option key={cit.idCity} value={cit.idCity}>
-                    {cit.name}
-                  </option>
-                );
-              })}
-            </select>            
-          </label>
-          <label>
-            <span>Dirección</span>
-            <AddressAutocomplete address={address}handleInputChange={handleInputChanges} changeLatLng={changeLatLng}/>
-          </label>
-          <label>
-            <span>Latitud</span>
-            <input
-              name="lat"
-              type="text"
-              value={coord.lat}
-              onChange={handleInputChanges}
-            />
-          </label>
-          <label>
-            <span>Longitud</span>
-            <input
-              name="lng"
-              type="text"
-              value={coord.lng}
-              onChange={handleInputChanges}
-            />
-          </label>
-          <label>
-          
-          <span>Descripción</span>
-          <textarea
-            name="description"
-            value={description || ""}
-            onChange={handleInputChanges}
-          />
-        </label>
-          <input
-            name="image"
-            type="file"
-            accept="image/*"
-            multiple="multiple"
-            onChange={handleFileChanges}
-          />
-          </div>
-          <div className="right-panel">
-          <h4>Políticas</h4>
+            <div className="left-panel">
+              <h4>Datos Generales</h4>
+              <label>
+                <span>Nombre</span>
+                <input
+                  name="name"
+                  type="text"
+                  value={name || ""}
+                  onChange={handleInputChanges}
+                />
+              </label>
+              <label>
+                <span>Categoría</span>
+                <select
+                  name="category"
+                  value={category}
+                  onChange={handleInputChanges}
+                >
+                  <option value="">Seleccione una categoria</option>
+                  {categories.map((cat) => {
+                    return (
+                      <option key={cat.idCategory} value={cat.idCategory}>
+                        {cat.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label>
+                <span>Ciudad</span>
+                <select name="city" value={city} onChange={handleInputChanges}>
+                  <option value="">Seleccione una ciudad</option>
+                  {cities.map((cit) => {
+                    return (
+                      <option key={cit.idCity} value={cit.idCity}>
+                        {cit.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label>
+                <span>Dirección</span>
+                <AddressAutocomplete
+                  address={address}
+                  handleInputChange={handleInputChanges}
+                  changeLatLng={changeLatLng}
+                />
+              </label>
+              <label>
+                <span>Latitud</span>
+                <input
+                  name="lat"
+                  type="text"
+                  value={lat}
+                  onChange={onChangeLatLng}
+                />
+              </label>
+              <label>
+                <span>Longitud</span>
+                <input
+                  name="lng"
+                  type="text"
+                  value={lng}
+                  onChange={onChangeLatLng}
+                />
+              </label>
+              <label>
+                <span>Descripción</span>
+                <textarea
+                  name="description"
+                  value={description || ""}
+                  onChange={handleInputChanges}
+                />
+              </label>
+              <input
+                name="image"
+                type="file"
+                accept="image/*"
+                multiple="multiple"
+                onChange={handleFileChanges}
+              />
+            </div>
+            <div className="right-panel">
+              <h4>Políticas</h4>
 
-          <label>
-            <span>Políticas de Cancelación</span>
-            <textarea
-              name="cancelation"
-              value={cancelation || ""}
-              onChange={handleInputChanges}
-            />
-          </label>   
-          <label>
-            <span>Normas del Coworking</span>
-            <textarea
-              name="rules"
-              value={rules || ""}
-              onChange={handleInputChanges}
-            />
-          </label>   
-          <label>
-            <span>Salud y Seguridad</span>
-            <textarea
-              name="healthpolicy"
-              value={healthpolicy || ""}
-              onChange={handleInputChanges}
-            />
-          </label> 
-          <h4 className="facilities-tittle">Comodidades</h4>
-          <div className="facilities">
-          {facilities.map((facility) => {
-            return(<>
-            <span className="facility-text" key={facility.name}><input key={facility.name} type="checkbox" id="cbox1" value="first_checkbox"/>{facility.name}</span>   
-            </>)
-          })}   
-          </div>            
-          </div>            
+              <label>
+                <span>Políticas de Cancelación</span>
+                <textarea
+                  name="cancelation"
+                  value={cancelation || ""}
+                  onChange={handleInputChanges}
+                />
+              </label>
+              <label>
+                <span>Normas del Coworking</span>
+                <textarea
+                  name="rules"
+                  value={rules || ""}
+                  onChange={handleInputChanges}
+                />
+              </label>
+              <label>
+                <span>Salud y Seguridad</span>
+                <textarea
+                  name="healthpolicy"
+                  value={healthpolicy || ""}
+                  onChange={handleInputChanges}
+                />
+              </label>
+              <h4 className="facilities-tittle">Comodidades</h4>
+              <div className="facilities">
+                {facilities.map((facility) => {
+                  return (
+                    <>
+                      <span className="facility-text" key={facility.name}>
+                        <input
+                          key={facility.name}
+                          type="checkbox"
+                          id="cbox1"
+                          value="first_checkbox"
+                        />
+                        {facility.name}
+                      </span>
+                    </>
+                  );
+                })}
+              </div>
+            </div>
           </div>
           <span style={{ color: "red" }}>{errors}</span>
           <button className="btn" onClick={handleRegister}>

@@ -18,8 +18,6 @@ const EditProductForm = () => {
       address,
       description,
       image,
-      latitude,
-      longitude,
       cancellationPolicy,
       coworkingRulesPolicy,
       healthSafetyPolicy,
@@ -38,14 +36,13 @@ const EditProductForm = () => {
     cancellationPolicy: "",
     coworkingRulesPolicy: "",
     healthSafetyPolicy: "",
-    latitude: "",
-    longitude: "",
   });
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
   const { productId } = useParams();
   const [cities, setCities] = useState([]);
-  const [coord, setCoord] = useState({ lat: latitude, lng: longitude});
+  const [{ lat, lng }, setCoord] = useState({ lat: "", lng: "" });
+  const [picture, setPicture] = useState("");
   const facilities = [
     { name: "Wifi", icon: '<i class="fa-solid fa-phone"></i>' },
     { name: "Smart TV", icon: '<i class="fa-solid fa-phone"></i>' },
@@ -70,13 +67,13 @@ const EditProductForm = () => {
         return result.json();
       })
       .then((product) => {
-        console.log(product);
         initValues({
           ...product,
           category: product.category.idCategory,
-          city: product.city.idCity
+          city: product.city.idCity,
         });
-        setCoord({lat:product.latitude, lng:product.longitude})
+        setCoord({ lat: product.latitude, lng: product.longitude });
+        product.image && setPicture(product.image.split(";")[0]);
       });
     cityService
       .cityAll()
@@ -91,20 +88,25 @@ const EditProductForm = () => {
   const handleUpdate = (event) => {
     event.preventDefault();
 
-
     if (validation()) {
       productService
         .productUpdate({
           idCoworking: productId,
           name,
-          city,
           address,
           description,
-          rating: 3,
-          image: image,
+          image,
+          coworkingRulesPolicy,
+          healthSafetyPolicy,
+          cancellationPolicy,
+          city: {
+            idCity: city,
+          },
           category: {
             idCategory: category,
           },
+          latitude: lat,
+          longitude: lng,
         })
         .then(async (result) => {
           if (result.status >= 200 && result.status < 300) {
@@ -139,6 +141,18 @@ const EditProductForm = () => {
       setErrors("Todos los campos son obligatorios");
       return false;
     }
+  };
+
+  const onChangeLatLng = ({ target }) => {
+    target.name == "lat"
+      ? setCoord({
+          lng,
+          lat: target.value,
+        })
+      : setCoord({
+          lng: target.value,
+          lat,
+        });
   };
 
   const changeLatLng = (x, y) => {
@@ -206,18 +220,18 @@ const EditProductForm = () => {
                 <span>Latitud</span>
                 <input
                   name="lat"
-                  type="text"
-                  value={coord.lat}
-                  onChange={handleInputChanges}
+                  type="number"
+                  value={lat}
+                  onChange={onChangeLatLng}
                 />
               </label>
               <label>
                 <span>Longitud</span>
                 <input
                   name="lng"
-                  type="text"
-                  value={coord.lng}
-                  onChange={handleInputChanges}
+                  type="number"
+                  value={lng}
+                  onChange={onChangeLatLng}
                 />
               </label>
               <label>
@@ -235,6 +249,11 @@ const EditProductForm = () => {
                 multiple="multiple"
                 onChange={handleFileChanges}
               />
+              {/*<div className="carousel" style={{display: image ? 'block' : 'none'}}>
+                <button id="retroceder">Retroceder</button>
+                <div id="imagen" style={{backgroundImage: `url(${picture})`}} alt='imagen'></div>
+                <button id="avanzar">Avanzar</button>
+              </div>*/}
             </div>
             <div className="right-panel">
               <h4>Políticas</h4>
@@ -242,7 +261,7 @@ const EditProductForm = () => {
               <label>
                 <span>Políticas de Cancelación</span>
                 <textarea
-                  name="cancelation"
+                  name="cancellationPolicy"
                   value={cancellationPolicy}
                   onChange={handleInputChanges}
                 />
@@ -250,7 +269,7 @@ const EditProductForm = () => {
               <label>
                 <span>Normas del Coworking</span>
                 <textarea
-                  name="rules"
+                  name="coworkingRulesPolicy"
                   value={coworkingRulesPolicy}
                   onChange={handleInputChanges}
                 />
@@ -258,7 +277,7 @@ const EditProductForm = () => {
               <label>
                 <span>Salud y Seguridad</span>
                 <textarea
-                  name="healthpolicy"
+                  name="healthSafetyPolicy"
                   value={healthSafetyPolicy}
                   onChange={handleInputChanges}
                 />
