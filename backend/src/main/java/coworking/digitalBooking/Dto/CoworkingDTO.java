@@ -27,5 +27,5 @@ public class CoworkingDTO {
     private CategoryDTO category;
     private double latitude;
     private double longitude;
-//    private List<CoworkingPolicyDTO> coworkingPolicies;
+    private List<CoworkingFacilityDTO> coworkingFacilities;
 }

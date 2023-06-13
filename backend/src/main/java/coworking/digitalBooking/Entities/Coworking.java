@@ -52,8 +52,8 @@ public class Coworking {
     @JoinColumn(name = "idCategory")
     private Category category;
 
-/*    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CoworkingPolicy> coworkingPolicies;*/
+    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CoworkingFacility> coworkingFacilities;
 
 
     @Override

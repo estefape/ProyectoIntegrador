@@ -1,6 +1,7 @@
 package coworking.digitalBooking.Controller;
 
 import coworking.digitalBooking.Dto.*;
+import coworking.digitalBooking.Service.CoworkingFacilityService;
 import coworking.digitalBooking.Service.CoworkingService;
 import coworking.digitalBooking.Service.ManageFileS3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +16,12 @@ import java.util.List;
 @RequestMapping("/api/Products")
 @CrossOrigin(origins = "*")
 public class CoworkingController {
-/*    public static class DataItem {
-        @JsonProperty("id")
-        private int id;
-        @JsonProperty("description")
-        private String description;
-        public int getId() {
-            return id;
-        }
-        public void setId(int id) {
-            this.id = id;
-        }
-        public String getDescription() {
-            return description;
-        }
-        public void setDescription(String description) {
-            this.description = description;
-        }
-    }*/
-
     @Autowired
     private CoworkingService coworkingService;
     @Autowired
     private ManageFileS3Service manageFilesS3Service;
+    @Autowired
+    private CoworkingFacilityService coworkingFacilityService;
 
     @GetMapping()
     public List<CoworkingDTO> searchAll() {
@@ -66,8 +50,8 @@ public class CoworkingController {
             @RequestParam String health_safety_policy,
             @RequestParam String cancellation_policy,
             @RequestParam double latitude,
-            @RequestParam double longitude
-//            @RequestParam String coworkingPolicies
+            @RequestParam double longitude,
+            @RequestParam List<Long> facilities
     ) {
         try {
 
@@ -100,17 +84,14 @@ public class CoworkingController {
             coworkingService.validateCoordinates(latitude,longitude);
             coworkingDTO = coworkingService.registerProduct(coworkingDTO);
 
-            /*ObjectMapper mapper = new ObjectMapper();
-            List<DataItem> items = mapper.readValue(coworkingPolicies, new TypeReference<List<DataItem>>() {});
-            for (DataItem item : items) {
-                CoworkingPolicyDTO coworkingPolicyDTO = new CoworkingPolicyDTO();
-                PolicyDTO policyDTO = new PolicyDTO();
-                policyDTO.setIdPolicy((long)item.getId());
-                coworkingPolicyDTO.setDescription(item.getDescription());
-                coworkingPolicyDTO.setPolicy(policyDTO);
-                coworkingPolicyDTO.setCoworking(coworkingDTO);
-                coworkingPolicyService.createCoworkingPolicy(coworkingPolicyDTO);
-            }*/
+            for (Long facility : facilities) {
+                CoworkingFacilityDTO coworkingFacilityDTO = new CoworkingFacilityDTO();
+                FacilityDTO facilityDTO = new FacilityDTO();
+                facilityDTO.setId(facility);
+                coworkingFacilityDTO.setCoworking(coworkingDTO);
+                coworkingFacilityDTO.setFacility(facilityDTO);
+                coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTO);
+            }
 
             return new ResponseEntity<>(coworkingDTO, HttpStatus.CREATED);
         } catch (Exception e) {
