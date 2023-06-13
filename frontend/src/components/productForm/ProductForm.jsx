@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
-import AddressAutocomplete from "../addressAutocomplete/addressAutocomplete";
+import AddressAutocomplete from "../addressAutocomplete/AddressAutocomplete";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import * as cityService from "../../services/cityServices";

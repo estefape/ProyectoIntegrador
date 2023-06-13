@@ -3,7 +3,7 @@ import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import * as cityService from "../../services/cityServices";
-import AddressAutocomplete from "../addressAutocomplete/addressAutocomplete";
+import AddressAutocomplete from "../addressAutocomplete/AddressAutocomplete";
 import Swal from "sweetalert2";
 import "./EditProductForm.css";
 import { useParams, redirect, useNavigate } from "react-router-dom";
