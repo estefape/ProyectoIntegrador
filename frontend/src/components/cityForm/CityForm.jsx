@@ -72,7 +72,7 @@ const CityForm = () => {
 
   return (
     <div className="wrapper">
-      <form className="product-form">
+      <form className="city-form">
         <div className="form-tittle">
           <h3 className="form-header">Registrar Nueva Ciudad</h3>
         </div>

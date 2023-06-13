@@ -9,7 +9,7 @@ import { constants } from "../../services/constants"
 export const Login = () => {
 
 	const [user, setUser] = useState({
-		email: "davidgalvis05@hotmail.com",
+		email: "cadorado@gmail.com",
 		password: "Elganador05*",
 	})
 

@@ -9,7 +9,7 @@ import "./ProductForm.css";
 
 const ProductForm = () => {
   const [
-    { name, category, city, address, description, image, lat, lng },
+    { name, category, city, address, description, image, lat, lng, cancelation, rules, healthpolicy },
     handleInputChanges,
     handleFileChanges,
     reset,
@@ -20,14 +20,17 @@ const ProductForm = () => {
     address: "",
     description: "",
     image: "",
-    lat: "",
-    lng: ""
+    cancelation: "",
+    rules: "",
+    healthpolicy: ""
   });
+
+  const facilities = [{name:"Wifi", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Smart TV", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Impresora", icon:'<i class="fa-solid fa-phone"></i>'}, {name:"Café", icon:'<i class="fa-solid fa-phone"></i>'},{name:"Estacionamiento", icon:'<i class="fa-solid fa-phone"></i>'}]
+
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
   const [coord, setCoord] = useState({lat: '', lng: ''});
-  const [mensaje, setMensaje] = useState("")
 
   useEffect(() => {
     categoryService
@@ -50,19 +53,11 @@ const ProductForm = () => {
 
 
   const changeLatLng = (x, y) => {
-    console.log('changelat', x)
-    const lat = { target: {name: 'lat', value: x}}
-    const lng = { target: {name: 'lng', value: y}}
-    handleInputChanges(lat)
-    handleInputChanges(lng)
-    console.log(lat)
     setCoord({ lat: x, lng: y})
-    console.log(coord)
   }
 
   const handleRegister = (event) => {
     event.preventDefault();
-    console.log(address)
     if (validation()) {
       const data = new FormData();
       data.append("name", name);
@@ -71,8 +66,11 @@ const ProductForm = () => {
       data.append("city", city);
       data.append("address", address);
       data.append("rating", 0);
-      data.append("lat", coord.lat)
-      data.append("lat", coord.lng)
+      data.append("latitude", coord.lat)
+      data.append("longitude", coord.lng)
+      data.append("cancellation_policy", cancelation)
+      data.append("coworking_rules_policy", rules)
+      data.append("health_safety_policy", healthpolicy)
       for (let i = 1; i <= image.length; i++) {
         data.append(`imageFile${i}`, image[i - 1]);
       }
@@ -108,7 +106,7 @@ const ProductForm = () => {
         }
       });
       setErrors("");
-      reset();
+      //reset();
     }
   };
 
@@ -131,7 +129,10 @@ const ProductForm = () => {
         <div className="form-tittle">
           <h3 className="form-header">Registrar Nueva Oficina</h3>
         </div>
-        <div className="form-inputs">
+        <div className="form-inputs-products">
+          <div className="panels">
+          <div className="left-panel">
+            <h4>Datos Generales</h4>
           <label>
             <span>Nombre</span>
             <input
@@ -142,7 +143,7 @@ const ProductForm = () => {
             />
           </label>
           <label>
-            <span>Categoria</span>
+            <span>Categoría</span>
             <select
               name="category"
               value={category}
@@ -198,13 +199,14 @@ const ProductForm = () => {
             />
           </label>
           <label>
-            <span>Descripción</span>
-            <textarea
-              name="description"
-              value={description || ""}
-              onChange={handleInputChanges}
-            />
-          </label>
+          
+          <span>Descripción</span>
+          <textarea
+            name="description"
+            value={description || ""}
+            onChange={handleInputChanges}
+          />
+        </label>
           <input
             name="image"
             type="file"
@@ -212,6 +214,44 @@ const ProductForm = () => {
             multiple="multiple"
             onChange={handleFileChanges}
           />
+          </div>
+          <div className="right-panel">
+          <h4>Políticas</h4>
+
+          <label>
+            <span>Políticas de Cancelación</span>
+            <textarea
+              name="cancelation"
+              value={cancelation || ""}
+              onChange={handleInputChanges}
+            />
+          </label>   
+          <label>
+            <span>Normas del Coworking</span>
+            <textarea
+              name="rules"
+              value={rules || ""}
+              onChange={handleInputChanges}
+            />
+          </label>   
+          <label>
+            <span>Salud y Seguridad</span>
+            <textarea
+              name="healthpolicy"
+              value={healthpolicy || ""}
+              onChange={handleInputChanges}
+            />
+          </label> 
+          <h4 className="facilities-tittle">Comodidades</h4>
+          <div className="facilities">
+          {facilities.map((facility) => {
+            return(<>
+            <span className="facility-text" key={facility.name}><input key={facility.name} type="checkbox" id="cbox1" value="first_checkbox"/>{facility.name}</span>   
+            </>)
+          })}   
+          </div>            
+          </div>            
+          </div>
           <span style={{ color: "red" }}>{errors}</span>
           <button className="btn" onClick={handleRegister}>
             REGISTRAR
