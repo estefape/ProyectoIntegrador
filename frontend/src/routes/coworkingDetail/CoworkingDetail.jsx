@@ -20,6 +20,14 @@ export const CoworkingDetail = () => {
     const [singleOffice, setSingleOffice] = useState({})
     const { id } = useParams()
 
+    const facilitiesMap = {
+        "Wifi": <WifiIcon className="icon" />,
+        "Aire acondicionado": <AcUnitIcon className="icon" />,
+        "Smart TV": <TvIcon className="icon" />,
+        "Estacionamiento": <DirectionsCarIcon className="icon" />,
+        "Cafe": <CoffeeIcon className="icon" />,
+        "Impresora": <PrintIcon className="icon" />
+    }
 
     const getOfficeByOfficeId = async (id) => {
         const requestConfig = {
@@ -101,12 +109,23 @@ export const CoworkingDetail = () => {
                         </div>
                         <div className="container comodidades">
                             <div className="grid">
+
+                            {(singleOffice?.coworkingFacilities?.length || 0) > 0 && singleOffice.coworkingFacilities.map((item, index) => {
+                                        return (
+                                            <div key={index} className="item icon-container">
+                                                { facilitiesMap[item.facility.name] }
+                                                <span>{item.facility.name}</span>
+                                            </div>
+                                        )
+                                    })}
+
+                                {/*
                                 <div className="item icon-container"><AcUnitIcon className="icon" /> <span>Aire acondicionado</span></div>
                                 <div className="item icon-container"><TvIcon className="icon" /> <span>Smart TV</span></div>
                                 <div className="item icon-container"><WifiIcon className="icon" /> <span>Wifi</span></div>
                                 <div className="item icon-container"><DirectionsCarIcon className="icon" /> <span>Estacionamiento</span></div>
                                 <div className="item icon-container"><CoffeeIcon className="icon" /> <span>Cafe</span></div>
-                                <div className="item icon-container"><PrintIcon className="icon" /> <span>Impresora</span></div>
+                                <div className="item icon-container"><PrintIcon className="icon" /> <span>Impresora</span></div>*/}
                             </div>
                         </div>
                         <div className="container calendario">
