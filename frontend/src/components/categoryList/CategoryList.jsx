@@ -1,6 +1,5 @@
 import "./categoryList.css"
 import { CategoryCard } from "../categoryCard/categoryCard";
-import { categories } from "../../data.json"
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
