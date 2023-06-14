@@ -3,6 +3,7 @@ import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import * as cityService from "../../services/cityServices";
+import * as facilityService from "../../services/facilityServices";
 import AddressAutocomplete from "../addressAutocomplete/AddressAutocomplete";
 import Swal from "sweetalert2";
 import "./EditProductForm.css";
@@ -21,6 +22,7 @@ const EditProductForm = () => {
       cancellationPolicy,
       coworkingRulesPolicy,
       healthSafetyPolicy,
+      facility,
     },
     handleInputChanges,
     handleFileChanges,
@@ -36,6 +38,7 @@ const EditProductForm = () => {
     cancellationPolicy: "",
     coworkingRulesPolicy: "",
     healthSafetyPolicy: "",
+    facility: [],
   });
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
@@ -43,13 +46,8 @@ const EditProductForm = () => {
   const [cities, setCities] = useState([]);
   const [{ lat, lng }, setCoord] = useState({ lat: "", lng: "" });
   const [picture, setPicture] = useState("");
-  const facilities = [
-    { name: "Wifi", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Smart TV", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Impresora", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Café", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Estacionamiento", icon: '<i class="fa-solid fa-phone"></i>' },
-  ];
+  const [facilities, setFacilities] = useState([]);
+  const [checkedItems, setCheckedItems] = useState(new Set());
 
   useEffect(() => {
     categoryService
@@ -60,7 +58,6 @@ const EditProductForm = () => {
       .then((categories) => {
         setCategories(categories);
       });
-
     productService
       .productFindById(productId)
       .then((result) => {
@@ -71,10 +68,13 @@ const EditProductForm = () => {
           ...product,
           category: product.category.idCategory,
           city: product.city.idCity,
+          facility: product.coworkingFacilities,
         });
+
         setCoord({ lat: product.latitude, lng: product.longitude });
         product.image && setPicture(product.image.split(";")[0]);
       });
+
     cityService
       .cityAll()
       .then((response) => {
@@ -83,12 +83,32 @@ const EditProductForm = () => {
       .then((cities) => {
         setCities(cities);
       });
+    facilityService
+      .facilityAll()
+      .then((response) => {
+        return response.json();
+      })
+      .then((facilities) => {
+        setFacilities(facilities);
+      });
   }, []);
+
+  useEffect(() => {
+    const productFacilities = new Set();
+    facility.forEach((f) => {
+      productFacilities.add(f.facility?.id);
+    });
+    setCheckedItems(productFacilities);
+  }, [facility]);
 
   const handleUpdate = (event) => {
     event.preventDefault();
 
     if (validation()) {
+      const facilityRequest = [];
+      Array.from(checkedItems).forEach((f) => {
+        facilityRequest.push({ coworkingFacility: { facility: { id: f } } });
+      });
       productService
         .productUpdate({
           idCoworking: productId,
@@ -107,6 +127,7 @@ const EditProductForm = () => {
           },
           latitude: lat,
           longitude: lng,
+          coworkingFacilities: facilityRequest,
         })
         .then(async (result) => {
           if (result.status >= 200 && result.status < 300) {
@@ -157,6 +178,16 @@ const EditProductForm = () => {
 
   const changeLatLng = (x, y) => {
     setCoord({ lat: x, lng: y });
+  };
+
+  const handleCheckboxChange = (id) => {
+    const newSelectedItems = new Set(checkedItems);
+    if (!newSelectedItems.has(id)) {
+      newSelectedItems.add(id);
+    } else {
+      newSelectedItems.delete(id);
+    }
+    setCheckedItems(newSelectedItems);
   };
 
   return (
@@ -287,16 +318,14 @@ const EditProductForm = () => {
                 {facilities.map((facility) => {
                   return (
                     <>
-                      <span
-                        className="facility-text"
-                        checked="checked"
-                        key={facility.name}
-                      >
+                      <span className="facility-text" key={facility.name}>
                         <input
                           key={facility.name}
+                          checked={checkedItems.has(facility.id)}
+                          onChange={() => {
+                            handleCheckboxChange(facility.id);
+                          }}
                           type="checkbox"
-                          id="cbox1"
-                          value={facility.name}
                         />
                         {facility.name}
                       </span>
