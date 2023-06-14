@@ -2,6 +2,7 @@ package coworking.digitalBooking.Service;
 
 import coworking.digitalBooking.Dto.CoworkingFacilityDTO;
 import coworking.digitalBooking.Dto.FacilityDTO;
+import coworking.digitalBooking.Entities.Coworking;
 import coworking.digitalBooking.Entities.CoworkingFacility;
 import coworking.digitalBooking.Entities.Facility;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
@@ -47,11 +48,13 @@ public class CoworkingFacilityImplement  implements CoworkingFacilityService{
 
     @Override
     public CoworkingFacilityDTO updateCoworkingFacility(Long id, CoworkingFacilityDTO coworkingFacilityDTO) {
+        CoworkingFacility coworkingFacilityUpdate= mapEntity(coworkingFacilityDTO);
         CoworkingFacility existingCoworkingFacility = coworkingFacilityRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("CoworkingFacility", "id", id));
 
-        existingCoworkingFacility.setCoworking(existingCoworkingFacility.getCoworking());
-        existingCoworkingFacility.setFacility(existingCoworkingFacility.getFacility());
+
+        existingCoworkingFacility.setCoworking(coworkingFacilityUpdate.getCoworking());
+        existingCoworkingFacility.setFacility(coworkingFacilityUpdate.getFacility());
 
         CoworkingFacility updatedCoworkingFacility = coworkingFacilityRepository.save(existingCoworkingFacility);
         return mapDTO(updatedCoworkingFacility);
@@ -60,6 +63,11 @@ public class CoworkingFacilityImplement  implements CoworkingFacilityService{
     @Override
     public void deleteCoworkingFacility(Long id) {
         coworkingFacilityRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByCoworkingId(Long id) {
+        coworkingFacilityRepository.deleteCoworkingFacilityByCoworking(id);
     }
 
     // Convierte entidad a DTO

@@ -62,11 +62,13 @@ public class CoworkingServiceImple implements CoworkingService{
 
     @Override
     public CoworkingDTO update(CoworkingDTO coworkingDTO, Long id) {
+
+        Coworking coworkingUpdate= mapEntity(coworkingDTO);
         Coworking coworking = coworkingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Coworking", "id",id));
 
-        coworking.setCity(coworking.getCity());
-        coworking.setCategory(coworking.getCategory());
+        coworking.setCity(coworkingUpdate.getCity());
+        coworking.setCategory(coworkingUpdate.getCategory());
         coworking.setImage(coworking.getImage());
         coworking.setName(coworkingDTO.getName());
         coworking.setAddress(coworkingDTO.getAddress());
@@ -77,9 +79,7 @@ public class CoworkingServiceImple implements CoworkingService{
         coworking.setLatitude(coworkingDTO.getLatitude());
         coworking.setLongitude(coworkingDTO.getLongitude());
 
-        Coworking coworkingUpdate = coworkingRepository.save(coworking);
-
-        return mapDTO(coworkingUpdate);
+        return mapDTO(coworkingRepository.save(coworking));
     }
 
 

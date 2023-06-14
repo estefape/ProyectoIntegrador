@@ -84,14 +84,7 @@ public class CoworkingController {
             coworkingService.validateCoordinates(latitude,longitude);
             coworkingDTO = coworkingService.registerProduct(coworkingDTO);
 
-            for (Long facility : facilities) {
-                CoworkingFacilityDTO coworkingFacilityDTO = new CoworkingFacilityDTO();
-                FacilityDTO facilityDTO = new FacilityDTO();
-                facilityDTO.setId(facility);
-                coworkingFacilityDTO.setCoworking(coworkingDTO);
-                coworkingFacilityDTO.setFacility(facilityDTO);
-                coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTO);
-            }
+            registerFacilities(facilities, coworkingDTO);
 
             return new ResponseEntity<>(coworkingDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -99,10 +92,24 @@ public class CoworkingController {
         }
     }
 
+    private void registerFacilities(List<Long> facilities, CoworkingDTO coworkingDTO){
+        for (Long facility : facilities) {
+            CoworkingFacilityDTO coworkingFacilityDTO = new CoworkingFacilityDTO();
+            FacilityDTO facilityDTO = new FacilityDTO();
+            facilityDTO.setId(facility);
+            coworkingFacilityDTO.setCoworking(coworkingDTO);
+            coworkingFacilityDTO.setFacility(facilityDTO);
+            coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTO);
+        }
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<CoworkingDTO> update(@RequestBody CoworkingDTO coworkingDTO, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<CoworkingDTO> update(@RequestBody CoworkingDTO coworkingDTO, @RequestParam List<Long> facilities, @PathVariable(name = "id") Long id) {
         CoworkingDTO coworkingResponse = coworkingService.update(coworkingDTO, id);
+        coworkingFacilityService.deleteByCoworkingId(coworkingResponse.getIdCoworking());
+        registerFacilities(facilities, coworkingResponse);
+
         return new ResponseEntity<>(coworkingResponse, HttpStatus.OK);
     }
 
