@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import AppContext from './AppContext'
 
-
 export const AppProvider = ({ children }) => {
+
+    const [searchResults, setSearchResults] = useState([])
+    const [showResults, setShowResults] = useState(false)
+    const [selectedCity, setSelectedCity] = useState('')
 
     const [globalState, setGlobalState] = useState({
         nombre: "",
@@ -47,9 +50,6 @@ export const AppProvider = ({ children }) => {
         })
     }
 
-
-
-
     return (
         <AppContext.Provider value={{
             getNameGlobalState,
@@ -57,7 +57,13 @@ export const AppProvider = ({ children }) => {
             isAuthGlobalState,
             login,
             getRolesGlobalState,
-            signOf
+            signOf,
+            searchResults,
+            setSearchResults,
+            showResults,
+            setShowResults,
+            selectedCity,
+            setSelectedCity
         }}>
             {children}
         </AppContext.Provider>
