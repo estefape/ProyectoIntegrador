@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 import { CategoryList } from "../../components/categoryList/CategoryList"
 import { CoworkingRecommendation } from "../../components/coworkingRecommendation/CoworkingRecommendation"
 import { Search } from "../../components/search/Search"
+import { SearchResult } from "../../components/searchResult/SearchResult"
+import AppContext from "../../context/AppContext"
 import "./home.css"
 
 export const Home = () => {
 
-  const [ hiddenRecommedations, setHiddenRecommedantions ] = useState(false);
-
-  const handleCustomEvent = ( value ) => {
-    setHiddenRecommedantions( value );
-  }
+  const { showResults } = useContext(AppContext);
 
   return (
     <>
       <div className="home">
-        <Search customEvent={handleCustomEvent} />
+        <Search />
         <CategoryList />
-        { !hiddenRecommedations && <CoworkingRecommendation /> }
+        { showResults && <SearchResult />}
+        { !showResults && <CoworkingRecommendation /> }
       </div>
     </>
   )
