@@ -4,6 +4,7 @@ import AddressAutocomplete from "../addressAutocomplete/AddressAutocomplete";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import * as cityService from "../../services/cityServices";
+import * as facilityService from "../../services/facilityServices";
 import Swal from "sweetalert2";
 import "./ProductForm.css";
 
@@ -19,6 +20,7 @@ const ProductForm = () => {
       cancelation,
       rules,
       healthpolicy,
+      facility,
     },
     handleInputChanges,
     handleFileChanges,
@@ -33,20 +35,15 @@ const ProductForm = () => {
     cancelation: "",
     rules: "",
     healthpolicy: "",
+    facility: "",
   });
-
-  const facilities = [
-    { name: "Wifi", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Smart TV", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Impresora", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Café", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Estacionamiento", icon: '<i class="fa-solid fa-phone"></i>' },
-  ];
 
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
+  const [facilities, setFacilities] = useState([]);
   const [{ lat, lng }, setCoord] = useState({ lat: "", lng: "" });
+  const [checkedItems, setCheckedItems] = useState(new Set());
 
   useEffect(() => {
     categoryService
@@ -64,6 +61,14 @@ const ProductForm = () => {
       })
       .then((cities) => {
         setCities(cities);
+      });
+    facilityService
+      .facilityAll()
+      .then((response) => {
+        return response.json();
+      })
+      .then((facilities) => {
+        setFacilities(facilities);
       });
   }, []);
 
@@ -83,8 +88,18 @@ const ProductForm = () => {
         });
   };
 
+  const handleCheckboxChange = (id) => {
+    const newSelectedItems = new Set(checkedItems);
+    if (!newSelectedItems.has(id)) {
+      newSelectedItems.add(id);
+    } else {
+      newSelectedItems.delete(id);
+    }
+    setCheckedItems(newSelectedItems);
+  };
   const handleRegister = (event) => {
     event.preventDefault();
+    console.log(Array.from(checkedItems).join(","));
     if (validation()) {
       const data = new FormData();
       data.append("name", name);
@@ -98,6 +113,8 @@ const ProductForm = () => {
       data.append("cancellation_policy", cancelation);
       data.append("coworking_rules_policy", rules);
       data.append("health_safety_policy", healthpolicy);
+      data.append("facilities", Array.from(checkedItems).join(","));
+      console.log(data.name);
       for (let i = 1; i <= image.length; i++) {
         data.append(`imageFile${i}`, image[i - 1]);
       }
@@ -277,9 +294,11 @@ const ProductForm = () => {
                       <span className="facility-text" key={facility.name}>
                         <input
                           key={facility.name}
+                          checked={checkedItems.has(facility.id)}
+                          onChange={() => {
+                            handleCheckboxChange(facility.id);
+                          }}
                           type="checkbox"
-                          id="cbox1"
-                          value="first_checkbox"
                         />
                         {facility.name}
                       </span>

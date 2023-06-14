@@ -3,6 +3,7 @@ import useForm from "../../hooks/useForm";
 import * as productService from "../../services/productServices";
 import * as categoryService from "../../services/categoryServices";
 import * as cityService from "../../services/cityServices";
+import * as facilityService from "../../services/facilityServices";
 import AddressAutocomplete from "../addressAutocomplete/AddressAutocomplete";
 import Swal from "sweetalert2";
 import "./EditProductForm.css";
@@ -21,6 +22,7 @@ const EditProductForm = () => {
       cancellationPolicy,
       coworkingRulesPolicy,
       healthSafetyPolicy,
+      facility,
     },
     handleInputChanges,
     handleFileChanges,
@@ -36,20 +38,16 @@ const EditProductForm = () => {
     cancellationPolicy: "",
     coworkingRulesPolicy: "",
     healthSafetyPolicy: "",
+    facility: "",
   });
   const [errors, setErrors] = useState("");
   const [categories, setCategories] = useState([]);
   const { productId } = useParams();
   const [cities, setCities] = useState([]);
+  const [oldFacilities, setOldFacilities] = useState([]);
   const [{ lat, lng }, setCoord] = useState({ lat: "", lng: "" });
   const [picture, setPicture] = useState("");
-  const facilities = [
-    { name: "Wifi", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Smart TV", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Impresora", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Café", icon: '<i class="fa-solid fa-phone"></i>' },
-    { name: "Estacionamiento", icon: '<i class="fa-solid fa-phone"></i>' },
-  ];
+  const [facilities, setFacilities] = useState([]);
 
   useEffect(() => {
     categoryService
@@ -60,7 +58,6 @@ const EditProductForm = () => {
       .then((categories) => {
         setCategories(categories);
       });
-
     productService
       .productFindById(productId)
       .then((result) => {
@@ -71,7 +68,9 @@ const EditProductForm = () => {
           ...product,
           category: product.category.idCategory,
           city: product.city.idCity,
+          facility: product.coworkingFacilities,
         });
+        setOldFacilities(product.coworkingFacilities)
         setCoord({ lat: product.latitude, lng: product.longitude });
         product.image && setPicture(product.image.split(";")[0]);
       });
@@ -83,7 +82,20 @@ const EditProductForm = () => {
       .then((cities) => {
         setCities(cities);
       });
+      facilityService
+      .facilityAll()
+      .then((response) => {
+        return response.json();
+      })
+      .then((facilities) => {
+        setFacilities(facilities);
+      });
   }, []);
+
+  const initCheckbox = (fac) => {
+    console.log("fac"+facility)
+
+  }
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -296,6 +308,7 @@ const EditProductForm = () => {
                           key={facility.name}
                           type="checkbox"
                           id="cbox1"
+                          checked={oldFacilities.find(fac => fac.name == facility.name) || false}
                           value={facility.name}
                         />
                         {facility.name}
