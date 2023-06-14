@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CoworkingCard } from "../coworkingCard/CoworkingCard";
 import AppContext from "../../context/AppContext";
+import './SearchResult.css'
 
 export const SearchResult = () => {
 
