@@ -17,6 +17,8 @@ export const Header = () => {
     const [buttonCrearCuenta, setButtonCrearCuenta] = useState(true);
     const [buttonInicioSesion, setButtonInicioSesion] = useState(true);
 
+    const { setShowResults } = useContext(AppContext);
+
     const navigate = useNavigate();
 
     const { isAuthGlobalState,
@@ -69,7 +71,7 @@ export const Header = () => {
     return (
         <header className='header'>
             <div className="logo">
-                <Link to="/">
+                <Link to="/" onClick={() => setShowResults(false)}>
                     <img src={iconoLogo} alt="Logo de la empresa" />
                     <span>Encuentra tu espacio de trabajo ideal</span>
                 </Link>
