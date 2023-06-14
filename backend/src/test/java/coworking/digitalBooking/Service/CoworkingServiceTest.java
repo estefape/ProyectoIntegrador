@@ -2,7 +2,8 @@ package coworking.digitalBooking.Service;
 
 import coworking.digitalBooking.Dto.*;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -14,23 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @SpringJUnitConfig
 @Transactional
-class CoworkingFacilityServiceTest {
+class CoworkingServiceTest {
 
-    @Autowired
-    CoworkingFacilityService coworkingFacilityService;
     @Autowired
     private CityService cityService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
     private CoworkingService coworkingService;
-    @Autowired
-    private FacilityService facilityService;
-
     private CategoryDTO categoryTest;
-    private CoworkingFacilityDTO coworkingFacilityDTO;
     private CoworkingDTO coworkingDTO;
-    private FacilityDTO facilityDTO;
+    private  CityDTO cityRegister;
 
     private CategoryDTO createCategoryDTO(String name, String description, String image, int results) {
         CategoryDTO categoryDTO = new CategoryDTO();
@@ -64,62 +59,49 @@ class CoworkingFacilityServiceTest {
         return coworkingDTO;
     }
 
-    private FacilityDTO createFacilityDTO(String name, boolean active) {
-        FacilityDTO facilityDTO = new FacilityDTO();
-        facilityDTO.setName(name);
-        facilityDTO.setStatus(active);
-        return facilityDTO;
-    }
-
     @BeforeEach
     void prepareData() {
         categoryTest = categoryService.registerCategory(createCategoryDTO("Categoria de prueba para coworking", "Categoria de prueba para coworking", "imagen.jpg", 2));
-        CityDTO cityRegister = cityService.registerCity(createCityDTO("Ciudad de prueba para el register", "Ciudad de prueba"));
+        cityRegister = cityService.registerCity(createCityDTO("Ciudad de prueba para el register", "Ciudad de prueba"));
         coworkingDTO = coworkingService.registerProduct(createCoworkingDTO("coworking para pruebas", "coworking para pruebas", "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
-        facilityDTO = facilityService.registerFacility(createFacilityDTO("Facility para test", true));
-        coworkingFacilityDTO = coworkingFacilityService.createCoworkingFacility(createCoworkingFacilityDTO(coworkingDTO, facilityDTO));
-    }
-
-    private CoworkingFacilityDTO createCoworkingFacilityDTO(CoworkingDTO coworkingDTO, FacilityDTO facilityDTO) {
-        CoworkingFacilityDTO coworkingFacilityDTO = new CoworkingFacilityDTO();
-        coworkingFacilityDTO.setCoworking(coworkingDTO);
-        coworkingFacilityDTO.setFacility(facilityDTO);
-        return coworkingFacilityDTO;
     }
 
     @Test
-    void getCoworkingFacilityById() {
-        assertNotNull(coworkingFacilityService.getCoworkingFacilityById(coworkingFacilityDTO.getId()));
+    void searchById() {
+        assertNotNull(coworkingService.searchById(coworkingDTO.getIdCoworking()));
     }
 
     @Test
-    void getAllCoworkingPolicies() {
-        assertNotNull(coworkingFacilityService.getAllCoworkingPolicies());
+    void searchAll() {
+        assertNotNull(coworkingService.searchAll());
     }
 
     @Test
-    void createCoworkingFacility() {
-        CoworkingFacilityDTO coworkingFacilityDTONew = createCoworkingFacilityDTO(coworkingDTO, facilityDTO);
-        coworkingFacilityDTONew = coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTONew);
-        assertEquals(coworkingFacilityDTONew.getCoworking(), coworkingDTO);
+    void registerProduct() {
+        String name = "coworking para pruebas 2";
+        CoworkingDTO coworkingDTOTest = coworkingService.registerProduct(createCoworkingDTO(name, name, "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+        assertNotNull(coworkingDTOTest);
     }
 
     @Test
-    void updateCoworkingFacility() {
-        FacilityDTO facilityDTONew = facilityService.registerFacility(createFacilityDTO("Facility 2 para test", true));
-        coworkingFacilityDTO.setFacility(facilityDTONew);
-        coworkingFacilityDTO = coworkingFacilityService.updateCoworkingFacility(coworkingFacilityDTO.getId(), coworkingFacilityDTO);
-        assertEquals(coworkingFacilityDTO.getFacility(), facilityDTONew);
+    void update() {
+        String name = "coworking para pruebas del update";
+        coworkingDTO.setName(name);
+        coworkingDTO = coworkingService.update(coworkingDTO, coworkingDTO.getIdCoworking());
+        assertEquals(name, coworkingDTO.getName());
     }
 
     @Test
-    void deleteCoworkingFacility() {
-        CoworkingFacilityDTO coworkingFacilityDTONew = createCoworkingFacilityDTO(coworkingDTO, facilityDTO);
-        coworkingFacilityDTONew = coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTONew);
-        coworkingFacilityService.deleteCoworkingFacility(coworkingFacilityDTONew.getId());
-        CoworkingFacilityDTO finalCoworkingFacilityDTONew = coworkingFacilityDTONew;
+    void delete() {
+        String name = "coworking para pruebas del delete";
+        CoworkingDTO coworkingDTOTest = coworkingService.registerProduct(createCoworkingDTO(name, name, "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+
+        assertNotNull(coworkingDTOTest);
+        coworkingService.delete(coworkingDTOTest.getIdCoworking());
+
+        CoworkingDTO finalCoworkingDTOTest = coworkingDTOTest;
         assertThrows(ResourceNotFoundException.class, () -> {
-            coworkingFacilityService.getCoworkingFacilityById(finalCoworkingFacilityDTONew.getId());
+            coworkingService.searchById(finalCoworkingDTOTest.getIdCoworking());
         });
     }
 }
