@@ -97,9 +97,9 @@ const ProductForm = () => {
     }
     setCheckedItems(newSelectedItems);
   };
+
   const handleRegister = (event) => {
     event.preventDefault();
-    console.log(Array.from(checkedItems).join(","));
     if (validation()) {
       const data = new FormData();
       data.append("name", name);
@@ -114,7 +114,6 @@ const ProductForm = () => {
       data.append("coworking_rules_policy", rules);
       data.append("health_safety_policy", healthpolicy);
       data.append("facilities", Array.from(checkedItems).join(","));
-      console.log(data.name);
       for (let i = 1; i <= image.length; i++) {
         data.append(`imageFile${i}`, image[i - 1]);
       }
