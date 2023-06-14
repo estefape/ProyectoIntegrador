@@ -55,8 +55,23 @@ deploy_frontend:
   dependencies:
     - build_frontend
 
+test_backend:
+  stage: test
+  before_script:
+    - cd backend
+  script:
+    - echo "Testing the application"
+    - echo $(pwd)
+    - mvn test
+    - echo "Finished testing"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+  image: maven:3.8.4-openjdk-17-slim
+
 deploy_backend:
   stage: deploy
+  needs:
+    - test_backend
   before_script:
     - apt-get update && apt-get install -y openssh-client
     - echo "$SSH_PRIVATE_KEY" > private_key.pem

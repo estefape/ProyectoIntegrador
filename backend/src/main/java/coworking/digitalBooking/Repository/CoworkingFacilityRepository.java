@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CoworkingFacilityRepository extends JpaRepository<CoworkingFacility, Long>{
 
-    void deleteCoworkingFacilityByCoworking(Long coworkingId);
-
 }

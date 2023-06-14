@@ -14,7 +14,5 @@ public interface CoworkingFacilityService {
     public CoworkingFacilityDTO updateCoworkingFacility(Long id, CoworkingFacilityDTO coworkingFacilityDTO);
 
     void deleteCoworkingFacility(Long id);
-
-    void deleteByCoworkingId(Long id);
 }
 
