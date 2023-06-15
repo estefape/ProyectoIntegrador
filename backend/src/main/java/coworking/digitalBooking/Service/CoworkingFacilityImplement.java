@@ -65,11 +65,6 @@ public class CoworkingFacilityImplement  implements CoworkingFacilityService{
         coworkingFacilityRepository.deleteById(id);
     }
 
-    @Override
-    public void deleteByCoworkingId(Long id) {
-        coworkingFacilityRepository.deleteCoworkingFacilityByCoworking(id);
-    }
-
     // Convierte entidad a DTO
     private CoworkingFacilityDTO mapDTO(CoworkingFacility coworkingFacility) {
         CoworkingFacilityDTO coworkingFacilityDTO = modelMapper.map(coworkingFacility, CoworkingFacilityDTO.class);

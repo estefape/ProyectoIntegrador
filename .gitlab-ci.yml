@@ -42,6 +42,8 @@ build_frontend:
 
 deploy_frontend:
   stage: deploy
+  needs:
+    - build_frontend
   before_script:
     - cd frontend
   script:
