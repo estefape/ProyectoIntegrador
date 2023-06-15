@@ -66,7 +66,7 @@ class CategoryServiceTest {
 }
 ```
 
-### Test Unitario: CityService - CityServiceTest
+### Test unitario: CityService - CityServiceTest
 
 ```
 package coworking.digitalBooking.Service;
@@ -149,7 +149,7 @@ class CityServiceTest {
 }
 ```
 
-### Test Unitario: CoworkingService - CoworkingServiceTest
+### Test unitario: CoworkingService - CoworkingServiceTest
 
 ```
 package coworking.digitalBooking.Service;
@@ -261,7 +261,7 @@ class CoworkingServiceTest {
 }
 ```
 
-### Test Unitario: CoworkingFacilityService - CoworkingFacilityServiceTest
+### Test unitario: CoworkingFacilityService - CoworkingFacilityServiceTest
 
 ```
 package coworking.digitalBooking.Service;
