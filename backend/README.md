@@ -5,58 +5,6 @@ Los tests unitarios en el área de backend se realizaron utilizando el framework
 
 ### Test unitario: delete() - CategoryService
 
-Este test verifica el comortamiento del método `delete()` en la clase CategoryService al eliminar una categoría. 
-
-**Configuración del Test**
-
-* Clase de Test: CategoryServiceTest
-* Método de Test: delete()
-* Framework: Spring Boot Test
-
-**Escenario de Prueba**
-
-Antes de ejecutar el test, se realiza la siguiente configuración:
-
-1. Se crea una categoría de prueba utilizando el método createCategoryDTO().
-2. Se registra la categoría de prueba utilizando el método registerCategory() de CategoryService.
-3. Se guarda la categoría de prueba en la variable categoryTest.
-```
-@BeforeEach
-void prepareData() {
-    // Creación de la categoría de prueba
-    CategoryDTO categoryDTO = createCategoryDTO("Categoria de prueba para eliminar", "Categoria de prueba para eliminar", "imagen.jpg", 2);
-    // Registro de la categoría de prueba
-    categoryTest = categoryService.registerCategory(categoryDTO);
-}
-```
-
-**Prueba: Eliminar Categoría**
-
-Se realiza la prueba de eliminación de la categoría utilizando el método `delete()` de CategoryService. Se verifica que la categoría exista antes de la eliminación y que lance una excepción ResourceNotFoundException después de la eliminación.
-```
-@Test
-@Order(2)
-void delete() {
-    // Verificar que la categoría de prueba existe
-    assertNotNull(categoryTest);
-    
-    // Eliminar la categoría de prueba
-    categoryService.delete(categoryTest.getIdCategory());
-    
-    // Verificar que la categoría de prueba no existe después de la eliminación
-    assertThrows(ResourceNotFoundException.class, () -> {
-        categoryService.searchById(categoryTest.getIdCategory());
-    });
-}
-```
-
-**Resultados Esperados**
-* La categoría de prueba existe antes de la eliminación.
-* Después de la eliminación, se lanza la excepción ResourceNotFoundException al intentar buscar la categoría eliminada.
-
-Este test verifica el correcto funcionamiento del método `delete()` en CategoryService al eliminar una categoría específica.
-
-**Código** 
 ```
 package coworking.digitalBooking.Service;
 
@@ -120,107 +68,6 @@ class CategoryServiceTest {
 
 ### Test Unitario: CityService - CityServiceTest
 
-Este test verifica el comportamiento de los métodos en la clase CityService que están relacionados con la gestión de ciudades.
-
-**Configuración del Test**
-
-* Clase de Test: CityServiceTest 
-* Framework: Spring Boot Test
-
-**Escenario de Prueba**
-
-Antes de ejecutar el test, se realiza la siguiente configuración:
-
-1. Se crea una ciudad de prueba utilizando el método registerCity() de CityService.
-2. Se guarda la ciudad de prueba en la variable cityDTOTest.
-```
-@BeforeEach
-void prepareData() {
-    // Creación de la ciudad de prueba
-    CityDTO cityDTO = new CityDTO();
-    cityDTO.setName("Ciudad de prueba");
-    cityDTO.setCountry("Ciudad de prueba");
-    // Registro de la ciudad de prueba
-    cityDTOTest = cityService.registerCity(cityDTO);
-}
-```
-
-**Pruebas**
-
-El test unitario incluye las siguientes pruebas:
-
-1. Prueba: findByName()
-* Verifica que se pueda encontrar una ciudad por su nombre.
-* Verifica que el resultado no sea nulo.
-```
-@Test
-void findByName() {
-    assertNotNull(cityService.findByName(cityDTOTest.getName()));
-}
-```
-2. Prueba: searchById()
-* Verifica que se pueda buscar una ciudad por su ID.
-* Verifica que el resultado no sea nulo.
-```
-@Test
-void searchById() {
-    assertNotNull(cityService.searchById(cityDTOTest.getIdCity()));
-}
-```
-3. Prueba: searchAll()
-* Verifica que se puedan buscar todas las ciudades.
-* Verifica que el resultado no sea nulo.
-```
-@Test
-void searchAll() {
-    assertNotNull(cityService.searchAll());
-}
-```
-4. Prueba: registerCity()
-* Verifica que se pueda registrar una nueva ciudad.
-* Verifica que el nombre de la ciudad registrada coincida con el nombre proporcionado.
-```
-@Test
-void registerCity() {
-    CityDTO cityDTO = new CityDTO();
-    cityDTO.setName("Ciudad de prueba para el register");
-    cityDTO.setCountry("Ciudad de prueba");
-    // Registro de la ciudad de prueba para el register
-    CityDTO cityRegister = cityService.registerCity(cityDTO);
-
-    assertEquals(cityRegister.getName(), cityDTO.getName());
-}
-```
-5. Prueba: update()
-* Verifica que se pueda actualizar una ciudad existente.
-* Verifica que el país de la ciudad se actualice correctamente.
-```
-@Test
-void update() {
-String countryNew = "nuevo pais";
-cityDTOTest.setCountry(countryNew);
-cityDTOTest = cityService.update(cityDTOTest, cityDTOTest.getIdCity());
-assertEquals(cityDTOTest.getCountry(), countryNew);
-}
-```
-6. Prueba: delete()
-* Verifica que se pueda eliminar una ciudad.
-* Verifica que se lance la excepción ResourceNotFoundException al intentar buscar la ciudad eliminada.
-```
-@Test
-void delete() {
-    CityDTO cityDTO = new CityDTO();
-    cityDTO.setName("Ciudad de prueba para el register");
-    cityDTO.setCountry("Ciudad de prueba");
-    // Registro de la ciudad de prueba para el register
-    CityDTO cityRegister = cityService.registerCity(cityDTO);
-    
-    // Eliminar la ciudad de prueba
-    cityService.delete(cityRegister.getId
-
-```
-
-**Código**
 ```
 package coworking.digitalBooking.Service;
 
@@ -297,6 +144,248 @@ class CityServiceTest {
         cityService.delete(cityRegister.getIdCity());
         assertThrows(ResourceNotFoundException.class, () -> {
             cityService.searchById(cityRegister.getIdCity());
+        });
+    }
+}
+```
+
+### Test Unitario: CoworkingService - CoworkingServiceTest
+
+```
+package coworking.digitalBooking.Service;
+
+import coworking.digitalBooking.Dto.*;
+import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@SpringJUnitConfig
+@Transactional
+class CoworkingServiceTest {
+
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private CoworkingService coworkingService;
+    private CategoryDTO categoryTest;
+    private CoworkingDTO coworkingDTO;
+    private  CityDTO cityRegister;
+
+    private CategoryDTO createCategoryDTO(String name, String description, String image, int results) {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setName(name);
+        categoryDTO.setDescription(description);
+        categoryDTO.setImage(image);
+        categoryDTO.setResults(results);
+        return categoryDTO;
+    }
+
+    private CityDTO createCityDTO(String name, String country) {
+        CityDTO cityDTO = new CityDTO();
+        cityDTO.setName(name);
+        cityDTO.setCountry(country);
+        return cityDTO;
+    }
+
+    private CoworkingDTO createCoworkingDTO(String name, String description, String address, String image, double latitude, double longitude, CityDTO cityDTO, CategoryDTO categoryDTO, String coworkingRulesPolicy, String cancellationPolicy, String healthSafetyPolicy) {
+        CoworkingDTO coworkingDTO = new CoworkingDTO();
+        coworkingDTO.setName(name);
+        coworkingDTO.setDescription(description);
+        coworkingDTO.setAddress(address);
+        coworkingDTO.setImage(image);
+        coworkingDTO.setLatitude(latitude);
+        coworkingDTO.setLongitude(longitude);
+        coworkingDTO.setCity(cityDTO);
+        coworkingDTO.setCategory(categoryDTO);
+        coworkingDTO.setCoworkingRulesPolicy(coworkingRulesPolicy);
+        coworkingDTO.setCancellationPolicy(cancellationPolicy);
+        coworkingDTO.setHealthSafetyPolicy(healthSafetyPolicy);
+        return coworkingDTO;
+    }
+
+    @BeforeEach
+    void prepareData() {
+        categoryTest = categoryService.registerCategory(createCategoryDTO("Categoria de prueba para coworking", "Categoria de prueba para coworking", "imagen.jpg", 2));
+        cityRegister = cityService.registerCity(createCityDTO("Ciudad de prueba para el register", "Ciudad de prueba"));
+        coworkingDTO = coworkingService.registerProduct(createCoworkingDTO("coworking para pruebas", "coworking para pruebas", "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+    }
+
+    @Test
+    void searchById() {
+        assertNotNull(coworkingService.searchById(coworkingDTO.getIdCoworking()));
+    }
+
+    @Test
+    void searchAll() {
+        assertNotNull(coworkingService.searchAll());
+    }
+
+    @Test
+    void registerProduct() {
+        String name = "coworking para pruebas 2";
+        CoworkingDTO coworkingDTOTest = coworkingService.registerProduct(createCoworkingDTO(name, name, "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+        assertNotNull(coworkingDTOTest);
+    }
+
+    @Test
+    void update() {
+        String name = "coworking para pruebas del update";
+        coworkingDTO.setName(name);
+        coworkingDTO = coworkingService.update(coworkingDTO, coworkingDTO.getIdCoworking());
+        assertEquals(name, coworkingDTO.getName());
+    }
+
+    @Test
+    void delete() {
+        String name = "coworking para pruebas del delete";
+        CoworkingDTO coworkingDTOTest = coworkingService.registerProduct(createCoworkingDTO(name, name, "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+
+        assertNotNull(coworkingDTOTest);
+        coworkingService.delete(coworkingDTOTest.getIdCoworking());
+
+        CoworkingDTO finalCoworkingDTOTest = coworkingDTOTest;
+        assertThrows(ResourceNotFoundException.class, () -> {
+            coworkingService.searchById(finalCoworkingDTOTest.getIdCoworking());
+        });
+    }
+}
+```
+
+### Test Unitario: CoworkingFacilityService - CoworkingFacilityServiceTest
+
+```
+package coworking.digitalBooking.Service;
+
+import coworking.digitalBooking.Dto.*;
+import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@SpringJUnitConfig
+@Transactional
+class CoworkingFacilityServiceTest {
+
+    @Autowired
+    CoworkingFacilityService coworkingFacilityService;
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private CoworkingService coworkingService;
+    @Autowired
+    private FacilityService facilityService;
+
+    private CategoryDTO categoryTest;
+    private CoworkingFacilityDTO coworkingFacilityDTO;
+    private CoworkingDTO coworkingDTO;
+    private FacilityDTO facilityDTO;
+
+    private CategoryDTO createCategoryDTO(String name, String description, String image, int results) {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setName(name);
+        categoryDTO.setDescription(description);
+        categoryDTO.setImage(image);
+        categoryDTO.setResults(results);
+        return categoryDTO;
+    }
+
+    private CityDTO createCityDTO(String name, String country) {
+        CityDTO cityDTO = new CityDTO();
+        cityDTO.setName(name);
+        cityDTO.setCountry(country);
+        return cityDTO;
+    }
+
+    private CoworkingDTO createCoworkingDTO(String name, String description, String address, String image, double latitude, double longitude, CityDTO cityDTO, CategoryDTO categoryDTO, String coworkingRulesPolicy, String cancellationPolicy, String healthSafetyPolicy) {
+        CoworkingDTO coworkingDTO = new CoworkingDTO();
+        coworkingDTO.setName(name);
+        coworkingDTO.setDescription(description);
+        coworkingDTO.setAddress(address);
+        coworkingDTO.setImage(image);
+        coworkingDTO.setLatitude(latitude);
+        coworkingDTO.setLongitude(longitude);
+        coworkingDTO.setCity(cityDTO);
+        coworkingDTO.setCategory(categoryDTO);
+        coworkingDTO.setCoworkingRulesPolicy(coworkingRulesPolicy);
+        coworkingDTO.setCancellationPolicy(cancellationPolicy);
+        coworkingDTO.setHealthSafetyPolicy(healthSafetyPolicy);
+        return coworkingDTO;
+    }
+
+    private FacilityDTO createFacilityDTO(String name, boolean active) {
+        FacilityDTO facilityDTO = new FacilityDTO();
+        facilityDTO.setName(name);
+        facilityDTO.setStatus(active);
+        return facilityDTO;
+    }
+
+    @BeforeEach
+    void prepareData() {
+        categoryTest = categoryService.registerCategory(createCategoryDTO("Categoria de prueba para coworking", "Categoria de prueba para coworking", "imagen.jpg", 2));
+        CityDTO cityRegister = cityService.registerCity(createCityDTO("Ciudad de prueba para el register", "Ciudad de prueba"));
+        coworkingDTO = coworkingService.registerProduct(createCoworkingDTO("coworking para pruebas", "coworking para pruebas", "coworking para pruebas", "img.jpg", 2.443, 2.443, cityRegister, categoryTest, "coworking para pruebas", "coworking para pruebas", "coworking para pruebas"));
+        facilityDTO = facilityService.registerFacility(createFacilityDTO("Facility para test", true));
+        coworkingFacilityDTO = coworkingFacilityService.createCoworkingFacility(createCoworkingFacilityDTO(coworkingDTO, facilityDTO));
+    }
+
+    private CoworkingFacilityDTO createCoworkingFacilityDTO(CoworkingDTO coworkingDTO, FacilityDTO facilityDTO) {
+        CoworkingFacilityDTO coworkingFacilityDTO = new CoworkingFacilityDTO();
+        coworkingFacilityDTO.setCoworking(coworkingDTO);
+        coworkingFacilityDTO.setFacility(facilityDTO);
+        return coworkingFacilityDTO;
+    }
+
+    @Test
+    void getCoworkingFacilityById() {
+        assertNotNull(coworkingFacilityService.getCoworkingFacilityById(coworkingFacilityDTO.getId()));
+    }
+
+    @Test
+    void getAllCoworkingPolicies() {
+        assertNotNull(coworkingFacilityService.getAllCoworkingPolicies());
+    }
+
+    @Test
+    void createCoworkingFacility() {
+        CoworkingFacilityDTO coworkingFacilityDTONew = createCoworkingFacilityDTO(coworkingDTO, facilityDTO);
+        coworkingFacilityDTONew = coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTONew);
+        assertEquals(coworkingFacilityDTONew.getCoworking(), coworkingDTO);
+    }
+
+    @Test
+    void updateCoworkingFacility() {
+        FacilityDTO facilityDTONew = facilityService.registerFacility(createFacilityDTO("Facility 2 para test", true));
+        coworkingFacilityDTO.setFacility(facilityDTONew);
+        coworkingFacilityDTO = coworkingFacilityService.updateCoworkingFacility(coworkingFacilityDTO.getId(), coworkingFacilityDTO);
+        assertEquals(coworkingFacilityDTO.getFacility(), facilityDTONew);
+    }
+
+    @Test
+    void deleteCoworkingFacility() {
+        CoworkingFacilityDTO coworkingFacilityDTONew = createCoworkingFacilityDTO(coworkingDTO, facilityDTO);
+        coworkingFacilityDTONew = coworkingFacilityService.createCoworkingFacility(coworkingFacilityDTONew);
+        coworkingFacilityService.deleteCoworkingFacility(coworkingFacilityDTONew.getId());
+        CoworkingFacilityDTO finalCoworkingFacilityDTONew = coworkingFacilityDTONew;
+        assertThrows(ResourceNotFoundException.class, () -> {
+            coworkingFacilityService.getCoworkingFacilityById(finalCoworkingFacilityDTONew.getId());
         });
     }
 }
