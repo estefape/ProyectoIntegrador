@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/Products")
@@ -105,10 +106,9 @@ public class CoworkingController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<CoworkingDTO> update(@RequestBody CoworkingDTO coworkingDTO, @RequestParam List<Long> facilities, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<CoworkingDTO> update(@RequestBody CoworkingDTO coworkingDTO, @PathVariable(name = "id") Long id) {
+
         CoworkingDTO coworkingResponse = coworkingService.update(coworkingDTO, id);
-        coworkingFacilityService.deleteByCoworkingId(coworkingResponse.getIdCoworking());
-        registerFacilities(facilities, coworkingResponse);
 
         return new ResponseEntity<>(coworkingResponse, HttpStatus.OK);
     }

@@ -82,8 +82,8 @@ export const Header = () => {
                         ?
                         <>
                             <li className='avatar-container'>
-                                <span className='avatar'> {avatar}</span>
-                                <span className='nombre'> {getNameGlobalState()} {getSurnameGlobalState()}</span>
+                                <span className='avatar'>{avatar}</span>
+                                <span className='nombre'>{getNameGlobalState()} {getSurnameGlobalState()}</span>
                                 <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
                             </li>
                         </>
