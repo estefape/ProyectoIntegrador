@@ -97,7 +97,7 @@ deploy_backend:
     - echo $(pwd)
     - echo "Deploying started ..."
     - scp -i private_key.pem -o StrictHostKeyChecking=no -r backend Dockerfile ubuntu@$SERVER_IP:/home/ubuntu/
-    - bash ../generate_application_secrets.sh
+    - bash generate_application_secrets.sh
     - scp -i private_key.pem -o StrictHostKeyChecking=no application-secrets.properties ubuntu@3.141.149.37:/home/ubuntu/backend/src/main/resources/
     - echo $(ls)
     - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$SERVER_IP 'bash -s' < infra/scripts/instance_script.sh
