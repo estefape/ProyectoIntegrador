@@ -79,13 +79,11 @@ test_backend:
   script:
     - echo $(pwd)
     - echo "Running tests ..."
+    - cp application-secrets.properties src/main/resources/
     - mvn test  # Ejecuta los tests utilizando Maven. Asegúrate de que el comando sea el correcto para tu proyecto.
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
   image: maven:latest
-  artifacts:
-    paths:
-      - application-secrets.properties
 
 deploy_backend:
   stage: deploy
