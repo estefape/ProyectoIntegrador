@@ -15,6 +15,7 @@ import { SignUp } from './routes/signup/SignUp';
 import CityForm from './components/cityForm/CityForm.jsx'
 import Cities from './components/cities/Cities'
 import EditCityForm from './components/editCityForm/EditCityForm';
+import './reset.css'
 
 
 

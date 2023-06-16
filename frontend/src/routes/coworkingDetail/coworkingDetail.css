@@ -146,10 +146,10 @@ h2.category {
     text-align: left;
     font-size: 15px;
 }
-   
-    
 
-
+.container.redes button {
+    margin-right: 10px;
+}
 
 
 @media (min-width: 768px) {
