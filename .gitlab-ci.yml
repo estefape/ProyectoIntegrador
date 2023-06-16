@@ -83,9 +83,9 @@ test_backend:
     - mvn test
   after_script:
     - cp ../application-secrets.properties $CI_PROJECT_DIR/application-secrets.properties
-    artifacts:
-      paths:
-        - $CI_PROJECT_DIR/application-secrets.properties
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/application-secrets.properties
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
   image: maven:latest
