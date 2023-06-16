@@ -79,7 +79,8 @@ test_backend:
   script:
     - echo $(pwd)
     - echo "Running tests ..."
-    - cp application-secrets.properties src/main/resources/
+    - echo "spring.datasource.username=${DB_USERNAME}" > src/main/resources/application-secrets.properties
+    - echo "spring.datasource.password=${DB_PASSWORD}" >> src/main/resources/application-secrets.properties
     - mvn test  # Ejecuta los tests utilizando Maven. Asegúrate de que el comando sea el correcto para tu proyecto.
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
