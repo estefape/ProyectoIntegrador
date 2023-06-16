@@ -79,7 +79,7 @@ test_backend:
   script:
     - echo $(pwd)
     - echo "Running tests ..."
-    - bash ../generate_application_secrets.sh > src/main/resources/application-secrets.properties
+    - bash ../generate_application_secrets.sh > ../application-secrets.properties
     - mvn test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
@@ -97,7 +97,7 @@ deploy_backend:
     - echo $(pwd)
     - echo "Deploying started ..."
     - scp -i private_key.pem -o StrictHostKeyChecking=no -r backend Dockerfile ubuntu@$SERVER_IP:/home/ubuntu/
-    - scp -i private_key.pem -o StrictHostKeyChecking=no src/main/resources/application-secrets.properties ubuntu@3.141.149.37:/home/ubuntu/backend/src/main/resources/
+    - scp -i private_key.pem -o StrictHostKeyChecking=no ../application-secrets.properties ubuntu@3.141.149.37:/home/ubuntu/backend/src/main/resources/
     - echo $(ls)
     - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$SERVER_IP 'bash -s' < infra/scripts/instance_script.sh
   rules:
