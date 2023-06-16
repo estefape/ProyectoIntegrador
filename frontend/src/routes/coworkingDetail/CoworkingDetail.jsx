@@ -12,6 +12,7 @@ import { constants } from "../../services/constants";
 import StarRating from "../../components/starRating/StarRating";
 import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
 import Map from "../../components/maps/Map";
+import SocialMediaSharing from "../../components/socialMediaSharing/SocialMediaSharing";
 
 import "./coworkingDetail.css";
 
@@ -86,6 +87,12 @@ export const CoworkingDetail = () => {
                                     idCoworking={singleOffice.idCoworking} 
                                 />
                             </div>
+                        </div>
+                        <div className="container redes">
+                            <SocialMediaSharing
+                            message={`¡Mira nuestra oficina ${singleOffice.name}! Es parte de nuestra categoria ${singleOffice.category.name}. ${singleOffice.description}`}
+                            hastags={["Coworking"]}
+                            image={singleOffice.image} />  
                         </div>
 
                         <div className="container">

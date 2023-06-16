@@ -4,6 +4,8 @@ import { CoworkingRecommendation } from "../../components/coworkingRecommendatio
 import { Search } from "../../components/search/Search"
 import { SearchResult } from "../../components/searchResult/SearchResult"
 import AppContext from "../../context/AppContext"
+import SocialMediaSharing from "../../components/socialMediaSharing/SocialMediaSharing"
+import iconoLogo from "../../assets/logo1.png";
 import "./home.css"
 
 export const Home = () => {
@@ -17,6 +19,13 @@ export const Home = () => {
         <CategoryList />
         { showResults && <SearchResult />}
         { !showResults && <CoworkingRecommendation /> }
+      </div>
+      <div className="redes">
+        Compartir en redes sociales 
+        <SocialMediaSharing 
+        message="Digital Booking, encuentra tu espacio de trabajo ideal"
+        hashtags={["Coworking"]}
+        image= {iconoLogo}/>
       </div>
     </>
   )
