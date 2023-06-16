@@ -40,6 +40,20 @@ build_frontend:
     paths:
       - frontend/dist/
 
+test_frontend:
+  stage: test
+  before_script:
+    - cd frontend
+  script:
+    - echo $(pwd)
+    - echo "Testing"
+    - npm install
+    - npm test
+    - echo "Finished testing"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    image: node:16-alpine
+
 deploy_frontend:
   needs:
     - build_frontend
