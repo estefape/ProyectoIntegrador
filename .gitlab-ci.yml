@@ -79,7 +79,7 @@ test_backend:
   script:
     - echo $(pwd)
     - echo "Running tests ..."
-    - bash generate_application_secrets.sh
+    - bash /builds/ctd/hispanos/proyecto-integrador-1/proyecto-integrador-0523/1021pt-c3/equipo-03/generate_application_secrets.sh
     - mvn test  # Ejecuta los tests utilizando Maven. Asegúrate de que el comando sea el correcto para tu proyecto.
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
