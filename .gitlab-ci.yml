@@ -52,7 +52,7 @@ test_frontend:
     - echo "Finished testing"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
-    image: node:16-alpine
+  image: node:16-alpine
 
 deploy_frontend:
   needs:
