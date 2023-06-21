@@ -2,22 +2,14 @@ import "./coworkingRecommendation.css"
 import { CoworkingCard } from "../coworkingCard/CoworkingCard"
 import { useState, useEffect } from "react"
 import { constants } from "../../services/constants"
+import { getData } from "../../services/request"
 
 export const CoworkingRecommendation = () => {
 
   const [coworkingRecommendation, setCoworkingRecommendation] = useState([]);
 
-  const getData = async () => {
-    const requestConfig = {
-      method: 'GET',
-    }
-
-    const response = await fetch(`${constants.PRODUCTS_ENDPOINT}`, requestConfig);
-    return await response.json();
-  }
-
   useEffect(() => {
-    getData().then(data => {
+    getData(constants.PRODUCTS_ENDPOINT).then(data => {
       setCoworkingRecommendation(data)
     });
   }, []);

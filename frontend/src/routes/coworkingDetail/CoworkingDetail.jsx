@@ -15,6 +15,7 @@ import Map from "../../components/maps/Map";
 import SocialMediaSharing from "../../components/socialMediaSharing/SocialMediaSharing";
 
 import "./coworkingDetail.css";
+import { getData } from "../../services/request";
 
 export const CoworkingDetail = () => {
 
@@ -30,17 +31,8 @@ export const CoworkingDetail = () => {
         "Impresora": <PrintIcon className="icon" />
     }
 
-    const getOfficeByOfficeId = async (id) => {
-        const requestConfig = {
-            method: 'GET',
-        }
-        const url = constants.PRODUCTS_ENDPOINT + id;
-        const response = await fetch(url, requestConfig);
-        return await response.json();
-    }
-
     useEffect(() => {
-        getOfficeByOfficeId(id).then(data => {
+        getData(constants.PRODUCTS_ENDPOINT + id).then(data => {
             data.images = data.image.split(";");
             data.reservations = [
                 {

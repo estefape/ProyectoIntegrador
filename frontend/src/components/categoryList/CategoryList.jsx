@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import { constants } from "../../services/constants";
+import { getData } from "../../services/request";
 
 
 export const CategoryList = () => {
@@ -17,18 +18,8 @@ export const CategoryList = () => {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  const getCategoriesList = async() => {
-    // Aca deberiamos hacer un fetch a la API para obtener las categorias
-    const requestConfig = {
-      method: 'GET',
-    }
-
-    const response = await fetch(`${constants.CATEGORIES_ENDPOINT}`, requestConfig);
-    return await response.json();
-  }
-
   useEffect(() => {
-    getCategoriesList().then(data => setCategoriesList(data));
+    getData(constants.CATEGORIES_ENDPOINT).then(data => setCategoriesList(data));
   }, []);
 
   return (
