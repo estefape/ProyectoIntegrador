@@ -4,6 +4,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import "./categoryDetail.css";
 import { CoworkingCard } from "../../components/coworkingCard/CoworkingCard";
 import { constants } from "../../services/constants";
+import { getData } from "../../services/request";
 
 export const CategoryDetail = () => {
 
@@ -11,31 +12,13 @@ export const CategoryDetail = () => {
     const [coworkingByCategory, setCoworkingByCategory] = useState([])
     const { categoryId } = useParams()
 
-    const getCategoryById = async (id) => {
-        const requestConfig = {
-            method: 'GET',
-        }
-        const url = constants.CATEGORIES_ENDPOINT + id;
-        const response = await fetch(url, requestConfig);
-        return await response.json();
-    }
-
-    const getData = async () => {
-        const requestConfig = {
-            method: 'GET',
-           
-        }
-
-        const url = constants.PRODUCTS_ENDPOINT ;
-        const response = await fetch(url, requestConfig);
-        return await response.json();
-    }
-
     useEffect(() => {
-        getCategoryById(categoryId).then(data => { 
+        //obtener la categoria por id
+        getData(constants.CATEGORIES_ENDPOINT + categoryId).then(data => { 
             setCategory(data)
         })
-        getData().then(data => {
+        //obtener las oficinas por categoria
+        getData(constants.PRODUCTS_ENDPOINT).then(data => {
             const coworkingByCategory = data.filter(item => item.category.idCategory === parseInt(categoryId))
             setCoworkingByCategory(coworkingByCategory)
         });
