@@ -49,7 +49,7 @@ const ProductForm = () => {
     categoryService
       .categoryAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((categories) => {
         setCategories(categories);
@@ -57,7 +57,7 @@ const ProductForm = () => {
     cityService
       .cityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((cities) => {
         setCities(cities);
@@ -65,7 +65,7 @@ const ProductForm = () => {
     facilityService
       .facilityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((facilities) => {
         setFacilities(facilities);

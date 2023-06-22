@@ -22,7 +22,8 @@ const SideBar = () => {
           <NavLink to="/admin" end>Inicio</NavLink>
           <NavLink to="/admin/products">Oficinas</NavLink>
           <NavLink to="/admin/newproduct">Agregar Oficina</NavLink>                     
-          <NavLink to="/admin/categories/create">Agregar Categoria</NavLink>
+          <NavLink to="/admin/categories">Categorias</NavLink>
+          <NavLink to="/admin/newcategory">Agregar Categoria</NavLink>
           <NavLink to="/admin/cities">Ciudades</NavLink>
           <NavLink to="/admin/newCity">Agregar Ciudad</NavLink>   
         </div>

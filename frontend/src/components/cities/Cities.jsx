@@ -17,7 +17,7 @@ const Cities = () => {
     cityService
       .cityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((city) => {
         setCities(city);
