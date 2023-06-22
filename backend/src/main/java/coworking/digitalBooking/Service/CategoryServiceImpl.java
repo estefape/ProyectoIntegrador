@@ -4,6 +4,7 @@ import coworking.digitalBooking.Dto.CategoryDTO;
 import coworking.digitalBooking.Entities.Category;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.CategoryRepository;
+import coworking.digitalBooking.Repository.CoworkingRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,10 @@ public class CategoryServiceImpl implements CategoryService{
     private ModelMapper modelMapper;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CoworkingRepository coworkingRepository;
+
 
     @Override
     public CategoryDTO searchById(Long id){
@@ -57,8 +62,12 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void delete(Long id){
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category", "id",id));
-        categoryRepository.delete(category);
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
+        if (coworkingRepository.findCoworkingByCategory(category).isEmpty()) {
+            categoryRepository.delete(category);
+        } else {
+            throw new IllegalStateException("Cannot delete category with associated coworkings");
+        }
     }
 
 

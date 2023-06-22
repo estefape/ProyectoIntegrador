@@ -67,10 +67,15 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
-        CategoryDTO category = categoryService.searchById(id);
-        categoryService.delete(id);
-        manageFilesS3Service.deleteFileFromS3(category.getImage());
-        return new ResponseEntity<>("Category Delete", HttpStatus.OK);
+        try {
+            CategoryDTO category = categoryService.searchById(id);
+            categoryService.delete(id);
+            manageFilesS3Service.deleteFileFromS3(category.getImage());
+            return new ResponseEntity<>("Category Delete", HttpStatus.OK);
+        } catch (IllegalStateException e ){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+
     }
 
 }
