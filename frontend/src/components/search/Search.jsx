@@ -28,7 +28,7 @@ export const Search = () => {
     cityService
       .cityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((cities) => {
         setCities(cities);

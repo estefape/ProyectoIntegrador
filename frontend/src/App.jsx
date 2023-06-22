@@ -15,6 +15,7 @@ import { SignUp } from './routes/signup/SignUp';
 import CityForm from './components/cityForm/CityForm.jsx'
 import Cities from './components/cities/Cities'
 import EditCityForm from './components/editCityForm/EditCityForm';
+import Categories from './components/categories/Categories';
 import './reset.css'
 
 
@@ -67,7 +68,8 @@ function App() {
             <Route path='editcity' element={<EditCityForm/>}>
               <Route path=':name' element={<EditCityForm/>}/>
             </Route>
-            <Route path='categories/create' element={<CategoryForm/>}/>
+            <Route path='categories' element={<Categories/>}/>
+            <Route path='newcategory' element={<CategoryForm/>}/>
           </Route>
           <Route path='/*' element={<Navigate to='/' replace />} />
         </Routes>
