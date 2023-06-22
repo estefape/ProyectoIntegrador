@@ -13,7 +13,7 @@ const Products = () => {
     productService
       .productAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((product) => {
         setProducts(product);
