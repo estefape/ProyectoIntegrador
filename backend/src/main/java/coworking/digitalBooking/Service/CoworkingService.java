@@ -8,6 +8,8 @@ public interface CoworkingService {
 
     public CoworkingDTO searchById(Long id);
 
+    public List<CoworkingDTO>searchByCategoryId(long categoryId);
+
     public List<CoworkingDTO> searchAll();
 
     public CoworkingDTO registerProduct(CoworkingDTO coworkingDTO);

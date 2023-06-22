@@ -36,6 +36,13 @@ public class CoworkingServiceImple implements CoworkingService{
     }
 
     @Override
+    public List<CoworkingDTO> searchByCategoryId(long categoryId) {
+        Category category = categoryRepository.findByIdCategory(categoryId);
+        List<Coworking> coworkings = coworkingRepository.findCoworkingByCategory(category);
+        return coworkings.stream().map(coworking -> mapDTO(coworking)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<CoworkingDTO> searchAll(){
         List<Coworking> coworkings = coworkingRepository.findAll();
         return coworkings.stream().map(coworking -> mapDTO(coworking)).collect(Collectors.toList());
