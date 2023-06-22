@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./categories.css";
+import "./Categories.css";
 import Pagination from "../pagination/pagination";
 import { CardCategoryAdmin } from "../cardCategoryAdmin/cardCategoryAdmin";
 import * as categoryService from "../../services/categoryServices";
