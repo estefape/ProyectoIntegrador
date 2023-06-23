@@ -48,6 +48,7 @@ test_frontend:
     - build_frontend
   before_script:
     - cd frontend
+    - npm install -g jest
   script:
     - echo $(pwd)
     - echo "Testing"
