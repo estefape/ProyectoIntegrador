@@ -21,25 +21,24 @@ class CategoryServiceTest {
 
     private CategoryDTO categoryTest;
 
-    private CategoryDTO createCategoryDTO(String name, String description, String image, int results) {
+    private CategoryDTO createCategoryDTO(String name, String description, String image) {
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setName(name);
         categoryDTO.setDescription(description);
         categoryDTO.setImage(image);
-        categoryDTO.setResults(results);
         return categoryDTO;
     }
 
     @BeforeEach
     void prepareData() {
-        CategoryDTO categoryDTO = createCategoryDTO("Categoria de prueba para eliminar", "Categoria de prueba para eliminar", "imagen.jpg", 2);
+        CategoryDTO categoryDTO = createCategoryDTO("Categoria de prueba para eliminar", "Categoria de prueba para eliminar", "imagen.jpg");
         categoryTest = categoryService.registerCategory(categoryDTO);
     }
 
     @Test
     @Order(1)
     void registerCategory() {
-        CategoryDTO categoryDTO = createCategoryDTO("Categoria de prueba del insert", "Categoria de prueba", "imagen.jpg", 2);
+        CategoryDTO categoryDTO = createCategoryDTO("Categoria de prueba del insert", "Categoria de prueba", "imagen.jpg");
 
         CategoryDTO categoryTestRegister = categoryService.registerCategory(categoryDTO);
         assertEquals(categoryDTO.getName(), categoryTestRegister.getName());

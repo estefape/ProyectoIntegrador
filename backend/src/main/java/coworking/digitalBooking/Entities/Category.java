@@ -20,8 +20,6 @@ public class Category {
     private String description;
     @Column(name = "image", nullable = false)
     private String image;
-    @Column
-    final Integer results = 2;
 
     public Category(String name, String description, String image) {
         this.name = name;
@@ -33,37 +31,5 @@ public class Category {
     public String toString(){
         return  "Name Category =  " + name +
                 ", Description = " + description ;
-    }
-
-    public long getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(Integer idCategory) {
-        this.idCategory = idCategory;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }
