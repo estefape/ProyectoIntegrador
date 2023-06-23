@@ -1,0 +1,81 @@
+.container {
+    height: 82.2vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success {
+    background-color: #a61f69;
+    border-radius: 10px;
+    width: 320px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.verified-icon {
+    font-size: 50px!important; 
+    color: white
+}
+
+.title, .message {
+    color: white;
+}
+
+.title {
+    font-size: 1.2rem;
+}
+
+.button-success {
+    width: 50%;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .verified-icon {
+        font-size: 70px!important; 
+    }
+    .title {
+        font-size: 1.4rem;
+    }
+    .message {
+        font-size: 1rem;
+    }
+    .success {
+        width: 400px;
+        height: 380px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .verified-icon {
+        font-size: 90px!important; 
+    }
+    .title {
+        font-size: 2rem;
+    }
+    .message {
+        font-size: 1.4rem;
+    }
+    .success {
+        width: 700px;
+        height: 420px;
+    }
+    .button-success{
+        width: 40%;
+    }
+}

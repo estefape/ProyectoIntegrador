@@ -17,6 +17,7 @@ import Cities from './components/cities/Cities'
 import EditCityForm from './components/editCityForm/EditCityForm';
 import Categories from './components/categories/Categories';
 import './reset.css'
+import { ReserveSuccess } from './routes/reserveSuccess/ReserveSuccess';
 
 
 
@@ -57,6 +58,7 @@ function App() {
           <Route path='/signup' element={ <SignUp/> }/>
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
+          <Route path='/reserve/success' element={<ReserveSuccess/>}/>
           <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>            
