@@ -74,6 +74,7 @@ public class CategoryServiceImpl implements CategoryService{
     // Convierte entidad a DTO
     private CategoryDTO mapDTO(Category category) {
         CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+        categoryDTO.setResults(coworkingRepository.findCoworkingByCategory(category).size());
         return categoryDTO;
     }
 
