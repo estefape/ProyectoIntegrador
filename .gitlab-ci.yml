@@ -40,7 +40,7 @@ build_frontend:
     paths:
       - frontend/node_modules/
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:16-alpine
   artifacts:
     paths:
@@ -60,7 +60,7 @@ test_frontend:
     - npm test
     - echo "Finished testing"
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: node:16-alpine
 
 deploy_frontend:
@@ -78,7 +78,7 @@ deploy_frontend:
   after_script:
     - rm -rf frontend/dist/
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
 
 test_backend:
@@ -91,7 +91,7 @@ test_backend:
     - bash ../generate_application_secrets.sh
     - mvn test
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: maven:latest
 
 deploy_backend:
@@ -116,5 +116,5 @@ deploy_backend:
     - echo $(ls)
     - ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$SERVER_IP 'bash -s' < infra/scripts/instance_script.sh
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "feature/pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
   image: ubuntu:mantic
