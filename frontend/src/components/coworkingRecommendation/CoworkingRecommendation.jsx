@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { CoworkingCard } from "../coworkingCard/CoworkingCard"
 import { constants } from "../../services/constants"
 import { getData } from "../../services/utils"
+import { Loading } from "../loading/Loading"
 
 export const CoworkingRecommendation = () => {
 
@@ -37,7 +38,7 @@ export const CoworkingRecommendation = () => {
               <CoworkingCard product={{...item}} key={item.idCoworking} />
             ))}
           </div>
-        ) : (<p>Cargando...</p>)}
+        ) : (<Loading/>)}
     </div>
   )
 }

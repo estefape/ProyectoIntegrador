@@ -3,6 +3,7 @@ import "./coworkingDetail.css";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getData, getStringFromDate } from '../../services/utils';
 import { useContext, useEffect, useState } from "react";
+import { Loading } from "../../components/loading/Loading";
 
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import AppContext from "../../context/AppContext";
@@ -179,7 +180,7 @@ export const CoworkingDetail = () => {
 
                      
                     </>
-                ) : (<p>Cargando...</p>)}
+                ) : (<Loading/>)}
         </>
     )
 }
