@@ -1,8 +1,10 @@
 import "./coworkingRecommendation.css"
+
+import { useEffect, useState } from "react"
+
 import { CoworkingCard } from "../coworkingCard/CoworkingCard"
-import { useState, useEffect } from "react"
 import { constants } from "../../services/constants"
-import { getData } from "../../services/request"
+import { getData } from "../../services/utils"
 
 export const CoworkingRecommendation = () => {
 

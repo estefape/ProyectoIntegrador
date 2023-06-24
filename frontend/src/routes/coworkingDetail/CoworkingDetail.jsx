@@ -1,25 +1,48 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import "./coworkingDetail.css";
+
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getData, getStringFromDate } from '../../services/utils';
+import { useContext, useEffect, useState } from "react";
+
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AppContext from "../../context/AppContext";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Map from "../../components/maps/Map";
+import PrintIcon from '@mui/icons-material/Print';
+import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
+import SocialMediaSharing from "../../components/socialMediaSharing/SocialMediaSharing";
+import StarRating from "../../components/starRating/StarRating";
 import TvIcon from '@mui/icons-material/Tv';
 import WifiIcon from '@mui/icons-material/Wifi';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import CoffeeIcon from '@mui/icons-material/Coffee';
-import PrintIcon from '@mui/icons-material/Print';
 import { constants } from "../../services/constants";
-import StarRating from "../../components/starRating/StarRating";
-import  ReservationCalendar  from "../../components/reservationCalendar/ReservationCalendar";
-import Map from "../../components/maps/Map";
-import SocialMediaSharing from "../../components/socialMediaSharing/SocialMediaSharing";
 
-import "./coworkingDetail.css";
-import { getData } from "../../services/request";
+const ReservationButton = ({coworkingId}) => {
+    const { isAuthGlobalState } = useContext(AppContext);
+    const navigate = useNavigate();
+  
+    const handleOnClick = () => {
+      if (isAuthGlobalState()) {
+        navigate(`/reservation/${coworkingId}`);
+      } else {
+        localStorage.setItem('redirected', 'true'); // Guarda el estado en el almacenamiento local
+        localStorage.setItem('lastLocation', `/detail/${coworkingId}`); // Guarda la última ubicación en el almacenamiento local
+        navigate('/login');
+      }
+    };
+  
+    return (
+      <button className="btn" onClick={handleOnClick}>Reservar</button>
+    );
+  };
 
 export const CoworkingDetail = () => {
 
+    const {setCheckIn, setCheckOut} = useContext(AppContext);
     const [singleOffice, setSingleOffice] = useState({})
+    const [reservations, setReservations] = useState([])
     const { id } = useParams()
 
     const facilitiesMap = {
@@ -34,24 +57,24 @@ export const CoworkingDetail = () => {
     useEffect(() => {
         getData(constants.PRODUCTS_ENDPOINT + id).then(data => {
             data.images = data.image.split(";");
-            data.reservations = [
-                {
-                    start: '2023-06-07',
-                    end: '2023-06-15',
-                },
-                {
-                    start: '2023-06-19',
-                    end: '2023-06-22',
-                },
-                {
-                    start: '2023-07-20',
-                    end: '2023-07-22',
-                }
-            ];
             setSingleOffice(data)
+        });
+        getData(`${constants.RESERVATIONS_ENDPOINT}coworking?coworking=${id}`).then(data => {
+            const reservationsMap = data.map(reservation => {
+                return {
+                    start: reservation.start_date.split("T")[0],
+                    end: reservation.end_date.split("T")[0],
+                }
+            });
+            setReservations(reservationsMap);
         });
     }, [id])
 
+    const handleSelect = (ranges) => {
+        const { startDate, endDate } = ranges.selection;
+        setCheckIn(getStringFromDate(startDate));
+        setCheckOut(getStringFromDate(endDate));
+    }
 
     return (
         <>
@@ -88,7 +111,7 @@ export const CoworkingDetail = () => {
                         </div>
 
                         <div className="container">
-                            <div className="grid">
+                            <div className="css-grid">
                                 <div className="item large">
                                     <img src={singleOffice.images[0]} alt="Imagen principal del producto" className="main-image" />
                                 </div>
@@ -107,7 +130,7 @@ export const CoworkingDetail = () => {
                             <h2 className="category">Comodidades</h2>
                         </div>
                         <div className="container comodidades">
-                            <div className="grid">
+                            <div className="css-grid">
 
                             {(singleOffice?.coworkingFacilities?.length || 0) > 0 && singleOffice.coworkingFacilities.map((item, index) => {
                                         return (
@@ -117,23 +140,15 @@ export const CoworkingDetail = () => {
                                             </div>
                                         )
                                     })}
-
-                                {/*
-                                <div className="item icon-container"><AcUnitIcon className="icon" /> <span>Aire acondicionado</span></div>
-                                <div className="item icon-container"><TvIcon className="icon" /> <span>Smart TV</span></div>
-                                <div className="item icon-container"><WifiIcon className="icon" /> <span>Wifi</span></div>
-                                <div className="item icon-container"><DirectionsCarIcon className="icon" /> <span>Estacionamiento</span></div>
-                                <div className="item icon-container"><CoffeeIcon className="icon" /> <span>Cafe</span></div>
-                                <div className="item icon-container"><PrintIcon className="icon" /> <span>Impresora</span></div>*/}
                             </div>
                         </div>
                         <div className="container calendario">
                             <h2 className="category">Fechas disponibles</h2>
                             <div className="reserva">
-                                <ReservationCalendar fechasNoDisponibles={ singleOffice.reservations }/>
+                                <ReservationCalendar fechasNoDisponibles={ reservations } onChange={handleSelect}/>
                                 <div className="botonReserva">
                                     <h3 className="category">Agregá tus fechas de reservas para obtener precios exactos</h3>
-                                    <button className="btn">Reservar</button>
+                                    <ReservationButton coworkingId={singleOffice.idCoworking} />
                                 </div>                                
                             </div>
                         </div>

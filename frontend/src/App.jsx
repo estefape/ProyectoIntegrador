@@ -1,24 +1,25 @@
-import React from 'react';
-import { Home } from './routes/home/Home';
-import { Footer } from './components/footer/Footer';
-import { Header } from './components/header/Header';
-import ProductForm from './components/productForm/ProductForm';
-import EditProductForm from './components/editProductForm/EditProductForm';
-import CategoryForm from './components/categoryForm/CategoryForm';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import SideBar from './components/sidebar/sidebar';
-import Products from './components/products/products';
-import { CoworkingDetail } from './routes/coworkingDetail/CoworkingDetail';
-import { CategoryDetail } from './routes/categoryDetail/CategoryDetail';
-import { Login } from './routes/login/Login';
-import { SignUp } from './routes/signup/SignUp';
-import CityForm from './components/cityForm/CityForm.jsx'
-import Cities from './components/cities/Cities'
-import EditCityForm from './components/editCityForm/EditCityForm';
-import Categories from './components/categories/Categories';
 import './reset.css'
 
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import Categories from './components/categories/Categories';
+import { CategoryDetail } from './routes/categoryDetail/CategoryDetail';
+import CategoryForm from './components/categoryForm/CategoryForm';
+import Cities from './components/cities/Cities'
+import CityForm from './components/cityForm/CityForm.jsx'
+import { CoworkingDetail } from './routes/coworkingDetail/CoworkingDetail';
+import EditCityForm from './components/editCityForm/EditCityForm';
+import EditProductForm from './components/editProductForm/EditProductForm';
+import { Footer } from './components/footer/Footer';
+import { Header } from './components/header/Header';
+import { Home } from './routes/home/Home';
+import { Login } from './routes/login/Login';
+import ProductForm from './components/productForm/ProductForm';
+import Products from './components/products/products';
+import React from 'react';
+import { ReservationDetail } from './components/reservationDetail/ReservationDetail';
+import SideBar from './components/sidebar/sidebar';
+import { SignUp } from './routes/signup/SignUp';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
           <Route path='/signup' element={ <SignUp/> }/>
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
+          <Route path='/reservation/:id' element={<ReservationDetail/>}/>
           <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>            
