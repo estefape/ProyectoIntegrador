@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -41,7 +42,7 @@ public class AuthController {
 	private JwtTokenProvider jwtTokenProvider;
 
 	
-	@PostMapping("/login")
+	/*@PostMapping("/login")
 	// public ResponseEntity<User> authenticateUser(@RequestBody LoginDTO loginDTO){
 	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
@@ -54,7 +55,23 @@ public class AuthController {
 
 		// return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
 		return ResponseEntity.ok(new JWTAuthResponseDTO(token));
+	}*/
+	@PostMapping("/login")
+	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		String token = jwtTokenProvider.generateToken(authentication);
+
+		Optional<User> usuario = userRepository.findByEmail(loginDTO.getEmail());
+
+		// return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+		return ResponseEntity.ok(new JWTAuthResponseDTO(token, usuario.get()));
 	}
+
+
+
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
