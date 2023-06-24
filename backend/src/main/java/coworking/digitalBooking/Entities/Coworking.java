@@ -1,5 +1,6 @@
 package coworking.digitalBooking.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
 import lombok.*;
 import javax.persistence.*;
@@ -52,8 +53,13 @@ public class Coworking {
     @JoinColumn(name = "idCategory")
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CoworkingFacility> coworkingFacilities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "coworking", cascade = CascadeType.ALL)
+    private List<Reserve> reserves;
 
 
     @Override

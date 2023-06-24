@@ -37,7 +37,7 @@
     padding: 20px 20px 0 20px
 }
 
-.grid {
+.css-grid {
     display: grid;
     grid-gap: 10px;
 }
@@ -187,7 +187,7 @@ h2.category {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .grid {
+    .css-grid {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
     }

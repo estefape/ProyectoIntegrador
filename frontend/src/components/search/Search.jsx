@@ -36,9 +36,6 @@ export const Search = () => {
 
     productService
       .productAll()
-      .then((response) => {
-        return response.json();
-      })
       .then((productList) => {
         setProducts(productList);
       });

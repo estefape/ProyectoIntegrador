@@ -1,13 +1,14 @@
 import "./categoryList.css"
-import { CategoryCard } from "../categoryCard/categoryCard";
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+
+import { CategoryCard } from "../categoryCard/categoryCard";
 import { Navigation } from "swiper";
 import { constants } from "../../services/constants";
-import { getData } from "../../services/request";
-
+import { getData } from "../../services/utils";
 
 export const CategoryList = () => {
   // este componente va a recibir un array con las categorias de las oficinas
