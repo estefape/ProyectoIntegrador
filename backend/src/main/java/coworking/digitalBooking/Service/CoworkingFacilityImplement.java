@@ -31,7 +31,7 @@ public class CoworkingFacilityImplement  implements CoworkingFacilityService{
     }
 
     @Override
-    public List<CoworkingFacilityDTO> getAllCoworkingPolicies() {
+    public List<CoworkingFacilityDTO> getAllCoworkingFacilities() {
         List<CoworkingFacility> coworkingPolicies = coworkingFacilityRepository.findAll();
         return coworkingPolicies.stream()
                 .map(coworkingFacility -> mapDTO(coworkingFacility))

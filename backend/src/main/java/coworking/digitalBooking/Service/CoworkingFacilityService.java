@@ -7,7 +7,7 @@ public interface CoworkingFacilityService {
 
     public CoworkingFacilityDTO getCoworkingFacilityById(Long id);
 
-    public List<CoworkingFacilityDTO> getAllCoworkingPolicies();
+    public List<CoworkingFacilityDTO> getAllCoworkingFacilities();
 
     public CoworkingFacilityDTO createCoworkingFacility(CoworkingFacilityDTO coworkingFacilityDTO);
 

@@ -67,7 +67,7 @@ export const Login = () => {
 									email: userAuth.email,
 									roles: userAuth.roles,
 								});
-								if (userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
+								if (userAuth.roles && userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
 									navigate("/admin");
 								} else {
 									const lastLocation = localStorage.getItem('lastLocation') || '/';
