@@ -13,6 +13,7 @@
 .coworking-recommendation-container {
     display: flex;
     flex-direction: column;
+    padding-bottom: 40px;
 }
 
 @media (min-width: 768px) {

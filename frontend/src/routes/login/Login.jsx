@@ -1,12 +1,22 @@
-import Swal from "sweetalert2"
 import "./login.css"
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+
 import AppContext from "../../context/AppContext"
-import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 import { constants } from "../../services/constants"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
+
+	const [redirected, setRedirected] = useState(false);
+
+	useEffect(() => {
+		if (localStorage.getItem('redirected')) {
+			setRedirected(true);
+			localStorage.removeItem('redirected'); // Elimina el estado del almacenamiento local para no usarlo de nuevo inadvertidamente
+		}
+	}, []);
 
 	const [user, setUser] = useState({
 		email: "",
@@ -28,7 +38,7 @@ export const Login = () => {
 		e.preventDefault();
 		if (validation()) {
 
-			fetch( constants.LOGIN_ENDPOINT , {
+			fetch(constants.LOGIN_ENDPOINT, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -46,7 +56,7 @@ export const Login = () => {
 								confirmButtonText: "Aceptar",
 								confirmButtonColor: "#F2921D",
 							}).then(() => {
-								const  userData = {
+								const userData = {
 									password: user.password,
 									email: user.email
 								}
@@ -57,11 +67,14 @@ export const Login = () => {
 									email: userAuth.email,
 									roles: userAuth.roles,
 								});
-								if(userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined){
+								if (userAuth.roles && userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
 									navigate("/admin");
 								} else {
-									navigate("/");
-								}	
+									const lastLocation = localStorage.getItem('lastLocation') || '/';
+									localStorage.removeItem('lastLocation');
+									navigate(lastLocation);
+									
+								}
 							});
 						})
 				} else {
@@ -152,6 +165,9 @@ export const Login = () => {
 							Ingresar
 						</button>
 
+						<div>
+							{redirected && <p>El inicio de sesión es obligatorio. Si no estás registrado, por favor, regístrate.</p>}
+						</div>
 					</div>
 
 				</form>
