@@ -35,6 +35,7 @@ export const AppProvider = ({ children }) => {
     }
 
     const login = ({ nombre, apellido, email, roles }) => {
+        console.log('AP - ', nombre)
         setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true, roles });
     }
 

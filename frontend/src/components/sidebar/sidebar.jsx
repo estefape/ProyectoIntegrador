@@ -13,7 +13,7 @@ const SideBar = () => {
     if ( roles.find(({ name }) => name === "ROLE_ADMIN") == undefined)  {
         navigate("/")
     }
-}, []);
+  }, []);
 
   return (
     <>

@@ -1,4 +1,5 @@
 const root = 'http://3.141.149.37/api'
+//const root = 'http://localhost:8080/api'
 
 export const constants = {
     PRODUCTS_ENDPOINT: `${root}/Products/`,
@@ -10,8 +11,4 @@ export const constants = {
     CITIES_ENDPOINT: `${root}/Cities/`,
     FACILITIES_ENDPOINT: `${root}/Facilities/`,
     RESERVATIONS_ENDPOINT: `${root}/Reserves/`,
-    AUTH_HEADERS: {
-        'Authorization': 'Basic ' + btoa('davidgalvis05@hotmail.com:Cow05*'),
-        'Content-Type': 'application/json',
-    },
 }
