@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import "./categoryDetail.css";
+
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { CoworkingCard } from "../../components/coworkingCard/CoworkingCard";
 import { constants } from "../../services/constants";
-import { getData } from "../../services/request";
+import { getData } from "../../services/utils";
 
 export const CategoryDetail = () => {
 

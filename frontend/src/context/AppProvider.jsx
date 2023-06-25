@@ -6,6 +6,9 @@ export const AppProvider = ({ children }) => {
     const [searchResults, setSearchResults] = useState([])
     const [showResults, setShowResults] = useState(false)
     const [selectedCity, setSelectedCity] = useState('')
+    const [checkIn, setCheckIn] = useState('')
+    const [checkOut, setCheckOut] = useState('')
+    const [searchResultsLoading, setSearchResultsLoading] = useState(true)
 
     const [globalState, setGlobalState] = useState({
         nombre: "",
@@ -63,8 +66,14 @@ export const AppProvider = ({ children }) => {
             showResults,
             setShowResults,
             selectedCity,
-            setSelectedCity
-        }}>
+            setSelectedCity,
+            checkIn,
+            setCheckIn,
+            checkOut,
+            setCheckOut, 
+            searchResultsLoading,
+            setSearchResultsLoading
+            }}>
             {children}
         </AppContext.Provider>
     )

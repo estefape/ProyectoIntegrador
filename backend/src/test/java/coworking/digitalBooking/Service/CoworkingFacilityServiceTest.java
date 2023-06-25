@@ -93,8 +93,8 @@ class CoworkingFacilityServiceTest {
     }
 
     @Test
-    void getAllCoworkingPolicies() {
-        assertNotNull(coworkingFacilityService.getAllCoworkingPolicies());
+    void getAllCoworkingFacilities() {
+        assertNotNull(coworkingFacilityService.getAllCoworkingFacilities());
     }
 
     @Test

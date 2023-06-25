@@ -6,11 +6,11 @@ import { DateRange } from 'react-date-range';
 import { addDays, eachDayOfInterval } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
 
-const ReservationCalendar = ({fechasNoDisponibles = []}) => {
+const ReservationCalendar = ({fechasNoDisponibles = [], onChange=()=>{}, selection=[]}) => {
     const [state, setState] = useState([
         {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: selection?.startDate || new Date(),
+            endDate: selection?.endDate || new Date(),
             key: 'selection',
         }
     ]);
@@ -33,7 +33,7 @@ const ReservationCalendar = ({fechasNoDisponibles = []}) => {
     return (
         
         <DateRange
-            onChange={item => setState([item.selection])}
+            onChange={item => {setState([item.selection]); onChange(item)}}
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
             months={isMobile ? 1 : 2 }
