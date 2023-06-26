@@ -17,7 +17,7 @@ export const Header = () => {
     const [buttonCrearCuenta, setButtonCrearCuenta] = useState(true);
     const [buttonInicioSesion, setButtonInicioSesion] = useState(true);
 
-    const { setShowResults } = useContext(AppContext);
+    const { setShowResults, globalState } = useContext(AppContext);
 
     const navigate = useNavigate();
 
@@ -28,6 +28,7 @@ export const Header = () => {
     } = useContext(AppContext);
 
     useEffect(() => {
+        console.log(globalState)
         if ( isAuthGlobalState() ) {
             const name = getNameGlobalState();
             const lastName = getSurnameGlobalState();

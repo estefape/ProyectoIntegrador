@@ -81,7 +81,8 @@ export const AppProvider = ({ children }) => {
             searchResultsLoading,
             setSearchResultsLoading,
             setReservation,
-            reservation
+            reservation,
+            globalState
             }}>
             {children}
         </AppContext.Provider>

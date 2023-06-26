@@ -49,6 +49,7 @@ export const Login = () => {
 				if (resp.ok) {
 					resp.json()
 						.then(userAuth => {
+							console.log(userAuth)
 							Swal.fire({
 								title: "Inicio de sesion exitoso!",
 								text: "Seras redirigido...",
@@ -62,10 +63,10 @@ export const Login = () => {
 								}
 								localStorage.setItem('data', btoa(JSON.stringify(userData)))
 								login({
-									nombre: userAuth.name,
-									apellido: userAuth.lastname,
-									email: userAuth.email,
-									roles: userAuth.roles,
+									nombre: userAuth.user.name,
+									apellido: userAuth.user.lastname,
+									email: userAuth.user.email,
+									roles: userAuth.user.roles,
 								});
 								if (userAuth.roles && userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
 									navigate("/admin");
