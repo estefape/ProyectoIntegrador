@@ -21,7 +21,7 @@ const EditCityForm = () => {
   useEffect(() => {
       cityService.cityFindByName(name)
       .then(result => {
-        return result.json()
+        return result
       })
       .then(city => {
         initValues({country: city.country, city: city.name})

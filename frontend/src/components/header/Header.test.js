@@ -21,7 +21,8 @@ describe('Header component', () => {
         isAuthGlobalState: jest.fn(),
         signOf: jest.fn(),
         getNameGlobalState: jest.fn(),
-        getSurnameGlobalState: jest.fn(),
+        getSurnameGlobalState: jest.fn(), 
+        getRolesGlobalState: jest.fn(),       
         setShowResults: jest.fn(),
     };
 
@@ -60,6 +61,7 @@ describe('Header component', () => {
         mockContext.isAuthGlobalState.mockReturnValue(true);
         mockContext.getNameGlobalState.mockReturnValue('John');
         mockContext.getSurnameGlobalState.mockReturnValue('Doe');
+        mockContext.getRolesGlobalState.mockReturnValue([]);
         const { container } = render(
             <AppContext.Provider value={mockContext}>
                 <Router>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./Categories.css";
 import Pagination from "../pagination/pagination";
 import { CardCategoryAdmin } from "../cardCategoryAdmin/cardCategoryAdmin";
+import { Loading } from "../loading/Loading";
 import * as categoryService from "../../services/categoryServices";
 
 let PageSize = 6;
@@ -17,7 +18,6 @@ const Categories = () => {
       })
       .then((category) => {
         setCategories(category);
-        console.log(category)
       });
   }, []);
 
@@ -28,29 +28,44 @@ const Categories = () => {
   }, [currentPage, categories]);
 
   return (
-      <div className="products-paginator">
-        <div className="categories-container">
-          {showCategories.map((cat) => {
-            return (
-              <CardCategoryAdmin
-                key={cat.idCategory}
-                idCategory={cat.idCategory}
-                image={cat.image}
-                name= {cat.name}
-                description={cat.description}
-                results={cat.results}
-                onDelete={() => {setCategories(() => {return categories.filter(ctg => ctg.idCategory != cat.idCategory)})}}
-              />
-            );
-          })}
+    <div className="products-paginator">
+      {categories.length >= 1 ? (
+        <>
+          <div className="categories-container">
+            {showCategories.map((cat) => {
+              return (
+                <CardCategoryAdmin
+                  key={cat.idCategory}
+                  idCategory={cat.idCategory}
+                  image={cat.image}
+                  name={cat.name}
+                  description={cat.description}
+                  results={cat.results}
+                  onDelete={() => {
+                    setCategories(() => {
+                      return categories.filter(
+                        (ctg) => ctg.idCategory != cat.idCategory
+                      );
+                    });
+                  }}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="loading-container">
+          <Loading />
         </div>
-        <Pagination
-          className="pagination-bar"
-          currentPage={currentPage}
-          totalCount={categories.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+      )}
+
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={categories.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };
