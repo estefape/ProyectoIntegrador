@@ -1,6 +1,6 @@
 import "./reservationDetail.css";
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getData, getDateFromString, getStringFromDate } from '../../services/utils';
 import { useContext, useEffect, useState } from 'react';
 
@@ -14,11 +14,45 @@ import { constants } from "../../services/constants";
 
 export const ReservationDetail = () => {
 
-    const { setCheckIn, checkIn, checkOut, setCheckOut } = useContext(AppContext);
+    const { setCheckIn, 
+            checkIn, 
+            checkOut, 
+            setCheckOut,
+            getNameGlobalState,
+            getSurnameGlobalState,
+            getEmailGlobalState, 
+            getReservation,
+            setReservation,
+        } = useContext(AppContext);
 
-    const [coworking, setCoworking] = useState({})
-    const [reservations, setReservations] = useState([])
-    const { id } = useParams()
+    const [coworking, setCoworking] = useState({});
+    const [reservations, setReservations] = useState([]);
+    const [admissionTime, setAdmissionTime ] = useState();
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        nombre: "",
+        apellido: "",
+        email: "",
+        ciudad: "",
+    });
+
+    const onSubmitForm = (e) => {
+        e.preventDefault();
+        const reservationTemp = {
+            start_date : checkIn,
+            end_date : checkOut,
+            coworking : coworking,
+            admision_time: admissionTime,
+            // "user_email": getEmailGlobalState
+            user: {...user}
+        };
+
+        setReservation(reservationTemp);
+        navigate(`/reservation/${id}/confirm`);
+        
+    }
 
     useEffect(() => {
         getData(constants.PRODUCTS_ENDPOINT + id).then(data => {
@@ -53,28 +87,56 @@ export const ReservationDetail = () => {
                                 <ChevronLeftIcon sx={{ fontSize: 50 }} className="icon" />
                             </Link>
                         </div>
-                        <form className="container reservation-form">
+                        <form onSubmit={onSubmitForm} className="container reservation-form">
                             <section className='reservation-section'>
                                 <h2 className='category'>Completa tus Datos</h2>
                                 <article className="grid-2c gray-background">
                                     <div>
                                         <div>
                                             <label htmlFor="nombre">Nombre</label>
-                                            <input type="text" id="nombre" name="nombre" placeholder="Nombre" />
+                                            <input 
+                                                type="text" 
+                                                placeholder="Nombre" 
+                                                id="nombre" 
+                                                name="nombre" 
+                                                value={user.nombre}
+                                                onChange={e => setUser({...user, nombre: e.target.value})}
+                                                />
                                         </div>
                                         <div>
                                             <label htmlFor="apellido">Apellido</label>
-                                            <input type="text" id="apellido" name="apellido" placeholder="Apellido" />
+                                            <input 
+                                                type="text" 
+                                                placeholder="Apellido" 
+                                                id="apellido" 
+                                                name="apellido" 
+                                                value={user.apellido}
+                                                onChange={e => setUser({...user, apellido: e.target.value})}
+                                                />
                                         </div>
                                     </div>
                                     <div>
                                         <div>
                                             <label htmlFor="email">Email</label>
-                                            <input type="email" id="email" name="email" placeholder="Email" />
+                                            <input 
+                                                type="email" 
+                                                placeholder="Email" 
+                                                id="email" 
+                                                name="email" 
+                                                value={user.email}
+                                                onChange={e => setUser({...user, email: e.target.value})}
+                                                />
                                         </div>
                                         <div>
                                             <label htmlFor="Ciudad">Ciudad</label>
-                                            <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad" />
+                                            <input 
+                                                type="text" 
+                                                placeholder="Ciudad" 
+                                                id="ciudad" 
+                                                name="ciudad" 
+                                                value={user.ciudad}
+                                                onChange={e => setUser({...user, ciudad: e.target.value})}
+                                                />
                                         </div>
                                     </div>
                                 </article>
@@ -93,8 +155,16 @@ export const ReservationDetail = () => {
                                 <article className='horarios'>
                                     <p><CheckCircleOutlineIcon /> El horario de reserva es de 9:00 a 18:00</p>
                                     <label htmlFor="horario">Indica tu horario estimado de llegada</label>
-                                    <select name="horario" id="horario">
-                                        <option value="" defaultValue={true}>Seleccione</option>
+                                    <select 
+                                        id="horario"
+                                        name="horario" 
+                                        value={admissionTime}
+                                        onChange={e => setAdmissionTime(e.target.value)}
+                                        >
+                                        <option 
+                                            defaultValue={true} 
+                                            value="">Seleccione
+                                        </option>
                                         <option value="9:00">9:00</option>
                                         <option value="10:00">10:00</option>
                                         <option value="11:00">11:00</option>
@@ -123,7 +193,7 @@ export const ReservationDetail = () => {
                                     <div>{checkOut}</div>
                                 </div>
 
-                                <button type="submit"className='btn'>Confirmar Reserva</button>
+                                <button type="submit" className='btn'>Confirmar Reserva</button>
                             </aside>
                         </form>
                         <div className="container with-border-bottom">

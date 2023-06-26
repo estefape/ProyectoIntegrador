@@ -20,40 +20,13 @@ import React from 'react';
 import { ReservationDetail } from './components/reservationDetail/ReservationDetail';
 import SideBar from './components/sidebar/sidebar';
 import { SignUp } from './routes/signup/SignUp';
-import CityForm from './components/cityForm/CityForm.jsx'
-import Cities from './components/cities/Cities'
-import EditCityForm from './components/editCityForm/EditCityForm';
-import Categories from './components/categories/Categories';
 import './reset.css'
+import { ConfirmReservation } from './components/confirmationReserve/ConfirmReservation';
+import { ReserveSuccess } from './routes/reserveSuccess/ReserveSuccess';
 
 
 
 function App() {
-
-  // TODO: comprobar y recuperar datos del localStorage, para ver si hay una sesion abierta
-  // si la hay, recuperar los datos y mandar a logear
-  /*
-      user {
-        name:
-        lastname:
-        email:
-        accessTokenClass: {
-            accessToken:
-            fechaCreacion:
-            fechaVencimiento: fechaCreacion + tiempoVigencia
-        }
-
-        accesToken = findToken(token)
-        if(accessToken.fechaVenciemineto > fechaActual) {
-          return null
-        }else
-        user = findUserByToken
-        return user = {
-          name, lastname, email, accessTokenNuevo
-        }
-      }
-
-  */
 
   return (
     <HashRouter>
@@ -65,6 +38,9 @@ function App() {
           <Route path='/signup' element={ <SignUp/> }/>
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
+          <Route path='/reservation/:id' element={<ReservationDetail/>}/>
+          <Route path='/reservation/:id/confirm' element={<ConfirmReservation/>}/>
+          <Route path='/reservation/:id/success' element={<ReserveSuccess/>}/>
           <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>
             <Route path='newproduct' element={<ProductForm/>}/>            

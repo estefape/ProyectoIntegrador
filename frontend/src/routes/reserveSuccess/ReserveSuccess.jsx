@@ -4,7 +4,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 export const ReserveSuccess = () => {
 
     return (
-        <div className="container">
+        <div className="container-success">
             <div className="success">
                 <div className="body">
                     <VerifiedIcon className="verified-icon"/>
