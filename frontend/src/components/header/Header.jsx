@@ -72,10 +72,10 @@ export const Header = () => {
     const redirect = () => {        
         const roles = getRolesGlobalState()
         if(roles){
-            if (roles.find(({ name }) => name === "ROLE_ADMIN") == undefined) {
-                return "/"
+            if (roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
+                return "/admin/home"
             } else {
-                return "/admin"
+                return "/"
             }
         }
     }

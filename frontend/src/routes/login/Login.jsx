@@ -66,7 +66,6 @@ export const Login = () => {
 									token: userAuth.tokenAccess,
 									roles: userAuth.user.roles
 								}
-								console.log(userData)
 								localStorage.setItem('data', btoa(JSON.stringify(userData)))
 								login({
 									nombre: userAuth.user.name,
@@ -75,7 +74,7 @@ export const Login = () => {
 									roles: userAuth.user.roles,
 								});
 								if (userAuth.user.roles && userAuth.user.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
-									navigate("/admin");
+									navigate("/admin/home");
 								} else {
 									const lastLocation = localStorage.getItem('lastLocation') || '/';
 									localStorage.removeItem('lastLocation');

@@ -20,7 +20,8 @@ import React, { useContext, useEffect } from "react";
 import { ReservationDetail } from "./components/reservationDetail/ReservationDetail";
 import SideBar from "./components/sidebar/sidebar";
 import { SignUp } from "./routes/signup/SignUp";
-import { isExpired, decodeToken } from "react-jwt";
+import Users from "./components/users/Users";
+import AdminHome from "./components/adminHome/AdminHome";
 import AppContext from "./context/AppContext";
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
           <Route path="/reservation/:id" element={<ReservationDetail />} />
           <Route path="/admin" element={<SideBar />}>
+            <Route path="home" element={<AdminHome />} />
             <Route path="products" element={<Products />} />
             <Route path="newproduct" element={<ProductForm />} />
             <Route path="editproduct" element={<EditProductForm />}>
@@ -86,6 +88,7 @@ function App() {
             </Route>
             <Route path="categories" element={<Categories />} />
             <Route path="newcategory" element={<CategoryForm />} />
+            <Route path="users" element={<Users/>} />
           </Route>
           <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -11,4 +11,5 @@ export const constants = {
     CITIES_ENDPOINT: `${root}/Cities/`,
     FACILITIES_ENDPOINT: `${root}/Facilities/`,
     RESERVATIONS_ENDPOINT: `${root}/Reserves/`,
+    USERS_ENDPOINT: `${root}/users/`,
 }

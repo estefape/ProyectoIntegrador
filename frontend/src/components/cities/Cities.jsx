@@ -5,6 +5,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Icons } from "../icons/Icons";
 import { Link } from "react-router-dom";
+import { Loading } from "../loading/Loading";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 //import "primereact/resources/themes/soho-light/theme.css";
@@ -41,7 +42,7 @@ const Cities = () => {
 
   const handleDelete = (id) => {
     cityService.cityDelete(id).then(async (result) => {
-      setCities(cities.filter(cit => cit.idCity != id))
+      setCities(cities.filter((cit) => cit.idCity != id));
       if (result.status >= 200 && result.status < 300) {
         Swal.fire({
           title: "Eliminada exitosamente",
@@ -63,62 +64,57 @@ const Cities = () => {
   };
 
   const actions = (data, props) => {
-    return (      
-      <div className="actions-container">     
-        <div className="trash-container" onClick={() => {confirmation(data.idCity)}}>
+    return (
+      <div className="actions-container">
+        <div
+          className="trash-container"
+          onClick={() => {
+            confirmation(data.idCity);
+          }}
+        >
           <Icons name="trash" />
         </div>
         <NavLink to={`/admin/editcity/${data.name}`} className="edit-container">
           <Icons name="edit" />
-        </NavLink>   
-     
+        </NavLink>
       </div>
     );
   };
 
   return (
     <div className="cities-container">
-      <DataTable
-        value={cities}
-        stripedRows
-        paginator
-        rows={8}
-        tableStyle={{ minWidth: "50rem" }}
-      >
-        <Column
-          field="country"
-          header="Pais"
-          sortable
-          style={{ width: "25%" }}
-        ></Column>
-        <Column
-          field="name"
-          header="Ciudad"
-          sortable
-          style={{ width: "25%" }}
-        ></Column>
-        <Column
-          field="idCity"
-          header="Acciones"
-          body={actions}
-          style={{ width: "25%" }}
-        ></Column>
-      </DataTable>
-
-      {/*         
-            //   <CardProduct
-            //     key={prod.idCoworking}
-            //     image={prod.image}
-            //     name={prod.name}
-            //     category={prod.category.name}
-            //     city={prod.city}
-            //     address={prod.address}
-            //     description={prod.description}
-            //     officeId={prod.officeId}
-            //     role={'admin'}
-            //     id={prod.idCoworking}
-            //     onDelete={() => {setProducts(() => {return products.filter(prd => prd.idCoworking != prod.idCoworking)})}}
-            //   /> */}
+      {cities.length >= 1 ? (
+        <DataTable
+          value={cities}
+          stripedRows
+          paginator
+          rows={8}
+          tableStyle={{ minWidth: "50rem" }}
+        >
+          <Column
+            field="country"
+            header="Pais"
+            sortable
+            style={{ width: "25%" }}
+          ></Column>
+          <Column
+            field="name"
+            header="Ciudad"
+            sortable
+            style={{ width: "25%" }}
+          ></Column>
+          <Column
+            field="idCity"
+            header="Acciones"
+            body={actions}
+            style={{ width: "25%" }}
+          ></Column>
+        </DataTable>
+      ) : (
+        <div className="loading-container">
+          <Loading />
+        </div>
+      )}
     </div>
   );
 };

@@ -19,13 +19,14 @@ const SideBar = () => {
     <>
       <div className='adminWrapper'>
         <div className="sidebar">
-          <NavLink to="/admin" end>Inicio</NavLink>
+          <NavLink to="/admin/home" end>Inicio</NavLink>
           <NavLink to="/admin/products">Oficinas</NavLink>
           <NavLink to="/admin/newproduct">Agregar Oficina</NavLink>                     
           <NavLink to="/admin/categories">Categorias</NavLink>
           <NavLink to="/admin/newcategory">Agregar Categoria</NavLink>
           <NavLink to="/admin/cities">Ciudades</NavLink>
-          <NavLink to="/admin/newCity">Agregar Ciudad</NavLink>   
+          <NavLink to="/admin/newCity">Agregar Ciudad</NavLink> 
+          <NavLink to="/admin/users">Usuarios</NavLink>  
         </div>
         <Outlet />
       </div>
