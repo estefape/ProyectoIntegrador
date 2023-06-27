@@ -61,27 +61,27 @@ export const getData = async (url) => {
 export const deleteData = async (url) => {
     const response = await fetch(url, {
         method: 'DELETE',
-        headers: buildHeaders(),
+        headers: buildHeadersJSON(),
     })
     return response
 }
 
 const buildHeaders = () => {
     const headers = new Headers()
-
-    headers.append('Authorization', `Basic ${authorizationUser()}`)
-    headers.append("Cookie", "JSESSIONID=84FFC7022AF0BB7B17746928F3A93B44");
+    const userData = JSON.parse(atob(localStorage.getItem('data')))
+    const token =  userData.token
+    //headers.append("Content-Type", "multipart/form-data");
+    headers.append("Authorization", "Bearer "+ token);
 
     return headers
 }
 
 const buildHeadersJSON = () => {
     const headers = new Headers()
-
-    headers.append('Authorization', `Basic ${authorizationUser()}`)
-    headers.append("Cookie", "JSESSIONID=84FFC7022AF0BB7B17746928F3A93B44");
-    headers.append('Content-Type', 'application/json');
-
+    const userData = JSON.parse(atob(localStorage.getItem('data')))
+    const token =  userData.token
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", "Bearer "+ token);
     return headers
 }
 

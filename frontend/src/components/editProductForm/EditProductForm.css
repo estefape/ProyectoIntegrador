@@ -68,6 +68,15 @@ textarea {
   width: 70%;
 }
 
+.left-panel{
+  padding: 0px 40px;
+}
+
+.right-panel{
+  padding: 0px 40px;
+}
+
+
 .product-form label > span {
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;

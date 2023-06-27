@@ -21,6 +21,7 @@ export const Login = () => {
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
+		token:"",
 	})
 
 	const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const Login = () => {
 		setUser({
 			email: "",
 			password: "",
+			token:"",
 		})
 	}
 
@@ -58,8 +60,12 @@ export const Login = () => {
 								confirmButtonColor: "#F2921D",
 							}).then(() => {
 								const userData = {
-									password: user.password,
-									email: user.email
+									nombre: userAuth.user.name,
+									apellido: userAuth.user.lastname,
+									password: userAuth.user.password,
+									email: userAuth.user.email,
+									token: userAuth.tokenAccess,
+									roles: userAuth.user.roles
 								}
 								localStorage.setItem('data', btoa(JSON.stringify(userData)))
 								login({
@@ -69,8 +75,8 @@ export const Login = () => {
 									email: userAuth.user.email,
 									roles: userAuth.user.roles,
 								});
-								if (userAuth.roles && userAuth.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
-									navigate("/admin");
+								if (userAuth.user.roles && userAuth.user.roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
+									navigate("/admin/home");
 								} else {
 									const lastLocation = localStorage.getItem('lastLocation') || '/';
 									localStorage.removeItem('lastLocation');

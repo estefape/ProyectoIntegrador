@@ -27,18 +27,18 @@ public class CityController {
     // Para busqueda de ciudad por id:
 
     //@GetMapping("/{id}")
-    //public ResponseEntity<CityDTO> searchCategoryId(@PathVariable(name = "id") Long id) {
+    //public ResponseEntity<CityDTO> searchCityId(@PathVariable(name = "id") Long id) {
     //    return ResponseEntity.ok(cityService.searchById(id));
    // }
 
     @GetMapping("/{name}")
-    public ResponseEntity<CityDTO> searchCategoryName(@PathVariable(name = "name") String name) {
+    public ResponseEntity<CityDTO> searchCityName(@PathVariable(name = "name") String name) {
         return ResponseEntity.ok(cityService.findByName(name));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<CityDTO> registerCategory(@RequestBody CityDTO cityDTO) {
+    public ResponseEntity<CityDTO> registerCity(@RequestBody CityDTO cityDTO) {
         return new ResponseEntity<>(cityService.registerCity(cityDTO), HttpStatus.CREATED);
     }
 

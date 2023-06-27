@@ -58,8 +58,6 @@ export const Search = () => {
           setAvailable(available);
         });
     } else if (selectedCity){
-      console.log("solo ciudad");
-      console.log(products.filter(filterProductsByCity));
       setAvailable(null)
       setShowResults(true);
       setSearchResultsLoading(true)

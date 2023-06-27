@@ -6,6 +6,8 @@ import coworking.digitalBooking.Entities.Rol;
 import coworking.digitalBooking.Entities.User;
 import coworking.digitalBooking.Repository.RolRepository;
 import coworking.digitalBooking.Repository.UserRepository;
+import coworking.digitalBooking.Security.JWTAuthResponseDTO;
+import coworking.digitalBooking.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,19 +38,40 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
+
 	
-	@PostMapping("/login")
-	public ResponseEntity<User> authenticateUser(@RequestBody LoginDTO loginDTO){
+	/*@PostMapping("/login")
+	// public ResponseEntity<User> authenticateUser(@RequestBody LoginDTO loginDTO){
+	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
+		String token = jwtTokenProvider.generateToken(authentication);
+
+		// Optional<User> usuario = userRepository.findByEmail(loginDTO.getEmail());
+
+		// return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+		return ResponseEntity.ok(new JWTAuthResponseDTO(token));
+	}*/
+	@PostMapping("/login")
+	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		String token = jwtTokenProvider.generateToken(authentication);
+
 		Optional<User> usuario = userRepository.findByEmail(loginDTO.getEmail());
 
-
-
-		return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+		// return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+		return ResponseEntity.ok(new JWTAuthResponseDTO(token, usuario.get()));
 	}
+
+
+
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){

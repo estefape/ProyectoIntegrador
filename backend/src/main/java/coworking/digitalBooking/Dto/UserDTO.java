@@ -1,7 +1,11 @@
 package coworking.digitalBooking.Dto;
 
 
+import coworking.digitalBooking.Entities.Rol;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Getter
@@ -15,6 +19,6 @@ public class UserDTO {
 	private String lastname;
 	private String email;
 	private String password;
-
+	private Set<Rol> roles = new HashSet<>();
 
 }

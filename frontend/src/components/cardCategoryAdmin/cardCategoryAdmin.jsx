@@ -34,7 +34,6 @@ export const CardCategoryAdmin = ({
 
   const handleDelete = () => {
     categoryService.categoryDelete(idCategory).then(async (result) => {
-      console.log("result" + result.status);
       if (result.status >= 200 && result.status < 300) {
         onDelete();
         Swal.fire({

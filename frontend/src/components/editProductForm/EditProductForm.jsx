@@ -53,7 +53,7 @@ const EditProductForm = () => {
     categoryService
       .categoryAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((categories) => {
         setCategories(categories);
@@ -61,7 +61,7 @@ const EditProductForm = () => {
     productService
       .productFindById(productId)
       .then((result) => {
-        return result.json();
+        return result;
       })
       .then((product) => {
         initValues({
@@ -78,7 +78,7 @@ const EditProductForm = () => {
     cityService
       .cityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((cities) => {
         setCities(cities);
@@ -86,7 +86,7 @@ const EditProductForm = () => {
     facilityService
       .facilityAll()
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((facilities) => {
         setFacilities(facilities);

@@ -24,7 +24,8 @@ export const Header = () => {
     const { isAuthGlobalState,
         signOf,
         getNameGlobalState,
-        getSurnameGlobalState
+        getSurnameGlobalState,
+        getRolesGlobalState
     } = useContext(AppContext);
 
     useEffect(() => {
@@ -68,10 +69,24 @@ export const Header = () => {
         setMenuOpen(!menuOpen);
     };
 
+    const redirect = () => {        
+        const roles = getRolesGlobalState()
+        if(roles){
+            if (roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
+                return "/admin/home"
+            }
+            else {
+                return "/"
+            } 
+        } else {
+            return "/"
+        }
+    }
+
     return (
         <header className='header'>
             <div className="logo">
-                <Link to="/" onClick={() => setShowResults(false)}>
+                <Link to={redirect()} onClick={() => setShowResults(false)}>
                     <img src={iconoLogo} alt="Logo de la empresa" />
                     <span>Encuentra tu espacio de trabajo ideal</span>
                 </Link>
@@ -109,9 +124,9 @@ export const Header = () => {
                     {
                         isAuthGlobalState()
                             ?
-                            <li>
-                                <Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link>
-                            </li>
+                            <>
+                                <li><Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link></li>
+                            </>
                             :
                             <>
                                 <li><Link to="/signup" className='btn'>Crear cuenta</Link></li>
