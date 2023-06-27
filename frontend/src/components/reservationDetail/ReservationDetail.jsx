@@ -3,6 +3,7 @@ import "./reservationDetail.css";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getData, getDateFromString, getStringFromDate, mapDateStringFromDateRequest } from '../../services/utils';
 import { useContext, useEffect, useState } from 'react';
+import Swal from "sweetalert2";
 
 import AppContext from "../../context/AppContext";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -15,17 +16,18 @@ import { createReserve } from "../../services/reserveServices"
 
 export const ReservationDetail = () => {
 
-    const { setCheckIn, 
-            checkIn, 
-            checkOut, 
-            setCheckOut,
-            setReservation,
-            globalState,
-        } = useContext(AppContext);
+    const { setCheckIn,
+        checkIn,
+        checkOut,
+        setCheckOut,
+        reservation: reservationGlobalState,
+        setReservation: setReservationGlobalState,
+        globalState,
+    } = useContext(AppContext);
 
     const [coworking, setCoworking] = useState({});
     const [reservations, setReservations] = useState([]);
-    const [admissionTime, setAdmissionTime ] = useState();
+    const [admissionTime, setAdmissionTime] = useState();
     const [dates, setDates] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -40,9 +42,9 @@ export const ReservationDetail = () => {
     const onSubmitForm = (e) => {
         e.preventDefault();
         const reservationTemp = {
-            start_date : mapDateStringFromDateRequest(dates.startDate),
-            end_date : mapDateStringFromDateRequest(dates.endDate),
-            coworking : {
+            start_date: mapDateStringFromDateRequest(dates.startDate),
+            end_date: mapDateStringFromDateRequest(dates.endDate),
+            coworking: {
                 idCoworking: coworking.idCoworking,
             },
             user: {
@@ -50,19 +52,42 @@ export const ReservationDetail = () => {
             },
         };
 
-        setReservation(reservationTemp);
-        console.log(reservationTemp);
+        setReservationGlobalState({
+            ...reservationTemp,
+            fechaReserva: getStringFromDate(new Date()),
+            coworking: coworking,
 
-        
-        createReserve(reservationTemp)
-            .then( (response) => {
-                console.log(response)
-            })
-            .catch(e => console.log(e))
+        });
+        console.log({ reservationTemp });
+        console.log({ reservationGlobalState });
+
+        Swal.fire({
+            title: '¿Está seguro que desea realizar la reserva?',
+            text: "¡Una vez realizada no podrá revertir esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F2921D',
+            confirmButtonText: 'Sí',
+            cancelButtonColor: '#400E32',
+            cancelButtonText: 'No'
+
+        }).then((result) => {
+            if (result.isConfirmed) navigate(`/reservation/${id}/confirm`);
+        })
 
 
-        // navigate(`/reservation/${id}/confirm`);
-        
+
+
+        // createReserve(reservationTemp)
+        //     .then( (response) => {
+        //         if (response.status === 201) {
+        //                 
+        // //         }
+        //     })
+        //     .catch(e => console.log(e))
+
+
+
     }
 
     useEffect(() => {
@@ -109,60 +134,60 @@ export const ReservationDetail = () => {
                                     <div>
                                         <div>
                                             <label htmlFor="nombre">Nombre</label>
-                                            <input 
-                                                type="text" 
-                                                placeholder="Nombre" 
-                                                id="nombre" 
-                                                name="nombre" 
+                                            <input
+                                                type="text"
+                                                placeholder="Nombre"
+                                                id="nombre"
+                                                name="nombre"
                                                 value={user.nombre}
-                                                onChange={e => setUser({...user, nombre: e.target.value})}
-                                                />
+                                                onChange={e => setUser({ ...user, nombre: e.target.value })}
+                                            />
                                         </div>
                                         <div>
                                             <label htmlFor="apellido">Apellido</label>
-                                            <input 
-                                                type="text" 
-                                                placeholder="Apellido" 
-                                                id="apellido" 
-                                                name="apellido" 
+                                            <input
+                                                type="text"
+                                                placeholder="Apellido"
+                                                id="apellido"
+                                                name="apellido"
                                                 value={user.apellido}
-                                                onChange={e => setUser({...user, apellido: e.target.value})}
-                                                />
+                                                onChange={e => setUser({ ...user, apellido: e.target.value })}
+                                            />
                                         </div>
                                     </div>
                                     <div>
                                         <div>
                                             <label htmlFor="email">Email</label>
-                                            <input 
-                                                type="email" 
-                                                placeholder="Email" 
-                                                id="email" 
-                                                name="email" 
+                                            <input
+                                                type="email"
+                                                placeholder="Email"
+                                                id="email"
+                                                name="email"
                                                 value={user.email}
-                                                onChange={e => setUser({...user, email: e.target.value})}
-                                                />
+                                                onChange={e => setUser({ ...user, email: e.target.value })}
+                                            />
                                         </div>
                                         <div>
                                             <label htmlFor="Comentario">Comentario</label>
-                                            <input 
-                                                type="text" 
-                                                placeholder="Ingrese alguna informacion relevante..." 
-                                                id="comentario" 
-                                                name="comentario" 
+                                            <input
+                                                type="text"
+                                                placeholder="Ingrese alguna informacion relevante..."
+                                                id="comentario"
+                                                name="comentario"
                                                 value={user.comentario}
-                                                onChange={e => setUser({...user, comentario: e.target.value})}
-                                                />
+                                                onChange={e => setUser({ ...user, comentario: e.target.value })}
+                                            />
                                         </div>
                                     </div>
                                 </article>
                                 <h2 className='category'>Selecciona tu fecha de reserva</h2>
                                 <article className="calendar">
-                                    <ReservationCalendar 
-                                        fechasNoDisponibles={reservations} 
-                                        onChange={handleSelect} 
+                                    <ReservationCalendar
+                                        fechasNoDisponibles={reservations}
+                                        onChange={handleSelect}
                                         selection={{
-                                            startDate: getDateFromString(checkIn), 
-                                            endDate: getDateFromString(checkOut), 
+                                            startDate: getDateFromString(checkIn),
+                                            endDate: getDateFromString(checkOut),
                                         }}
                                     />
                                 </article>
@@ -170,14 +195,14 @@ export const ReservationDetail = () => {
                                 <article className='horarios'>
                                     <p><CheckCircleOutlineIcon /> El horario de reserva es de 9:00 a 18:00</p>
                                     <label htmlFor="horario">Indica tu horario estimado de llegada</label>
-                                    <select 
+                                    <select
                                         id="horario"
-                                        name="horario" 
+                                        name="horario"
                                         value={admissionTime}
                                         onChange={e => setAdmissionTime(e.target.value)}
-                                        >
-                                        <option 
-                                            defaultValue={true} 
+                                    >
+                                        <option
+                                            defaultValue={true}
                                             value="">Seleccione
                                         </option>
                                         <option value="9:00">9:00</option>

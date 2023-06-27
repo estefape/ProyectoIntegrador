@@ -23,6 +23,7 @@ import { SignUp } from "./routes/signup/SignUp";
 import Users from "./components/users/Users";
 import AdminHome from "./components/adminHome/AdminHome";
 import AppContext from "./context/AppContext";
+import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
           <Route path="/reservation/:id" element={<ReservationDetail />} />
+          <Route path="/reservation/:id/confirm" element={<ReserveSuccess />} />
           <Route path="/admin" element={<SideBar />}>
             <Route path="home" element={<AdminHome />} />
             <Route path="products" element={<Products />} />
