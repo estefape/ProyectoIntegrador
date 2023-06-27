@@ -74,9 +74,12 @@ export const Header = () => {
         if(roles){
             if (roles.find(({ name }) => name === "ROLE_ADMIN") != undefined) {
                 return "/admin/home"
-            } else {
-                return "/"
             }
+            else {
+                return "/"
+            } 
+        } else {
+            return "/"
         }
     }
 
