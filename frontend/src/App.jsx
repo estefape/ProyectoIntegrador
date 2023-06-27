@@ -23,6 +23,7 @@ import { SignUp } from "./routes/signup/SignUp";
 import Users from "./components/users/Users";
 import AdminHome from "./components/adminHome/AdminHome";
 import AppContext from "./context/AppContext";
+import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 
 function App() {
 
@@ -39,30 +40,7 @@ function App() {
   useEffect(() => {
     validateSession()
   }, [])
-  // TODO: comprobar y recuperar datos del localStorage, para ver si hay una sesion abierta
-  // si la hay, recuperar los datos y mandar a logear
-  /*
-      user {
-        name:
-        lastname:
-        email:
-        accessTokenClass: {
-            accessToken:
-            fechaCreacion:
-            fechaVencimiento: fechaCreacion + tiempoVigencia
-        }
-
-        accesToken = findToken(token)
-        if(accessToken.fechaVenciemineto > fechaActual) {
-          return null
-        }else
-        user = findUserByToken
-        return user = {
-          name, lastname, email, accessTokenNuevo
-        }
-      }
-  */
-
+  
   return (
     <HashRouter>
       <div className="App">
@@ -74,6 +52,7 @@ function App() {
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
           <Route path="/reservation/:id" element={<ReservationDetail />} />
+          <Route path="/reservation/:id/confirm" element={<ReserveSuccess />} />
           <Route path="/admin" element={<SideBar />}>
             <Route path="home" element={<AdminHome />} />
             <Route path="products" element={<Products />} />

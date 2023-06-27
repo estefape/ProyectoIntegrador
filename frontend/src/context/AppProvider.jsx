@@ -11,12 +11,15 @@ export const AppProvider = ({ children }) => {
     const [searchResultsLoading, setSearchResultsLoading] = useState(true)
 
     const [globalState, setGlobalState] = useState({
+        id: "",
         nombre: "",
         apellido: "",
         authenticado: false,
         email: "",
         roles: [],
     });
+
+    const [reservation, setReservation] = useState({});
 
 
     // Aca van todos los metodos para extraer y setear los valores de las propiedades del Global Context,
@@ -30,12 +33,16 @@ export const AppProvider = ({ children }) => {
         return globalState.apellido;
     }
 
+    const getEmailGlobalState = () => {
+        return globalState.email;
+    }
+
     const isAuthGlobalState = () => {
         return globalState.authenticado;
     }
 
-    const login = ({ nombre, apellido, email, roles }) => {
-        setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true, roles });
+    const login = ({ id, nombre, apellido, email, roles }) => {
+        setGlobalState({ ...globalState, id, nombre, apellido, email, authenticado: true, roles });
     }
 
     const getRolesGlobalState = () => {
@@ -57,6 +64,7 @@ export const AppProvider = ({ children }) => {
         <AppContext.Provider value={{
             getNameGlobalState,
             getSurnameGlobalState,
+            getEmailGlobalState,
             isAuthGlobalState,
             login,
             getRolesGlobalState,
@@ -72,7 +80,10 @@ export const AppProvider = ({ children }) => {
             checkOut,
             setCheckOut, 
             searchResultsLoading,
-            setSearchResultsLoading
+            setSearchResultsLoading,
+            setReservation,
+            reservation,
+            globalState
             }}>
             {children}
         </AppContext.Provider>

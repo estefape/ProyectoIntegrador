@@ -51,6 +51,7 @@ export const Login = () => {
 				if (resp.ok) {
 					resp.json()
 						.then(userAuth => {
+							console.log({userAuth})
 							Swal.fire({
 								title: "Inicio de sesion exitoso!",
 								text: "Seras redirigido...",
@@ -68,6 +69,7 @@ export const Login = () => {
 								}
 								localStorage.setItem('data', btoa(JSON.stringify(userData)))
 								login({
+									id: userAuth.user.id,
 									nombre: userAuth.user.name,
 									apellido: userAuth.user.lastname,
 									email: userAuth.user.email,

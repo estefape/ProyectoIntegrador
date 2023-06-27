@@ -13,11 +13,10 @@ export const Header = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [avatar, setAvatar] = useState("");
-    const [buttonsHeader, setButtonsHeader] = useState(true);
     const [buttonCrearCuenta, setButtonCrearCuenta] = useState(true);
     const [buttonInicioSesion, setButtonInicioSesion] = useState(true);
 
-    const { setShowResults } = useContext(AppContext);
+    const { setShowResults, globalState } = useContext(AppContext);
 
     const navigate = useNavigate();
 

@@ -4,6 +4,15 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
+export const postDataWithToken = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: buildHeadersJSON(),
+        body: JSON.stringify(data),
+    })
+    return response;
+}
+
 export const postData = async (url, data) => {
     const response = await fetch(url, {
         method: 'POST',
@@ -92,8 +101,16 @@ export const getStringFromDate = (date) => {
     try {
         return dayjs(date).format('DD/MM/YYYY');
     } catch (error) {
-        console.error('Formato de fecha invalido', dateString);
+        console.error('Formato de fecha invalido', date);
         return null;
     }
     
 }
+ export const mapDateStringFromDateRequest = (date) => {
+    try {
+        return dayjs(date).format("YYYY-MM-DDTHH:mm:ss")
+    } catch (error) {
+        console.error('Formato de fecha invalido', date);
+        return null;
+    }
+ }
