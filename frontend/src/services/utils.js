@@ -4,6 +4,18 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
+export const postDataWithToken = async (url, data, token) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    return response;
+}
+
 export const postData = async (url, data) => {
     const response = await fetch(url, {
         method: 'POST',
