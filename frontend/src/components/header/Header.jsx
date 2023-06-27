@@ -28,7 +28,6 @@ export const Header = () => {
     } = useContext(AppContext);
 
     useEffect(() => {
-        console.log(globalState)
         if ( isAuthGlobalState() ) {
             const name = getNameGlobalState();
             const lastName = getSurnameGlobalState();

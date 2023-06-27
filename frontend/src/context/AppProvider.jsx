@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
     const [searchResultsLoading, setSearchResultsLoading] = useState(true)
 
     const [globalState, setGlobalState] = useState({
+        id: "",
         nombre: "",
         apellido: "",
         authenticado: false,
@@ -40,8 +41,8 @@ export const AppProvider = ({ children }) => {
         return globalState.authenticado;
     }
 
-    const login = ({ nombre, apellido, email, roles }) => {
-        setGlobalState({ ...globalState, nombre, apellido, email, authenticado: true, roles });
+    const login = ({ id, nombre, apellido, email, roles }) => {
+        setGlobalState({ ...globalState, id, nombre, apellido, email, authenticado: true, roles });
     }
 
     const getRolesGlobalState = () => {

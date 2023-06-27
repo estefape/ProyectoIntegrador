@@ -2,23 +2,26 @@ import { useContext, useEffect, useState } from "react"
 import "./confirmReservation.css"
 import AppContext from "../../context/AppContext"
 import { useNavigate, useParams } from "react-router-dom";
+import { constants } from "../../services/constants";
+import { mapDateStringFromDateRequest } from "../../services/utils";
 
 
 export const ConfirmReservation = () => {
 
-    const { reservation: reservationGlobalState } = useContext(AppContext);
+    const { reservation: reservationGlobalState, globalState } = useContext(AppContext);
     const [reservation, setReservation] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const { coworking, start_date, end_date, admision_time, user } = reservationGlobalState;
+        const { coworking, start_date, end_date, admision_time, user, dates } = reservationGlobalState;
         setReservation({
             coworking,
             start_date,
             end_date,
             user,
             admision_time,
+            dates
         })
     }, []);
 
@@ -26,9 +29,33 @@ export const ConfirmReservation = () => {
         e.preventDefault();
         console.log(reservation);
 
+
+        const startdate = new Date(reservation.start_date);
+        const hours = Number(reservation.admision_time.substring(0,2))
+        startdate.setHours(startdate.getHours() + hours);
+        const newStartDate = mapDateStringFromDateRequest(startdate)
+        
+        const enddate = new Date(reservation.end_date);
+        enddate.setHours(enddate.getHours() + hours);
+        const newEndDate = mapDateStringFromDateRequest(enddate)
+        
+        setReservation({...reservation, asdasd: {
+            startDate: newStartDate,
+            endDate: newEndDate,
+        }})
+
+        console.log(reservation.dates);
+
         // TODO: aqui va la peticion al backend
 
-        navigate(`/reservation/${id}/success`);
+        fetch(constants.RESERVATIONS_ENDPOINT, {
+            start_date: reservation.start_date,
+            end_date: reservation.end_date,
+            coworking: reservation.coworking,
+            user: reservation.user,
+        })
+
+        // navigate(`/reservation/${id}/success`);
 
     }
 

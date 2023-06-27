@@ -39,7 +39,7 @@ function App() {
           <Route path='/detail/:id' element={<CoworkingDetail/>}/>
           <Route path='/category/:categoryId' element={<CategoryDetail/>}/>
           <Route path='/reservation/:id' element={<ReservationDetail/>}/>
-          <Route path='/reservation/:id/confirm' element={<ConfirmReservation/>}/>
+          {/* <Route path='/reservation/:id/confirm' element={<ConfirmReservation/>}/> */}
           <Route path='/reservation/:id/success' element={<ReserveSuccess/>}/>
           <Route path='/admin' element={<SideBar />}>
             <Route path='products' element={<Products/>}/>

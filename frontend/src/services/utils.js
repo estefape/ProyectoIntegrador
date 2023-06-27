@@ -92,8 +92,16 @@ export const getStringFromDate = (date) => {
     try {
         return dayjs(date).format('DD/MM/YYYY');
     } catch (error) {
-        console.error('Formato de fecha invalido', dateString);
+        console.error('Formato de fecha invalido', date);
         return null;
     }
     
 }
+ export const mapDateStringFromDateRequest = (date) => {
+    try {
+        return dayjs(date).format("YYYY-MM-DD HH:mm:ss")
+    } catch (error) {
+        console.error('Formato de fecha invalido', date);
+        return null;
+    }
+ }

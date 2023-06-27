@@ -1,5 +1,5 @@
 import { constants } from "./constants"
-import { putData, getData, deleteData, postDataWithFormData } from "./utils"
+import { putData, getData, deleteData, postDataWithFormData, postData } from "./utils"
 
 export const productRegister = (product) => {
     return postDataWithFormData(constants.PRODUCTS_ENDPOINT, product)

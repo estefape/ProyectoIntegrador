@@ -9,3 +9,7 @@ export const reserveFindByDates = (startDate, endDate) => {
     return getData(constants.RESERVATIONS_ENDPOINT + 'availability?' + 'startDate='+ startDate + '&endDate=' + endDate)
 }
 
+export const createReserve = (reservation) => {
+    return postData(constants.RESERVATIONS_ENDPOINT, reservation)
+}
+

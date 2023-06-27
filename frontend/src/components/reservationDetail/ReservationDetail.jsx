@@ -1,7 +1,7 @@
 import "./reservationDetail.css";
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getData, getDateFromString, getStringFromDate } from '../../services/utils';
+import { getData, getDateFromString, getStringFromDate, mapDateStringFromDateRequest } from '../../services/utils';
 import { useContext, useEffect, useState } from 'react';
 
 import AppContext from "../../context/AppContext";
@@ -11,6 +11,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ReservationCalendar from '../reservationCalendar/ReservationCalendar';
 import StarRating from "../starRating/StarRating";
 import { constants } from "../../services/constants";
+import { createReserve } from "../../services/reserveServices"
 
 export const ReservationDetail = () => {
 
@@ -18,39 +19,49 @@ export const ReservationDetail = () => {
             checkIn, 
             checkOut, 
             setCheckOut,
-            getNameGlobalState,
-            getSurnameGlobalState,
-            getEmailGlobalState, 
-            getReservation,
             setReservation,
+            globalState,
         } = useContext(AppContext);
 
     const [coworking, setCoworking] = useState({});
     const [reservations, setReservations] = useState([]);
     const [admissionTime, setAdmissionTime ] = useState();
+    const [dates, setDates] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
-        nombre: "",
-        apellido: "",
-        email: "",
-        ciudad: "",
+        nombre: globalState.nombre,
+        apellido: globalState.apellido,
+        email: globalState.email,
+        comentario: "",
     });
 
     const onSubmitForm = (e) => {
         e.preventDefault();
         const reservationTemp = {
-            start_date : checkIn,
-            end_date : checkOut,
-            coworking : coworking,
-            admision_time: admissionTime,
-            // "user_email": getEmailGlobalState
-            user: {...user}
+            start_date : mapDateStringFromDateRequest(dates.startDate),
+            end_date : mapDateStringFromDateRequest(dates.endDate),
+            coworking : {
+                idCoworking: coworking.idCoworking,
+            },
+            user: {
+                id: globalState.id,
+            },
         };
 
         setReservation(reservationTemp);
-        navigate(`/reservation/${id}/confirm`);
+        console.log(reservationTemp);
+
+        
+        createReserve(reservationTemp)
+            .then( (response) => {
+                console.log(response)
+            })
+            .catch(e => console.log(e))
+
+
+        // navigate(`/reservation/${id}/confirm`);
         
     }
 
@@ -74,6 +85,10 @@ export const ReservationDetail = () => {
         const { startDate, endDate } = ranges.selection;
         setCheckIn(getStringFromDate(startDate));
         setCheckOut(getStringFromDate(endDate));
+        setDates({
+            startDate: startDate,
+            endDate: endDate
+        })
     }
 
     return (
@@ -128,14 +143,14 @@ export const ReservationDetail = () => {
                                                 />
                                         </div>
                                         <div>
-                                            <label htmlFor="Ciudad">Ciudad</label>
+                                            <label htmlFor="Comentario">Comentario</label>
                                             <input 
                                                 type="text" 
-                                                placeholder="Ciudad" 
-                                                id="ciudad" 
-                                                name="ciudad" 
-                                                value={user.ciudad}
-                                                onChange={e => setUser({...user, ciudad: e.target.value})}
+                                                placeholder="Ingrese alguna informacion relevante..." 
+                                                id="comentario" 
+                                                name="comentario" 
+                                                value={user.comentario}
+                                                onChange={e => setUser({...user, comentario: e.target.value})}
                                                 />
                                         </div>
                                     </div>
@@ -185,11 +200,11 @@ export const ReservationDetail = () => {
                                 </div>
                                 <div className="icon-container separator" ><LocationOnIcon className='icon' />{coworking.address}</div>
                                 <div className='separator check'>
-                                    <div>check in </div>
+                                    <div>Check in:</div>
                                     <div>{checkIn}</div>
                                 </div>
                                 <div className='separator check'>
-                                    <div>check out </div>
+                                    <div>Check out:</div>
                                     <div>{checkOut}</div>
                                 </div>
 
