@@ -3,14 +3,14 @@ import "./reservationDetail.css";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getData, getDateFromString, getStringFromDate, mapDateStringFromDateRequest } from '../../services/utils';
 import { useContext, useEffect, useState } from 'react';
-import Swal from "sweetalert2";
 
 import AppContext from "../../context/AppContext";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ReservationCalendar from '../reservationCalendar/ReservationCalendar';
-import StarRating from "../starRating/StarRating";
+import ReservationCalendar from '../../components/reservationCalendar/ReservationCalendar';
+import StarRating from "../../components/starRating/StarRating";
+import Swal from "sweetalert2";
 import { constants } from "../../services/constants";
 import { createReserve } from "../../services/reserveServices"
 

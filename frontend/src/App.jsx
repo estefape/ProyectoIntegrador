@@ -20,7 +20,7 @@ import { Home } from "./routes/home/Home";
 import { Login } from "./routes/login/Login";
 import ProductForm from "./components/productForm/ProductForm";
 import Products from "./components/products/products";
-import { ReservationDetail } from "./components/reservationDetail/ReservationDetail";
+import { ReservationDetail } from "./routes/reservationDetail/ReservationDetail";
 import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 import SideBar from "./components/sidebar/sidebar";
 import { SignUp } from "./routes/signup/SignUp";
