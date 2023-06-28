@@ -73,6 +73,11 @@ export const CoworkingDetail = () => {
         });
         getDataAuth(`${constants.FAVORITES_ENDPOINT}user`)
             .then(data => {
+                if (data === null) {
+                    setFavId(0);
+                    return;
+                }
+                
                 const currentFav = data.filter(fav => {
                     return fav.coworking.idCoworking === parseInt(id);
                 });
