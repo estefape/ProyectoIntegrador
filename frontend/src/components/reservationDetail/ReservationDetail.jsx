@@ -59,8 +59,8 @@ export const ReservationDetail = () => {
             userInfo: userInfo
 
         });
-        console.log({ reservationTemp });
-        console.log({ reservationGlobalState });
+        // console.log({ reservationTemp });
+        // console.log({ reservationGlobalState });
 
         Swal.fire({
             title: '¿Está seguro que desea realizar la reserva?',
@@ -76,14 +76,10 @@ export const ReservationDetail = () => {
                 createReserve(reservationTemp)
                 .then( (response) => {
                     if (response.status === 201) navigate(`/reservation/${id}/confirm`);
-            })
-            .catch(e => console.log(e))
-            }
+                })
+                .catch(e => console.log(e))
+            }    
         })
-
-        
-
-
 
     }
 
