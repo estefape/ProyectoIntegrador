@@ -1,6 +1,5 @@
-import { authorizationUser } from "./userService";
-import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
 
 dayjs.extend(customParseFormat);
 
@@ -55,6 +54,22 @@ export const getData = async (url) => {
     }
 }
 
+export const getDataAuth = async (url) => {
+    try {
+        const requestConfig = {
+            method: 'GET',
+            headers: buildHeadersJSON(),
+        }
+
+        const response = await fetch(url, requestConfig);
+        return await response.json();
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 export const deleteData = async (url) => {
     const response = await fetch(url, {
         method: 'DELETE',
@@ -75,7 +90,7 @@ const buildHeaders = () => {
 
 const buildHeadersJSON = () => {
     const headers = new Headers()
-    const userData = JSON.parse(atob(localStorage.getItem('data')))
+    const userData = JSON.parse(atob(localStorage.getItem('data')) ?? '{}')
     const token =  userData.token
     headers.append("Content-Type", "application/json");
     headers.append("Authorization", "Bearer "+ token);

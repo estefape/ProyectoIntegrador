@@ -236,6 +236,7 @@ export const ReservationDetail = () => {
                                 <button type="submit" className='btn'>Confirmar Reserva</button>
                             </aside>
                         </form>
+                        <div className="politicas">
                         <div className="container with-border-bottom">
                             <h2 className="category">Qué tenés que saber</h2>
                         </div>
@@ -253,6 +254,7 @@ export const ReservationDetail = () => {
                                 <h3 className="category">Politicas de cancelación</h3>
                                 <p>{coworking.cancellationPolicy}</p>
                             </div>
+                        </div>
                         </div>
 
                     </div>
