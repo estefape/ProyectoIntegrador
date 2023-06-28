@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import iconoLogo from "../../assets/logo1.png";
 import './header.css';
+
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+
 import AppContext from '../../context/AppContext';
-import Swal from 'sweetalert2';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Swal from 'sweetalert2';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import iconoLogo from "../../assets/logo1.png";
 
 export const Header = () => {
 
@@ -98,7 +100,9 @@ export const Header = () => {
                             <li className='avatar-container'>
                                 <span className='avatar'>{avatar}</span>
                                 <span className='nombre'>{getNameGlobalState()} {getSurnameGlobalState()}</span>
+                                <Link to="/favorites" className='btn'>Favoritos</Link>
                                 <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
+                                
                             </li>
                         </>
                         :
@@ -124,6 +128,7 @@ export const Header = () => {
                         isAuthGlobalState()
                             ?
                             <>
+                                <li><Link to="/favorites" className='btn'>Favoritos</Link></li>
                                 <li><Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link></li>
                             </>
                             :
