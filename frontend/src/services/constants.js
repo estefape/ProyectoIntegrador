@@ -12,4 +12,5 @@ export const constants = {
     FACILITIES_ENDPOINT: `${root}/Facilities/`,
     RESERVATIONS_ENDPOINT: `${root}/Reserves/`,
     USERS_ENDPOINT: `${root}/users/`,
+    FAVORITES_ENDPOINT: `${root}/Favorites/`,
 }

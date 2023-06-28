@@ -28,4 +28,5 @@ public class CoworkingDTO {
     private double latitude;
     private double longitude;
     private List<CoworkingFacilityDTO> coworkingFacilities;
+    private Long favoriteCoworkingId;
 }
