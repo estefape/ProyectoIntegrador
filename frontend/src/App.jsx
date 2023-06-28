@@ -1,7 +1,10 @@
 import "./reset.css";
 
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 
+import AdminHome from "./components/adminHome/AdminHome";
+import AppContext from "./context/AppContext";
 import Categories from "./components/categories/Categories";
 import { CategoryDetail } from "./routes/categoryDetail/CategoryDetail";
 import CategoryForm from "./components/categoryForm/CategoryForm";
@@ -10,20 +13,18 @@ import CityForm from "./components/cityForm/CityForm.jsx";
 import { CoworkingDetail } from "./routes/coworkingDetail/CoworkingDetail";
 import EditCityForm from "./components/editCityForm/EditCityForm";
 import EditProductForm from "./components/editProductForm/EditProductForm";
+import { Favorites } from "./components/favorites/Favorites";
 import { Footer } from "./components/footer/Footer";
 import { Header } from "./components/header/Header";
 import { Home } from "./routes/home/Home";
 import { Login } from "./routes/login/Login";
 import ProductForm from "./components/productForm/ProductForm";
 import Products from "./components/products/products";
-import React, { useContext, useEffect } from "react";
-import { ReservationDetail } from "./components/reservationDetail/ReservationDetail";
+import { ReservationDetail } from "./routes/reservationDetail/ReservationDetail";
+import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 import SideBar from "./components/sidebar/sidebar";
 import { SignUp } from "./routes/signup/SignUp";
 import Users from "./components/users/Users";
-import AdminHome from "./components/adminHome/AdminHome";
-import AppContext from "./context/AppContext";
-import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
           <Route path="/reservation/:id" element={<ReservationDetail />} />

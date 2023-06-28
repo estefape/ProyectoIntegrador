@@ -1,9 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import fetchMock from 'fetch-mock-jest';
+
 import { CoworkingRecommendation } from './CoworkingRecommendation';
-import { constants } from '../../services/constants';
 import { MemoryRouter } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
+import { constants } from '../../services/constants';
+import fetchMock from 'fetch-mock-jest';
 
 describe('CoworkingRecommendation', () => {
     beforeEach(() => {

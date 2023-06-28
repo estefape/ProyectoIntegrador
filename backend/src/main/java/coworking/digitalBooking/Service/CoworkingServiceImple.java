@@ -1,17 +1,23 @@
 package coworking.digitalBooking.Service;
 
 import coworking.digitalBooking.Dto.CoworkingDTO;
+import coworking.digitalBooking.Dto.FavoriteCoworkingDTO;
 import coworking.digitalBooking.Entities.Category;
 import coworking.digitalBooking.Entities.Coworking;
+import coworking.digitalBooking.Entities.User;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.CategoryRepository;
 import coworking.digitalBooking.Repository.CoworkingRepository;
 import coworking.digitalBooking.Repository.RatingRepository;
 import coworking.digitalBooking.Repository.RatingRepository.RatingResult;
+import coworking.digitalBooking.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,13 +29,30 @@ public class CoworkingServiceImple implements CoworkingService{
     private CoworkingRepository coworkingRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RatingRepository ratingRepository;
 
+    @Autowired
+    private FavoriteCoworkingService favoriteCoworkingService;
+
+    private User user = null;
+
+    private void findUserAuthentication(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            Optional<User> userOptional= userRepository.findByEmail(authentication.getName());
+            if(userOptional.isPresent()){
+                this.user = userOptional.get();
+            }
+        }
+    }
 
     @Override
     public CoworkingDTO searchById(Long id){
+        findUserAuthentication();
         Coworking coworking = coworkingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Coworking", "id",id));
         return mapDTO(coworking);
@@ -37,6 +60,7 @@ public class CoworkingServiceImple implements CoworkingService{
 
     @Override
     public List<CoworkingDTO> searchByCategoryId(long categoryId) {
+        findUserAuthentication();
         Category category = categoryRepository.findByIdCategory(categoryId);
         List<Coworking> coworkings = coworkingRepository.findCoworkingByCategory(category);
         return coworkings.stream().map(coworking -> mapDTO(coworking)).collect(Collectors.toList());
@@ -44,6 +68,7 @@ public class CoworkingServiceImple implements CoworkingService{
 
     @Override
     public List<CoworkingDTO> searchAll(){
+        findUserAuthentication();
         List<Coworking> coworkings = coworkingRepository.findAll();
         return coworkings.stream().map(coworking -> mapDTO(coworking)).collect(Collectors.toList());
     }
@@ -100,6 +125,11 @@ public class CoworkingServiceImple implements CoworkingService{
     private CoworkingDTO mapDTO(Coworking coworking) {
         CoworkingDTO coworkingDTO = modelMapper.map(coworking, CoworkingDTO.class);
         RatingResult ratingResult = ratingRepository.getRatingByIdCoworking(coworking.getIdCoworking());
+        if(this.user != null){
+            FavoriteCoworkingDTO favoriteCoworkingDTO = favoriteCoworkingService.searchByUserAndCoworking(this.user, coworking);
+            coworkingDTO.setFavoriteCoworkingId(favoriteCoworkingDTO != null ? favoriteCoworkingDTO.getId() : null );
+        }
+
         coworkingDTO.setRating(ratingResult);
         return coworkingDTO;
     }
