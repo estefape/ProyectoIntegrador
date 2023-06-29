@@ -3,6 +3,7 @@ import imageConfirm from "../../assets/Coworking.png";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { confirmAccount } from "../../services/authService";
+import { Loading } from "../loading/Loading";
 
 const ConfirmRegister = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -26,7 +27,8 @@ const ConfirmRegister = () => {
 
   return (
     <>
-    {isConfirm? 
+    {isLoading ? <div className="confirm-wrapper"><Loading /></div> :
+    isConfirm ? 
     <div className="confirm-wrapper">
     <div className="confirm-container">
         <img src={imageConfirm}></img>

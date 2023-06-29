@@ -93,11 +93,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         String subject = "Verificación de registro";
-        String text = "¡Gracias por registrarte! Por favor, haz clic en el siguiente enlace para verificar tu cuenta: "
-                + "http://localhost:8080/api/auth/verify?code=" + verificationCode;
 
         try {
-            emailService.sendEmail(user.getEmail(), subject, verificationCode);
+            emailService.sendEmailConfirmation(user.getEmail(), subject, verificationCode);
         }catch (MessagingException ex) {
             System.out.println("Error al enviar el correo de registro");
         }
@@ -113,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
         //emailService.sendEmail(user.getEmail(), subject, text);
         try {
-            emailService.sendEmail(user.getEmail(), subject, text);
+            emailService.sendEmailSuccess(user.getEmail(), subject, user);
         }catch (MessagingException ex) {
             System.out.println("Error al enviar el correo de registro");
         }

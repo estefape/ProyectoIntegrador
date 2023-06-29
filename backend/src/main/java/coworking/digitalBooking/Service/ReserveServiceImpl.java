@@ -89,7 +89,7 @@ public class ReserveServiceImpl implements ReserveService {
                     + "Fecha Final de tu Reserva: " + "\n"
                     + reserveDTO.getEnd_date();
 
-        emailService.sendEmail(user.get().getEmail(), subject, text);
+        //emailService.sendEmail(user.get().getEmail(), subject, text);
     }
 
 

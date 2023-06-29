@@ -44,7 +44,7 @@ export const SignUp = () => {
                 })
             }).then(resp => {
                 if (resp.ok) {
-                    resp.json()
+                    /*resp.json()
                         .then(userAuth => {
                             Swal.fire({
                                 title: "Inicio de sesion exitoso!",
@@ -60,7 +60,16 @@ export const SignUp = () => {
 								});
                                 navigate("/")
                             });
-                        })
+                        })*/
+                    Swal.fire({
+                        title: "Registro exitoso",
+                        text: "Por favor revisa tu correo y confirma el registro",
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#F2921D",
+                    }).then(() => {
+                        navigate('/')
+                    })
                 } else {
                     resp.text()
                         .then(errorMessage => {
