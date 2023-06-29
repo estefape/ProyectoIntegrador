@@ -40,6 +40,11 @@ public class ReserveController {
         return reserveService.searchAll();
     }
 
+    @GetMapping ("/getAllByDate")
+    public List<ReserveDTO> searchAllByDate (){
+        return reserveService.searchAllByDate();
+    }
+
     //obtener todas las reservas de un coworking specific con el id del coworking
     @GetMapping("/coworking")
     public List<ReserveDTO> searchAllByCoworking(
