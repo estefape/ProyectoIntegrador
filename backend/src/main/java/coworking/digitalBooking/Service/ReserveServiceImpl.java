@@ -7,6 +7,7 @@ import coworking.digitalBooking.Entities.User;
 import coworking.digitalBooking.Exceptions.ResourceNotFoundException;
 import coworking.digitalBooking.Repository.CoworkingRepository;
 import coworking.digitalBooking.Repository.ReserveRepository;
+import coworking.digitalBooking.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +30,12 @@ public class ReserveServiceImpl implements ReserveService {
     private ReserveRepository reserveRepository;
     @Autowired
     private CoworkingRepository coworkingRepository;
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Override
     public ReserveDTO searchById(Long id) {
@@ -68,8 +76,32 @@ public class ReserveServiceImpl implements ReserveService {
         Reserve newReserve = reserveRepository.save(reserve);
         ReserveDTO reserveResponse = mapDTO(newReserve);
 
+        sendConfirmationReserve(reserveDTO);
+
         return reserveResponse;
     }
+
+
+    public void sendConfirmationReserve(ReserveDTO reserveDTO){
+
+        Long idUser = reserveDTO.getUser().getId();
+        Optional<User> user = userRepository.findById(idUser);
+
+        Long idCow = reserveDTO.getCoworking().getIdCoworking();
+        Optional<Coworking> cow = coworkingRepository.findById(idCow);
+
+        String subject = "Confirmación de reserva";
+        String text = "¡Datos de tu Reserva! " + "\n\n"
+                    + "Coworking Rerservado: " + "\n"
+                    + cow.get().getName() + "\n"
+                    + "Fecha inicial de tu Reserva: " + "\n"
+                    + reserveDTO.getStart_date() + "\n"
+                    + "Fecha Final de tu Reserva: " + "\n"
+                    + reserveDTO.getEnd_date();
+
+        emailService.sendEmail(user.get().getEmail(), subject, text);
+    }
+
 
     @Override
     public ReserveDTO update(ReserveDTO reserveDTO, Long id) {
