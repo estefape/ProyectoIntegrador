@@ -28,6 +28,9 @@ public class ReserveServiceImpl implements ReserveService {
     @Autowired
     private CoworkingRepository coworkingRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public ReserveDTO searchById(Long id) {
         Reserve reserve = reserveRepository.findById(id)
@@ -58,9 +61,25 @@ public class ReserveServiceImpl implements ReserveService {
         Reserve reserve = mapEntity(reserveDTO);
         Reserve newReserve = reserveRepository.save(reserve);
         ReserveDTO reserveResponse = mapDTO(newReserve);
+        sendConfirmationReserve(reserveDTO);
 
         return reserveResponse;
     }
+
+
+    public void sendConfirmationReserve(ReserveDTO reserveDTO){
+        String subject = "Confirmación de reserva";
+        String text = "¡Datos de tu Reserva! " + "\n" + "\n"
+                    + "Coworking Rerservado: " + "\n"
+                    + reserveDTO.getCoworking().getName() + "\n"
+                    + "Fecha inicial de tu Reserva: " + "\n"
+                    + reserveDTO.getStart_date()
+                    + "Fecha Final de tu Reserva: " + "\n"
+                    + reserveDTO.getEnd_date();
+
+        emailService.sendEmail(reserveDTO.getUser().getEmail(), subject, text);
+    }
+
 
     @Override
     public ReserveDTO update(ReserveDTO reserveDTO, Long id) {
