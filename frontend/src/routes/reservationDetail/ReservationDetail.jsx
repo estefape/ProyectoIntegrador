@@ -75,7 +75,16 @@ export const ReservationDetail = () => {
             if (result.isConfirmed) {
                 createReserve(reservationTemp)
                 .then( (response) => {
-                    if (response.status === 201) navigate(`/reservation/${id}/confirm`);
+                    if (response.status === 201) {
+                        navigate(`/reservation/${id}/confirm`)
+                    }else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Algo ha salido mal!',
+                            text: 'Por favor intentelo nuevamente mas tarde...',
+                            confirmButtonColor: '#400E32',
+                        })
+                    }
                 })
                 .catch(e => console.log(e))
             }    

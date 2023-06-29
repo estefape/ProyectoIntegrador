@@ -26,12 +26,11 @@ export const HistoryReserve = () => {
         <div className="history-reserve-page">
 
             <div className="title">
-                <h1>Historial de reserva</h1>
+                <h1>Historial de reservas</h1>
                 <Link className="arrowBack" to={`/`}>
                     <ChevronLeftIcon sx={{ fontSize: 50 }} className="icon" />
                 </Link>
             </div>
-
             {
                 historyList === null 
                     ? (<Loading/>)
@@ -40,11 +39,7 @@ export const HistoryReserve = () => {
                         :   (<div className="coworking-favorito-container history-reserve-container">
                                 { historyList.map((reserva, index) => <HistoryCard  historyReserve={reserva} key={index} /> )}
                             </div>) 
-                        
-                        
             }
-
         </div>
     )
-
 }
