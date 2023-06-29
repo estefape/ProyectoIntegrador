@@ -47,6 +47,7 @@ public class ReserveServiceImpl implements ReserveService {
         List<ReserveDTO> reserveDTOs = reserves.stream().map(reserve -> mapDTO(reserve)).collect(Collectors.toList());
         reserveDTOs.sort(Comparator.comparing(ReserveDTO::getStart_date));
         return reserveDTOs;
+    }
 
     @Override
     public List<ReserveDTO> searchAllByCoworking(Coworking coworking) {
