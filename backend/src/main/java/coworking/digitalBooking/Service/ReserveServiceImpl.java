@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,14 @@ public class ReserveServiceImpl implements ReserveService {
     public List<ReserveDTO> searchAll() {
         List<Reserve> reserves = reserveRepository.findAll();
         return reserves.stream().map(reserve -> mapDTO(reserve)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReserveDTO> searchAllByDate() {
+        List<Reserve> reserves = reserveRepository.findAll();
+        List<ReserveDTO> reserveDTOs = reserves.stream().map(reserve -> mapDTO(reserve)).collect(Collectors.toList());
+        reserveDTOs.sort(Comparator.comparing(ReserveDTO::getStart_date));
+        return reserveDTOs;
     }
 
     @Override
