@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private RolRepository rolRepository;
     @Autowired
@@ -82,6 +81,7 @@ public class UserServiceImpl implements UserService {
             user.setEnabled(true);
             user.setVerificationCode(null);
             userRepository.save(user);
+            sendConfirmationEmail(user);
         }
     }
 
@@ -94,6 +94,17 @@ public class UserServiceImpl implements UserService {
         String subject = "Verificación de registro";
         String text = "¡Gracias por registrarte! Por favor, haz clic en el siguiente enlace para verificar tu cuenta: "
                 + "http://localhost:8080/api/auth/verify?code=" + verificationCode;
+
+        emailService.sendEmail(user.getEmail(), subject, text);
+    }
+
+    public void sendConfirmationEmail(User user){
+        String subject = "Confirmación de registro";
+        String text = "¡Gracias por registrarte! " + "\n"
+                    + " Nombre de Usuario: " + user.getName() + "\n"
+                    + " Correo Electronico: " + user.getEmail() + "\n"
+                    + " Ingresa en el siguiente Link: "
+                    + " http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/login";
 
         emailService.sendEmail(user.getEmail(), subject, text);
     }
