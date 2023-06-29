@@ -88,7 +88,7 @@ public class EmailService {
                     "      padding: 20px;\n" +
                     "      text-align: center;\n" +
                     "    \"\n" +
-                    "    href=\"http://localhost:5173/#/confirmRegister/"+verificationCode+"\"\n" +
+                    "    href=\"http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/confirmRegister/"+verificationCode+"\"\n" +
                     "    >ACTIVAR CUENTA</a\n" +
                     "  >\n" +
                     "</div>\n";
@@ -140,6 +140,28 @@ public class EmailService {
                 "    ¡Bienvenido a Digital Booking!\n" +
                 "  </p>\n" +
                 "  <p\n" +
+                "  style=\"\n" +
+                "    font-family: 'Tahoma', 'Verdana';\n" +
+                "    font-weight: regular;\n" +
+                "    font-size: medium;\n" +
+                "    margin-bottom: 50px;\n" +
+                "    color: #000000;\n" +
+                "  \"\n" +
+                ">\n" +
+                "Hola\n" + user.getName() +
+                "</p>\n" +
+                "<p\n" +
+                "style=\"\n" +
+                "  font-family: 'Tahoma', 'Verdana';\n" +
+                "  font-weight: regular;\n" +
+                "  font-size: medium;\n" +
+                "  margin-bottom: 50px;\n" +
+                "  color: #000000;\n" +
+                "\"\n" +
+                ">\n" +
+                "Tu cuenta ha sido activada con el email:\n" + user.getEmail() +
+                "</p>\n" +
+                "  <p\n" +
                 "    style=\"\n" +
                 "      font-family: 'Tahoma', 'Verdana';\n" +
                 "      font-weight: regular;\n" +
@@ -148,7 +170,7 @@ public class EmailService {
                 "      color: #000000;\n" +
                 "    \"\n" +
                 "  >\n" +
-                "  Hola " + user.name + "Empieza a disfrutar de la experiencia y encuentra tu espacio de trabajo ideal.\n" +
+                "  Empieza a disfrutar de la experiencia y encuentra tu espacio de trabajo ideal.\n" +
                 "  </p>\n" +
                 "  <a\n" +
                 "    style=\"\n" +
@@ -167,7 +189,7 @@ public class EmailService {
                 "      padding: 20px;\n" +
                 "      text-align: center;\n" +
                 "    \"\n" +
-                "    href=\"http://localhost:5173/#/login\"\n" +
+                "    href=\"http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/login\"\n" +
                 "    >COMENZAR</a\n" +
                 "  >\n" +
                 "</div>";
@@ -176,4 +198,15 @@ public class EmailService {
         helper.setText(htmlMsg, true);
         javaMailSender.send(mimeMessage);
     }
+
+    public void sendEmail(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        javaMailSender.send(message);
+    }
+
+
+
 }

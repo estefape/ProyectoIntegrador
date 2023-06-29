@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
                     + " Nombre de Usuario: " + user.getName() + "\n"
                     + " Correo Electronico: " + user.getEmail() + "\n"
                     + " Ingresa en el siguiente Link: "
-                    + " http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/login";
+                    + "http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/login";
 
         //emailService.sendEmail(user.getEmail(), subject, text);
         try {
