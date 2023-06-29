@@ -42,15 +42,15 @@ export const ReserveSuccess = () => {
                         <h4>Datos Personales</h4>
                         <div className="body-sub-info">
                             <p>Nombre:</p>
-                            <p>{userGlobalState.nombre}</p>
+                            <p>{reservation.userInfo.nombre}</p>
                         </div>
                         <div className="body-sub-info">
                             <p>Apellido:</p>
-                            <p>{userGlobalState.apellido}</p>
+                            <p>{reservation.userInfo.apellido}</p>
                         </div>
                         <div className="body-sub-info">
                             <p>Email:</p>
-                            <p>{userGlobalState.email}</p>
+                            <p>{reservation.userInfo.email}</p>
                         </div>
                         
                     </div>

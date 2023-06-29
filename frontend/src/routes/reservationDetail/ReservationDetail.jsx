@@ -32,7 +32,7 @@ export const ReservationDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({
+    const [userInfo, setUserInfo] = useState({
         nombre: globalState.nombre,
         apellido: globalState.apellido,
         email: globalState.email,
@@ -56,6 +56,7 @@ export const ReservationDetail = () => {
             ...reservationTemp,
             fechaReserva: getStringFromDate(new Date()),
             coworking: coworking,
+            userInfo: userInfo
 
         });
         console.log({ reservationTemp });
@@ -70,21 +71,17 @@ export const ReservationDetail = () => {
             confirmButtonText: 'Sí',
             cancelButtonColor: '#400E32',
             cancelButtonText: 'No'
-
         }).then((result) => {
-            if (result.isConfirmed) navigate(`/reservation/${id}/confirm`);
+            if (result.isConfirmed) {
+                createReserve(reservationTemp)
+                .then( (response) => {
+                    if (response.status === 201) navigate(`/reservation/${id}/confirm`);
+            })
+            .catch(e => console.log(e))
+            }
         })
 
-
-
-
-        // createReserve(reservationTemp)
-        //     .then( (response) => {
-        //         if (response.status === 201) {
-        //                 
-        // //         }
-        //     })
-        //     .catch(e => console.log(e))
+        
 
 
 
@@ -139,8 +136,8 @@ export const ReservationDetail = () => {
                                                 placeholder="Nombre"
                                                 id="nombre"
                                                 name="nombre"
-                                                value={user.nombre}
-                                                onChange={e => setUser({ ...user, nombre: e.target.value })}
+                                                value={userInfo.nombre}
+                                                onChange={e => setUserInfo({ ...userInfo, nombre: e.target.value })}
                                             />
                                         </div>
                                         <div>
@@ -150,8 +147,8 @@ export const ReservationDetail = () => {
                                                 placeholder="Apellido"
                                                 id="apellido"
                                                 name="apellido"
-                                                value={user.apellido}
-                                                onChange={e => setUser({ ...user, apellido: e.target.value })}
+                                                value={userInfo.apellido}
+                                                onChange={e => setUserInfo({ ...userInfo, apellido: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -163,8 +160,8 @@ export const ReservationDetail = () => {
                                                 placeholder="Email"
                                                 id="email"
                                                 name="email"
-                                                value={user.email}
-                                                onChange={e => setUser({ ...user, email: e.target.value })}
+                                                value={userInfo.email}
+                                                onChange={e => setUserInfo({ ...userInfo, email: e.target.value })}
                                             />
                                         </div>
                                         <div>
@@ -174,8 +171,8 @@ export const ReservationDetail = () => {
                                                 placeholder="Ingrese alguna informacion relevante..."
                                                 id="comentario"
                                                 name="comentario"
-                                                value={user.comentario}
-                                                onChange={e => setUser({ ...user, comentario: e.target.value })}
+                                                value={userInfo.comentario}
+                                                onChange={e => setUserInfo({ ...userInfo, comentario: e.target.value })}
                                             />
                                         </div>
                                     </div>
