@@ -20,5 +20,6 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private Set<Rol> roles = new HashSet<>();
-
+	private boolean enabled;
+	private String verificationCode;
 }
