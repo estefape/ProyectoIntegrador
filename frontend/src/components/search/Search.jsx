@@ -67,7 +67,17 @@ export const Search = () => {
   };
 
   useEffect(() => {
-    if(available !== null){setSearchResults(available.filter(filterProductsByCity));  setSearchResultsLoading(false)}
+    if(available !== null)
+    {
+      if(selectedCity){
+        setSearchResults(available.filter(filterProductsByCity));  
+        setSearchResultsLoading(false)
+      } else {
+        setSearchResults(available);  
+        setSearchResultsLoading(false)       
+      }
+
+    }
   }, [available]);
 
   return (
@@ -81,6 +91,7 @@ export const Search = () => {
           optionLabel="name"
           placeholder="Seleccione una Ciudad"
           filter
+          showClear
         />
         <Calendar
           placeholder="Seleccione fechas disponibles"
