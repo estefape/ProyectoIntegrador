@@ -24,6 +24,7 @@ import { ReservationDetail } from "./routes/reservationDetail/ReservationDetail"
 import { ReserveSuccess } from "./routes/reserveSuccess/ReserveSuccess"
 import SideBar from "./components/sidebar/sidebar";
 import { SignUp } from "./routes/signup/SignUp";
+import ConfirmRegister from './components/confirmRegister/ConfirmRegister';
 import Users from "./components/users/Users";
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
+          <Route path='/confirmRegister' element={<ConfirmRegister/>}/>
           <Route path="/reservation/:id" element={<ReservationDetail />} />
           <Route path="/reservation/:id/confirm" element={<ReserveSuccess />} />
           <Route path="/admin" element={<SideBar />}>

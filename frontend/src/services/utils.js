@@ -54,6 +54,15 @@ export const getData = async (url) => {
     }
 }
 
+export const getDataWithoutJson = async (url) => {
+    const requestConfig = {
+        method: 'GET',
+    }
+
+    const response = await fetch(url, requestConfig);
+    return response;
+}
+
 export const getDataAuth = async (url) => {
     try {
         const requestConfig = {
