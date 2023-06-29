@@ -28,6 +28,12 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 
+	@Column
+	private boolean enabled;
+
+	@Column
+	private String verificationCode;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
 	private Set<Rol> roles = new HashSet<>();
@@ -36,11 +42,14 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Reserve> reserves;
 
-	public User(String name, String lastname, String email, String password, Set<Rol> roles) {
+	public User(String name, String lastname, String email, String password, boolean enabled, String verificationCode, Set<Rol> roles, List<Reserve> reserves) {
 		this.name = name;
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
+		this.enabled = enabled;
+		this.verificationCode = verificationCode;
 		this.roles = roles;
+		this.reserves = reserves;
 	}
 }

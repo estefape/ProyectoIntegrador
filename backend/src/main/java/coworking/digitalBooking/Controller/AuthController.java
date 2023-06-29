@@ -8,6 +8,7 @@ import coworking.digitalBooking.Repository.RolRepository;
 import coworking.digitalBooking.Repository.UserRepository;
 import coworking.digitalBooking.Security.JWTAuthResponseDTO;
 import coworking.digitalBooking.Security.JwtTokenProvider;
+import coworking.digitalBooking.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ public class AuthController {
 	
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private RolRepository rolRepository;
@@ -66,30 +70,35 @@ public class AuthController {
 
 		Optional<User> usuario = userRepository.findByEmail(loginDTO.getEmail());
 
-		// return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+		if (!usuario.isPresent() || !usuario.get().isEnabled()) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+
 		return ResponseEntity.ok(new JWTAuthResponseDTO(token, usuario.get()));
 	}
 
 
 
-	
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
 
-		if(userRepository.existsByEmail(userDTO.getEmail())) {
+	@PostMapping("/register")
+	public ResponseEntity<?> registerUser(@RequestBody User user){
+
+		if(userRepository.existsByEmail(user.getEmail())) {
 			return new ResponseEntity<>("Email de usuario ya existe",HttpStatus.BAD_REQUEST);
 		}
-		
-		User user = new User();
-		user.setName(userDTO.getName());
-		user.setLastname(userDTO.getLastname());
-		user.setEmail(userDTO.getEmail());
-		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-		
-		Rol roles = rolRepository.findByName("ROLE_USER").get();
-		user.setRoles(Collections.singleton(roles));
 
-		userRepository.save(user);
-		return new ResponseEntity<>(user,HttpStatus.OK);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+		User registeredUser = userService.registerUser(user);
+		userService.sendVerificationEmail(registeredUser);
+
+		return new ResponseEntity<>(registeredUser,HttpStatus.OK);
+	}
+
+
+	@GetMapping("/verify")
+	public String verifyUser(@RequestParam("code") String verificationCode) {
+		userService.verifyUser(verificationCode);
+		return "Usuario Verificado";
 	}
 }
