@@ -76,7 +76,6 @@ export const Search = () => {
         setSearchResults(available);  
         setSearchResultsLoading(false)       
       }
-
     }
   }, [available]);
 
