@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -95,7 +96,11 @@ public class UserServiceImpl implements UserService {
         String text = "¡Gracias por registrarte! Por favor, haz clic en el siguiente enlace para verificar tu cuenta: "
                 + "http://localhost:8080/api/auth/verify?code=" + verificationCode;
 
-        emailService.sendEmail(user.getEmail(), subject, text);
+        try {
+            emailService.sendEmail(user.getEmail(), subject, verificationCode);
+        }catch (MessagingException ex) {
+            System.out.println("Error al enviar el correo de registro");
+        }
     }
 
     public void sendConfirmationEmail(User user){
@@ -106,7 +111,12 @@ public class UserServiceImpl implements UserService {
                     + " Ingresa en el siguiente Link: "
                     + " http://frontend-c3-equipo3.s3-website.us-east-2.amazonaws.com/#/login";
 
-        emailService.sendEmail(user.getEmail(), subject, text);
+        //emailService.sendEmail(user.getEmail(), subject, text);
+        try {
+            emailService.sendEmail(user.getEmail(), subject, text);
+        }catch (MessagingException ex) {
+            System.out.println("Error al enviar el correo de registro");
+        }
     }
 
 

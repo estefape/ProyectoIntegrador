@@ -10,7 +10,9 @@ const ConfirmRegister = () => {
     const {code} = useParams()
 
     useEffect(() => {
+        
         confirmAccount(code).then(result => {
+            console.log(code)
             console.log('result: ', result)
             if (result.status >= 200 && result.status < 300) {
                 setIsLoading(false)

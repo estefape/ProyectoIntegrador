@@ -54,7 +54,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
-          <Route path='/confirmRegister' element={<ConfirmRegister/>}/>
+          <Route path='/confirmRegister/:code' element={<ConfirmRegister/>}/>
           <Route path="/reservation/:id" element={<ReservationDetail />} />
           <Route path="/reservation/:id/confirm" element={<ReserveSuccess />} />
           <Route path="/admin" element={<SideBar />}>
