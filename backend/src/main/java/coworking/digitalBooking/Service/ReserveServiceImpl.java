@@ -42,6 +42,13 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
+    public List<ReserveDTO> searchAllByDate() {
+        List<Reserve> reserves = reserveRepository.findAll();
+        List<ReserveDTO> reserveDTOs = reserves.stream().map(reserve -> mapDTO(reserve)).collect(Collectors.toList());
+        reserveDTOs.sort(Comparator.comparing(ReserveDTO::getStart_date));
+        return reserveDTOs;
+
+    @Override
     public List<ReserveDTO> searchAllByCoworking(Coworking coworking) {
         List<Reserve> reserves = reserveRepository.findAllByAttribute(coworking);
         return reserves.stream().map(reserve -> mapDTO(reserve)).collect(Collectors.toList());

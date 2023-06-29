@@ -14,6 +14,8 @@ public interface ReserveService {
 
     public List<ReserveDTO> searchAll();
 
+    public List<ReserveDTO> searchAllByDate();
+
     public List<ReserveDTO> searchAllByCoworking(Coworking coworking);
 
     public List<ReserveDTO> searchAllByUser(User user);
