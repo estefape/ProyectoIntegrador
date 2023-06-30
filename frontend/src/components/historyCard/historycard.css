@@ -1,0 +1,36 @@
+.card-history {
+    width: 350px;
+    height: 400px;
+    background: white;
+}
+
+.history-card-img {
+    width: 100%;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+}
+
+.history-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.card-info-location > svg {
+    width: 15px;
+    display: inline;
+}
+
+.card-info-location{
+    display: flex;
+    gap: 1rem;
+}
+
+.card-info-title {
+    color: #400E32
+}
+
+.history-card-info > p, .card-info-location > p  {
+    color: black;
+}

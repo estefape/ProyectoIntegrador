@@ -101,6 +101,7 @@ export const Header = () => {
                                 <span className='avatar'>{avatar}</span>
                                 <span className='nombre'>{getNameGlobalState()} {getSurnameGlobalState()}</span>
                                 <Link to="/favorites" className='btn'>Favoritos</Link>
+                                <Link to="/history" className='btn'>Reservas</Link>
                                 <button className='btn' onClick={closeSesion} >Cerrar sesión</button>
                                 
                             </li>
@@ -128,8 +129,15 @@ export const Header = () => {
                         isAuthGlobalState()
                             ?
                             <>
-                                <li><Link to="/favorites" className='btn'>Favoritos</Link></li>
-                                <li><Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link></li>
+                                <li>
+                                    <Link to="/favorites" className='btn'>Favoritos</Link>
+                                </li>
+                                <li>
+                                    <Link to="/history" className='btn' style={{ marginTop: ".5rem" }}>Reservas</Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className='btn' onClick={closeSesion}>Cerrar sesión</Link>
+                                </li>
                             </>
                             :
                             <>

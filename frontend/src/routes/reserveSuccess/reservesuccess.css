@@ -1,5 +1,5 @@
 .container-success {
-    height: auto;
+    height: min-content;
     padding: 2rem;
     display: flex;
     align-items: center;
@@ -81,6 +81,9 @@
     .success {
         width: 480px;
     }
+    .container-success{
+        height: 84.7vh;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -99,5 +102,8 @@
     }
     .button-success{
         width: 40%;
+    }
+    .container-success{
+        height: 82.2vh;
     }
 }

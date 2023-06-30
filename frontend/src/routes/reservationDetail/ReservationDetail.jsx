@@ -59,8 +59,8 @@ export const ReservationDetail = () => {
             userInfo: userInfo
 
         });
-        console.log({ reservationTemp });
-        console.log({ reservationGlobalState });
+        // console.log({ reservationTemp });
+        // console.log({ reservationGlobalState });
 
         Swal.fire({
             title: '¿Está seguro que desea realizar la reserva?',
@@ -75,15 +75,20 @@ export const ReservationDetail = () => {
             if (result.isConfirmed) {
                 createReserve(reservationTemp)
                 .then( (response) => {
-                    if (response.status === 201) navigate(`/reservation/${id}/confirm`);
-            })
-            .catch(e => console.log(e))
-            }
+                    if (response.status === 201) {
+                        navigate(`/reservation/${id}/confirm`)
+                    }else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Algo ha salido mal!',
+                            text: 'Por favor intentelo nuevamente mas tarde...',
+                            confirmButtonColor: '#400E32',
+                        })
+                    }
+                })
+                .catch(e => console.log(e))
+            }    
         })
-
-        
-
-
 
     }
 

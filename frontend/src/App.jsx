@@ -26,6 +26,7 @@ import SideBar from "./components/sidebar/sidebar";
 import { SignUp } from "./routes/signup/SignUp";
 import ConfirmRegister from './components/confirmRegister/ConfirmRegister';
 import Users from "./components/users/Users";
+import { HistoryReserve } from "./routes/historyReserve/HistoryReserve";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/history" element={<HistoryReserve />} />
           <Route path="/detail/:id" element={<CoworkingDetail />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
           <Route path='/confirmRegister/:code' element={<ConfirmRegister/>}/>

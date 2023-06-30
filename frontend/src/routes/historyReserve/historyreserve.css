@@ -1,0 +1,22 @@
+.history-reserve-page {
+    min-height: 76.8vh;
+    background-color: #E8E3E7;
+
+}
+
+.history-reserve-container {
+    padding: 2rem 3rem;
+    gap: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px){
+    .history-reserve-page {
+        min-height: 82.2vh;
+    }
+}
